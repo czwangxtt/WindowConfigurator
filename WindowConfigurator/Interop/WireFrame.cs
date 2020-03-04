@@ -30,5 +30,28 @@ namespace WindowConfigurator.Interop
             verticalFrames.Add(leftJamb.getFeaturePosition(), leftJamb.getId());
             verticalFrames.Add(rightJamb.getFeaturePosition(), rightJamb.getId());
         }
+
+        public void AddIntermediate(Transom transom)
+        {
+
+
+        }
+
+        public void AddIntermediate(Mullion mullion)
+        {
+
+        }
+
+        public void RemoveIntermediate(Transom transom)
+        {
+
+        }
+
+        public void RemoveIntermediate(Mullion mullion)
+        {
+
+        }
+
+
     }
 }
