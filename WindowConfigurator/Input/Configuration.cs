@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WindowConfigurator.Input
 {
-    class Configuration
+    class Configuration1
     {
         public string systemName { get; set; }
         public double windowHeight { get; set; }

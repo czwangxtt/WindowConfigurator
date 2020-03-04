@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Geometry;
 
-namespace WindowConfigurator
+namespace WindowConfigurator.Interop
 {
-    class Mullion : WireFrame
+    class Mullion : Frame
     {
         public Mullion(Point _start, Point _end) : base(_start, _end)
         {

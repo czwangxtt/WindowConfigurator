@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WindowConfigurator.Input
 {
-    class WindowFrameProfiles
+    class WindowFrameProfiles1
     {
         public int headProfile { get; set; }
         public int sillProfile { get; set; }

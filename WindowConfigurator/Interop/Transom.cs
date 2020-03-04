@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Geometry;
 
-namespace WindowConfigurator
+namespace WindowConfigurator.Interop
 {
-    class Transom : WireFrame
+    class Transom : Frame
     {
         public Transom(Point _start, Point _end) : base(_start, _end)
         {

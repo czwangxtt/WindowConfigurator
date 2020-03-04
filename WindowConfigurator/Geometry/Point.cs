@@ -6,6 +6,10 @@ namespace Geometry
 {
     class Point
     {
+        public double x { get; set; }
+        public double y { get; set; }
+        public double z { get; set; }
+
         public Point()
         {
             x = 0.0;
@@ -26,9 +30,5 @@ namespace Geometry
             y = _y;
             z = _z;
         }
-
-        public double x { get; set; }
-        public double y { get; set; }
-        public double z { get; set; }
     }
 }

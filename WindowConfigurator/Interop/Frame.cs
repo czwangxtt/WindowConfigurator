@@ -1,24 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Geometry;
 
-namespace WindowConfigurator
+namespace WindowConfigurator.Interop
 {
-    class WireFrame
+    class Frame
     {
-        public WireFrame(Point _start, Point _end)
-        {
-            this.start = _start;
-            this.end = _end;
-        }
 
-        public int id { get; set; }
+        public int id { get; protected set; }
         public Point start { get; set; }
         public Point end { get; set; }
         public double featurePosition { get; set; }
         public string type { get; set; }
         public int level { get; set; }
+
+        public static int globalID = -1;
+        
+        public Frame()
+        {
+
+        }
+
+        public Frame(Point _start, Point _end)
+        {
+            this.start = _start;
+            this.end = _end;
+            this.id = Interlocked.Increment(ref globalID);
+        }
 
         public int getId()
         {
