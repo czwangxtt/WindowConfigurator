@@ -15,9 +15,9 @@ namespace WindowConfigurator
         {
 
 
-            string fileName = @"d:\a.json";
-            string input = File.ReadAllText(fileName);
-            WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
+            //string fileName = @"d:\a.json";
+            //string input = File.ReadAllText(fileName);
+            //WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
             //Console.WriteLine(deserializedInput.windowFrameProfiles.intermediateProfile);
 
 
@@ -62,15 +62,8 @@ namespace WindowConfigurator
             //    }
             //}
 
+            WireFrame wireFrame = new WireFrame(10.0, 10.0);
 
-            //Product product = new Product();
-
-            //product.Name = "Apple";
-            //product.ExpiryDate = new DateTime(2008, 12, 28);
-            //product.Sizes = new string[] { "Small", "Medium", "Large" };
-            //Point p1 = new Point(0, 0, 0);
-            //Point p2 = new Point(0, 1, 0);
-            //product.t1 = new Transom(p1, p2);
 
 
             JsonSerializer serializer = new JsonSerializer();
@@ -79,10 +72,10 @@ namespace WindowConfigurator
             using (StreamWriter sw = new StreamWriter(@"d:\b.json"))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
-                serializer.Serialize(writer, deserializedInput);
+                serializer.Serialize(writer, wireFrame);
             }
 
-            string output = JsonConvert.SerializeObject(deserializedInput);
+            string output = JsonConvert.SerializeObject(wireFrame);
             Console.WriteLine(output);
 
             //Product deserializedProduct = JsonConvert.DeserializeObject<Product>(output);

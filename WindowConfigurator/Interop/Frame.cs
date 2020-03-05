@@ -21,18 +21,17 @@ namespace WindowConfigurator.Interop
         protected static int globalID = -1;
 
         /// <summary>
-        /// Constructor with nothing, specific for Head, Sill, LeftJamb and RightJamb.
-        /// Initialized with width and height in child class.
+        /// Initializes a new instance of the <see cref="Frame"/> class.
         /// </summary>
         public Frame() {
             this.id = Interlocked.Increment(ref globalID);
         }
 
         /// <summary>
-        /// Constructor with start and end point for intermediate.
+        /// Initializes a new instance of the <see cref="Frame"/> class.
         /// </summary>
-        /// <param name="_start">start point, bottom for transom and left for mullion</param>
-        /// <param name="_end">end point, top for transom and right for mullion</param>
+        /// <param name="_start">start point, left for transom and bottom for mullion</param>
+        /// <param name="_end">end point, right for transom and top for mullion</param>
         public Frame(Point _start, Point _end)
         {
             this.start = _start;

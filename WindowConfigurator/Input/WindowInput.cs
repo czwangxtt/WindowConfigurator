@@ -27,6 +27,8 @@ namespace WindowConfigurator.Input
 
     }
 
+    //TODO: Remove redundant class
+    //TODO: Add input class to handle intermediate
 
     class WindowInput
     {

@@ -6,29 +6,29 @@ namespace Geometry
 {
     class Point
     {
-        public double x { get; set; }
-        public double y { get; set; }
-        public double z { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
 
         public Point()
         {
-            x = 0.0;
-            y = 0.0;
-            z = 0.0;
+            X = 0.0;
+            Y = 0.0;
+            Z = 0.0;
         }
 
         public Point(double _x, double _y)
         {
-            x = _x;
-            y = _y;
-            z = 0.0;
+            X = _x;
+            Y = _y;
+            Z = 0.0;
         }
 
         public Point(double _x, double _y, double _z)
         {
-            x = _x;
-            y = _y;
-            z = _z;
+            X = _x;
+            Y = _y;
+            Z = _z;
         }
     }
 }

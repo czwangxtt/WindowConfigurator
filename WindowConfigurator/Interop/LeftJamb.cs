@@ -15,6 +15,11 @@ namespace WindowConfigurator.Interop
             this.type = "leftJamb";
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LeftJamb"/> class.
+        /// </summary>
+        /// <param name="_start">start point, the bottom for jamb</param>
+        /// <param name="_end">end point, the top for jamb</param>
         public LeftJamb(Point _start, Point _end) : base(_start, _end)
         {
             this.featurePosition = this.start.x;

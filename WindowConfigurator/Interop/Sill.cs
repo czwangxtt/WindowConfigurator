@@ -15,6 +15,11 @@ namespace WindowConfigurator.Interop
             this.type = "sill";
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Transom"/> class.
+        /// </summary>
+        /// <param name="_start">start point, the left for sill</param>
+        /// <param name="_end">end point, the right for sill</param>
         public Sill(Point _start, Point _end) : base(_start, _end)
         {
             this.start = _start;
