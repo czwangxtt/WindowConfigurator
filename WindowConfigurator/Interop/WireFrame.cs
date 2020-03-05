@@ -7,9 +7,9 @@ namespace WindowConfigurator.Interop
 {
     class WireFrame
     {
-        public SortedList<double, int> horizontalFrames = new SortedList<double, int>();
-        public SortedList<double, int> verticalFrames = new SortedList<double, int>();
-        public List<Frame> allFrames = new List<Frame>();
+        private SortedList<double, int> horzIdBySortedkeyPosition = new SortedList<double, int>();
+        private SortedList<double, int> vrtIdBySortedkeyPosition = new SortedList<double, int>();
+        private List<Frame> allFrames = new List<Frame>();
 
 
         /// <summary>
@@ -29,22 +29,26 @@ namespace WindowConfigurator.Interop
             allFrames.Add(leftJamb);
             allFrames.Add(rightJamb);
 
-            horizontalFrames.Add(head.featurePosition, head.id);
-            horizontalFrames.Add(sill.featurePosition, sill.id);
+            horzIdBySortedkeyPosition.Add(head.keyPosition, head.id);
+            horzIdBySortedkeyPosition.Add(sill.keyPosition, sill.id);
 
-            verticalFrames.Add(leftJamb.featurePosition, leftJamb.id);
-            verticalFrames.Add(rightJamb.featurePosition, rightJamb.id);
+            vrtIdBySortedkeyPosition.Add(leftJamb.keyPosition, leftJamb.id);
+            vrtIdBySortedkeyPosition.Add(rightJamb.keyPosition, rightJamb.id);
         }
 
+        public void UpdateConnection()
+        {
+
+        }
 
         /// <summary>
         /// Adds a transom to the window system.
         /// </summary>
         /// <param name="transom">the new transom object</param>
-        public void AddIntermediate(Transom transom)
+        public void addIntermediate(Transom transom)
         {
             allFrames.Add(transom);
-            horizontalFrames.Add(transom.featurePosition, transom.id);
+            horzIdBySortedkeyPosition.Add(transom.keyPosition, transom.id);
 
         }
 
@@ -53,20 +57,20 @@ namespace WindowConfigurator.Interop
         /// Adds a mullion to the window system.
         /// </summary>
         /// <param name="mullion">the new mullion object</param>
-        public void AddIntermediate(Mullion mullion)
+        public void addIntermediate(Mullion mullion)
         {
             allFrames.Add(mullion);
-            verticalFrames.Add(mullion.featurePosition, mullion.id);
+            vrtIdBySortedkeyPosition.Add(mullion.keyPosition, mullion.id);
         }
 
 
         //TODO: Add remove intermediate function 
-        public void RemoveIntermediate(Transom transom)
+        public void removeIntermediate(Transom transom)
         {
 
         }
 
-        public void RemoveIntermediate(Mullion mullion)
+        public void removeIntermediate(Mullion mullion)
         {
         }
 

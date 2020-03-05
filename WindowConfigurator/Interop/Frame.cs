@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Geometry;
+using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
     class Frame
     {
         #region Properties
-        public int id { get; set; }
-        public Point start { get; set; }
-        public Point end { get; set; }
-        public double featurePosition { get; set; }
+        public int id { get; protected set; }
+        public Point startPoint { get; set; }
+        public Point endPoint { get; set; }
+        public double keyPosition { get; set; }
         public string type { get; set; }
         public int level { get; set; }
         #endregion
@@ -24,7 +24,7 @@ namespace WindowConfigurator.Interop
         /// Initializes a new instance of the <see cref="Frame"/> class.
         /// </summary>
         public Frame() {
-            this.id = Interlocked.Increment(ref globalID);
+            id = Interlocked.Increment(ref globalID);
         }
 
         /// <summary>
@@ -34,9 +34,9 @@ namespace WindowConfigurator.Interop
         /// <param name="_end">end point, right for transom and top for mullion</param>
         public Frame(Point _start, Point _end)
         {
-            this.start = _start;
-            this.end = _end;
-            this.id = Interlocked.Increment(ref globalID);
+            startPoint = _start;
+            endPoint = _end;
+            id = Interlocked.Increment(ref globalID);
         }
 
     }

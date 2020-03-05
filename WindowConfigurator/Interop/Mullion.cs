@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Geometry;
+using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
@@ -9,7 +9,7 @@ namespace WindowConfigurator.Interop
     {
         public Mullion(Point _start, Point _end) : base(_start, _end)
         {
-            this.featurePosition = this.start.x;
+            this.keyPosition = this.startPoint.X;
             this.type = "mullion";
         }
     }

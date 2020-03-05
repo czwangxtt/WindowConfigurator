@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Geometry;
+using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
@@ -10,14 +10,14 @@ namespace WindowConfigurator.Interop
         /// <summary>
         /// Initializes a new instance of the <see cref="Transom"/> class.
         /// </summary>
-        /// <param name="_start">start point, bottom for transom</param>
-        /// <param name="_end">end point, top for transom</param>
+        /// <param name="_start">start point, the left for transom</param>
+        /// <param name="_end">end point, the right for transom</param>
         public Transom(Point _start, Point _end) : base(_start, _end)
         {
-            this.start = _start;
-            this.end = _end;
-            this.featurePosition = this.start.y;
-            this.type = "transom";
+            startPoint = _start;
+            endPoint = _end;
+            keyPosition = startPoint.Z;
+            type = "transom";
         }
     }
 }

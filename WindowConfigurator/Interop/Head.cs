@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Geometry;
+using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
@@ -16,7 +16,7 @@ namespace WindowConfigurator.Interop
         {
             startPoint = new Point(0, 0, height);
             endPoint = new Point(0, width, height);
-            featurePosition = height;
+            keyPosition = startPoint.Z;
             type = "head";
         }
 
@@ -30,7 +30,7 @@ namespace WindowConfigurator.Interop
         {
             startPoint = _start;
             endPoint = _end;
-            featurePosition = this.startPoint.y;
+            keyPosition = startPoint.Z;
             type = "head";
         }
     }

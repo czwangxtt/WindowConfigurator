@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Geometry
+namespace WindowConfigurator.Geometry
 {
     class Point
     {

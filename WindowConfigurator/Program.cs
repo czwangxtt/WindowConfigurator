@@ -1,18 +1,34 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Geometry;
+using WindowConfigurator.Geometry;
 using WindowConfigurator.Input;
 using WindowConfigurator.Interop;
 
 namespace WindowConfigurator
 {
+    
+
     class Program
     {
+        
+
         static void Main(string[] args)
         {
+            List<T> CreateList<T>(params T[] values)
+            {
+                return new List<T>(values);
+            }
+
+            List<int> a = CreateList(1, 2, 3);
+            List<int> b = new List<int>();
+            b = a;
+
+            Console.WriteLine(b.ElementAt(1));
+
 
 
             //string fileName = @"d:\a.json";
@@ -62,21 +78,21 @@ namespace WindowConfigurator
             //    }
             //}
 
-            WireFrame wireFrame = new WireFrame(10.0, 10.0);
+            //WireFrame wireFrame = new WireFrame(10.0, 10.0);
 
 
 
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.NullValueHandling = NullValueHandling.Ignore;
+            //JsonSerializer serializer = new JsonSerializer();
+            //serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(@"d:\b.json"))
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, wireFrame);
-            }
+            //using (StreamWriter sw = new StreamWriter(@"d:\b.json"))
+            //using (JsonWriter writer = new JsonTextWriter(sw))
+            //{
+            //    serializer.Serialize(writer, wireFrame);
+            //}
 
-            string output = JsonConvert.SerializeObject(wireFrame);
-            Console.WriteLine(output);
+            //string output = JsonConvert.SerializeObject(wireFrame);
+            //Console.WriteLine(output);
 
             //Product deserializedProduct = JsonConvert.DeserializeObject<Product>(output);
             //Console.WriteLine(deserializedProduct.Price);
