@@ -9,14 +9,14 @@ namespace WindowConfigurator.Interop
     class Frame
     {
 
-        public int id { get; protected set; }
-        public Point start { get; set; }
-        public Point end { get; set; }
-        public double featurePosition { get; set; }
-        public string type { get; set; }
-        public int level { get; set; }
+        protected int id { get; set; }
+        protected Point start { get; set; }
+        protected Point end { get; set; }
+        protected double featurePosition { get; set; }
+        protected string type { get; set; }
+        protected int level { get; set; }
 
-        public static int globalID = -1;
+        protected static int globalID = -1;
         
         public Frame()
         {

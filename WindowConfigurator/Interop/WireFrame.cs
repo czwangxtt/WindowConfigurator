@@ -33,13 +33,15 @@ namespace WindowConfigurator.Interop
 
         public void AddIntermediate(Transom transom)
         {
-
+            allFrames.Add(transom);
+            horizontalFrames.Add(transom.getFeaturePosition(), transom.getId());
 
         }
 
         public void AddIntermediate(Mullion mullion)
         {
-
+            allFrames.Add(mullion);
+            verticalFrames.Add(mullion.getFeaturePosition(), mullion.getId());
         }
 
         public void RemoveIntermediate(Transom transom)
