@@ -7,6 +7,7 @@ using Newtonsoft.Json.Converters;
 using WindowConfigurator.Geometry;
 using WindowConfigurator.Input;
 using WindowConfigurator.Interop;
+using WindowConfigurator.Module;
 
 namespace WindowConfigurator
 {
@@ -18,23 +19,38 @@ namespace WindowConfigurator
 
         static void Main(string[] args)
         {
-            List<T> CreateList<T>(params T[] values)
+            //List<T> CreateList<T>(params T[] values)
+            //{
+            //    return new List<T>(values);
+            //}
+
+            //List<int> a = CreateList(1, 2, 3);
+            //List<int> b = new List<int>();
+            //b = a;
+
+            //Console.WriteLine(b.ElementAt(1));
+
+
+
+            string fileName = @"d:\a.json";
+            string input = File.ReadAllText(fileName);
+            WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
+
+            Window window = new Window(deserializedInput);
+
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+
+            using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
+            using (JsonWriter writer = new JsonTextWriter(sw))
             {
-                return new List<T>(values);
+                serializer.Serialize(writer, window);
             }
 
-            List<int> a = CreateList(1, 2, 3);
-            List<int> b = new List<int>();
-            b = a;
-
-            Console.WriteLine(b.ElementAt(1));
+            string output = JsonConvert.SerializeObject(window);
+            Console.WriteLine(output);
 
 
-
-            //string fileName = @"d:\a.json";
-            //string input = File.ReadAllText(fileName);
-            //WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
-            //Console.WriteLine(deserializedInput.windowFrameProfiles.intermediateProfile);
 
 
 
@@ -82,17 +98,7 @@ namespace WindowConfigurator
 
 
 
-            //JsonSerializer serializer = new JsonSerializer();
-            //serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            //using (StreamWriter sw = new StreamWriter(@"d:\b.json"))
-            //using (JsonWriter writer = new JsonTextWriter(sw))
-            //{
-            //    serializer.Serialize(writer, wireFrame);
-            //}
-
-            //string output = JsonConvert.SerializeObject(wireFrame);
-            //Console.WriteLine(output);
 
             //Product deserializedProduct = JsonConvert.DeserializeObject<Product>(output);
             //Console.WriteLine(deserializedProduct.Price);

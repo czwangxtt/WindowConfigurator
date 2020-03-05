@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
@@ -9,7 +10,7 @@ namespace WindowConfigurator.Interop
     {
         private SortedList<double, int> horzIdBySortedkeyPosition = new SortedList<double, int>();
         private SortedList<double, int> vrtIdBySortedkeyPosition = new SortedList<double, int>();
-        private List<Frame> allFrames = new List<Frame>();
+        private List<Frame> _frames = new List<Frame>();
 
 
         /// <summary>
@@ -24,22 +25,57 @@ namespace WindowConfigurator.Interop
             LeftJamb leftJamb = new LeftJamb(width, height);
             RightJamb rightJamb = new RightJamb(width, height);
 
-            allFrames.Add(head);
-            allFrames.Add(sill);
-            allFrames.Add(leftJamb);
-            allFrames.Add(rightJamb);
+            _frames.Add(head);
+            _frames.Add(sill);
+            _frames.Add(leftJamb);
+            _frames.Add(rightJamb);
 
             horzIdBySortedkeyPosition.Add(head.keyPosition, head.id);
             horzIdBySortedkeyPosition.Add(sill.keyPosition, sill.id);
 
             vrtIdBySortedkeyPosition.Add(leftJamb.keyPosition, leftJamb.id);
             vrtIdBySortedkeyPosition.Add(rightJamb.keyPosition, rightJamb.id);
+
+            head.AddConnect(new Connect(rightJamb.endPoint, rightJamb.id, "corner"));
+            rightJamb.AddConnect(new Connect(sill.endPoint, sill.id, "corner"));
+            sill.AddConnect(new Connect(leftJamb.startPoint, leftJamb.id, "corner"));
+            leftJamb.AddConnect(new Connect(head.startPoint, head.id, "corner"));
         }
 
-        public void UpdateConnection()
+        /// <summary>
+        /// Return frames list
+        /// </summary>
+        public List<Frame> Frames
         {
-
+            get { return _frames; }
         }
+
+
+        /// <summary>
+        /// Updates the connection when adding a transom to window system.
+        /// </summary>
+        /// <param name="transom">A new transom added</param>
+        public void UpdateConnection(Transom transom)
+        {
+            Point startPt = transom.startPoint;
+            Point endPt = transom.endPoint;
+            transom.AddConnect(new Connect(startPt, vrtIdBySortedkeyPosition[startPt.Y], "tee"));
+            transom.AddConnect(new Connect(endPt, vrtIdBySortedkeyPosition[endPt.Y], "tee"));
+        }
+
+
+        /// <summary>
+        /// Updates the connection when adding a mullion to window system.
+        /// </summary>
+        /// <param name="mullion">A new mullion added</param>
+        public void UpdateConnection(Mullion mullion)
+        {
+            Point startPt = mullion.startPoint;
+            Point endPt = mullion.endPoint;
+            mullion.AddConnect(new Connect(startPt, vrtIdBySortedkeyPosition[startPt.Y], "tee"));
+            mullion.AddConnect(new Connect(endPt, vrtIdBySortedkeyPosition[endPt.Y], "tee"));
+        }
+
 
         /// <summary>
         /// Adds a transom to the window system.
@@ -47,9 +83,9 @@ namespace WindowConfigurator.Interop
         /// <param name="transom">the new transom object</param>
         public void addIntermediate(Transom transom)
         {
-            allFrames.Add(transom);
+            _frames.Add(transom);
             horzIdBySortedkeyPosition.Add(transom.keyPosition, transom.id);
-
+            UpdateConnection(transom);
         }
 
 
@@ -59,8 +95,9 @@ namespace WindowConfigurator.Interop
         /// <param name="mullion">the new mullion object</param>
         public void addIntermediate(Mullion mullion)
         {
-            allFrames.Add(mullion);
+            _frames.Add(mullion);
             vrtIdBySortedkeyPosition.Add(mullion.keyPosition, mullion.id);
+            UpdateConnection(mullion);
         }
 
 

@@ -9,7 +9,7 @@ namespace WindowConfigurator.Interop
     {
         public Mullion(Point _start, Point _end) : base(_start, _end)
         {
-            this.keyPosition = this.startPoint.X;
+            this.keyPosition = this.startPoint.Y;
             this.type = "mullion";
         }
     }

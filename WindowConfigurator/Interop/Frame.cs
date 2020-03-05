@@ -15,6 +15,8 @@ namespace WindowConfigurator.Interop
         public double keyPosition { get; set; }
         public string type { get; set; }
         public int level { get; set; }
+
+        private List<Connect> _connects = new List<Connect>();
         #endregion
 
         // Counter for auto increment id.
@@ -37,6 +39,16 @@ namespace WindowConfigurator.Interop
             startPoint = _start;
             endPoint = _end;
             id = Interlocked.Increment(ref globalID);
+        }
+
+        public List<Connect> Connects
+        {
+            get { return _connects; }
+        }
+
+        public void AddConnect(Connect connect)
+        {
+            _connects.Add(connect);
         }
 
     }

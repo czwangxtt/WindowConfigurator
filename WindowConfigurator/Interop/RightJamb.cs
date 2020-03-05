@@ -16,13 +16,13 @@ namespace WindowConfigurator.Interop
         {
             startPoint = new Point(0, width, 0);
             endPoint = new Point(0, width, height);
-            keyPosition = startPoint.X;
+            keyPosition = startPoint.Y;
             type = "rightJamb";
         }
 
         public RightJamb(Point _start, Point _end) : base(_start, _end)
         {
-            keyPosition = startPoint.X;
+            keyPosition = startPoint.Y;
             type = "rightJamb";
         }
     }

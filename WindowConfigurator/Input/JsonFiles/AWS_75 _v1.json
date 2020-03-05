@@ -1,0 +1,42 @@
+{
+  "Configuration":
+  {
+  "SystemName":"AWS 75.SI",
+  "WindowHeight":3000,
+  "WindowWidth":1500,
+  "Vertical":true,
+  "Horizontal":false
+  },
+
+  "WindowFrameProfiles":
+  {
+    "HeadProfile":"HPArticleNumber",
+    "SillProfile":"SPArticleNumber",
+    "LeftJambProfile":"LJPArticleNumber",
+    "RightJambProfile":"RJPArticleNumber",
+    "IntermediateProfile":"IPArticleNumber"
+  },
+
+  "GenerateWindowFrame":
+  {
+    "Head":{"HeadProfile":"WindowWidth"},
+    "Sill":{"SillProfile":"WindowWidth"},
+    "LeftJamb":{"LeftJambProfile":"WindowHeight"},
+    "RightJamb":{"RightJambProfile":"WindowHeight"}
+  },
+
+  "CornerConditions":
+  {
+    "HeadtoLJ":"If HPArticleNumber = LJPArticleNumber, MITER. Else, BUTT JOINT",
+    "HeadtoRJ":"If HPArticleNumber = RJPArticleNumber, MITER. Else, BUTT JOINT",
+    "SilltoLJ":"If SPArticleNumber = LJPArticleNumber, MITER. Else, BUTT JOINT",
+    "SilltoRJ":"If SPArticleNumber = RJPArticleNumber, MITER. Else, BUTT JOINT"
+  },
+
+  "AddIntermediate":
+  [
+  {"Intermediate":{"IntermediateProfile":true},
+   "locator":500} 
+  ]
+
+}

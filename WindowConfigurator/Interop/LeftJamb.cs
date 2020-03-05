@@ -16,7 +16,7 @@ namespace WindowConfigurator.Interop
         {
             startPoint = new Point(0, 0, 0);
             endPoint = new Point(0, 0, height);
-            keyPosition = startPoint.X;
+            keyPosition = startPoint.Y;
             type = "leftJamb";
         }
 
@@ -27,7 +27,7 @@ namespace WindowConfigurator.Interop
         /// <param name="_end">end point, the top for jamb</param>
         public LeftJamb(Point _start, Point _end) : base(_start, _end)
         {
-            keyPosition = startPoint.X;
+            keyPosition = startPoint.Y;
             type = "leftJamb";
         }
     }
