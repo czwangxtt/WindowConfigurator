@@ -8,56 +8,36 @@ namespace WindowConfigurator.Interop
 {
     class Frame
     {
+        #region Properties
+        public int id { get; set; }
+        public Point start { get; set; }
+        public Point end { get; set; }
+        public double featurePosition { get; set; }
+        public string type { get; set; }
+        public int level { get; set; }
+        #endregion
 
-        protected int id { get; set; }
-        protected Point start { get; set; }
-        protected Point end { get; set; }
-        protected double featurePosition { get; set; }
-        protected string type { get; set; }
-        protected int level { get; set; }
-
+        // Counter for auto increment id.
         protected static int globalID = -1;
-        
-        public Frame()
-        {
 
+        /// <summary>
+        /// Constructor with nothing, specific for Head, Sill, LeftJamb and RightJamb.
+        /// Initialized with width and height in child class.
+        /// </summary>
+        public Frame() {
+            this.id = Interlocked.Increment(ref globalID);
         }
 
+        /// <summary>
+        /// Constructor with start and end point for intermediate.
+        /// </summary>
+        /// <param name="_start">start point, bottom for transom and left for mullion</param>
+        /// <param name="_end">end point, top for transom and right for mullion</param>
         public Frame(Point _start, Point _end)
         {
             this.start = _start;
             this.end = _end;
             this.id = Interlocked.Increment(ref globalID);
-        }
-
-        public int getId()
-        {
-            return id;
-        }
-
-        public Point getStartPoint()
-        {
-            return start;
-        }
-
-        public Point getEndPoint()
-        {
-            return end;
-        }
-
-        public double getFeaturePosition()
-        {
-            return featurePosition;
-        }
-
-        public string getType()
-        {
-            return type;
-        }
-
-        public int getLevel()
-        {
-            return level;
         }
 
     }

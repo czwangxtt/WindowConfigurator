@@ -24,24 +24,24 @@ namespace WindowConfigurator.Interop
             allFrames.Add(leftJamb);
             allFrames.Add(rightJamb);
 
-            horizontalFrames.Add(head.getFeaturePosition(), head.getId());
-            horizontalFrames.Add(sill.getFeaturePosition(), sill.getId());
+            horizontalFrames.Add(head.featurePosition, head.id);
+            horizontalFrames.Add(sill.featurePosition, sill.id);
 
-            verticalFrames.Add(leftJamb.getFeaturePosition(), leftJamb.getId());
-            verticalFrames.Add(rightJamb.getFeaturePosition(), rightJamb.getId());
+            verticalFrames.Add(leftJamb.featurePosition, leftJamb.id);
+            verticalFrames.Add(rightJamb.featurePosition, rightJamb.id);
         }
 
         public void AddIntermediate(Transom transom)
         {
             allFrames.Add(transom);
-            horizontalFrames.Add(transom.getFeaturePosition(), transom.getId());
+            horizontalFrames.Add(transom.featurePosition, transom.id);
 
         }
 
         public void AddIntermediate(Mullion mullion)
         {
             allFrames.Add(mullion);
-            verticalFrames.Add(mullion.getFeaturePosition(), mullion.getId());
+            verticalFrames.Add(mullion.featurePosition, mullion.id);
         }
 
         public void RemoveIntermediate(Transom transom)
