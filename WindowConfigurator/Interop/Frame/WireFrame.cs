@@ -173,7 +173,5 @@ namespace WindowConfigurator.Interop
             horzIdBySortedkeyPosition.Remove(mullion.keyPosition);
             _frames.Remove(mullion);
         }
-
-
     }
 }
