@@ -38,6 +38,8 @@ namespace WindowConfigurator
 
             Window window = new Window(deserializedInput);
 
+            window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000)));
+
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
 
