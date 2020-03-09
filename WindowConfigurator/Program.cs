@@ -8,6 +8,7 @@ using WindowConfigurator.Geometry;
 using WindowConfigurator.Input;
 using WindowConfigurator.Interop;
 using WindowConfigurator.Module;
+using WindowConfigurator.Interop.FrameUtil;
 
 namespace WindowConfigurator
 {
@@ -32,25 +33,25 @@ namespace WindowConfigurator
 
 
 
-            string fileName = @"d:\a.json";
-            string input = File.ReadAllText(fileName);
-            WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
+            //string fileName = @"d:\a.json";
+            //string input = File.ReadAllText(fileName);
+            //WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
 
-            Window window = new Window(deserializedInput);
+            //Window window = new Window(deserializedInput);
 
-            window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000)));
+            //window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000)));
 
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.NullValueHandling = NullValueHandling.Ignore;
+            //JsonSerializer serializer = new JsonSerializer();
+            //serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, window);
-            }
+            //using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
+            //using (JsonWriter writer = new JsonTextWriter(sw))
+            //{
+            //    serializer.Serialize(writer, window);
+            //}
 
-            string output = JsonConvert.SerializeObject(window);
-            Console.WriteLine(output);
+            //string output = JsonConvert.SerializeObject(window);
+            //Console.WriteLine(output);
 
 
 
@@ -105,6 +106,31 @@ namespace WindowConfigurator
             //Product deserializedProduct = JsonConvert.DeserializeObject<Product>(output);
             //Console.WriteLine(deserializedProduct.Price);
 
+            var data = new SortedMultiValue<double, int>();
+
+            data.Add(1000, 0);
+            data.Add(0, 1);
+            data.Add(500, 2);
+            data.Add(500, 3);
+
+            Console.WriteLine(data.ElementAt(0));
+            Console.WriteLine(data.ElementAt(1));
+            Console.WriteLine(data.ElementAt(2));
+            Console.WriteLine(data.ElementAt(3));
+
+            data.Remove(500, 2);
+
+            Console.WriteLine();
+            foreach (int item in data.Get(500))
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+            foreach (int item in data.Get(1000))
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

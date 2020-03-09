@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using WindowConfigurator.Geometry;
+using WindowConfigurator.Interop.FrameUtil;
 
 namespace WindowConfigurator.Interop
 {
@@ -129,6 +130,7 @@ namespace WindowConfigurator.Interop
                 }
             }
 
+            // Extend mullions ending at the removing transom
             int horzTransomIndex = horzIdBySortedkeyPosition.IndexOfKey(transom.keyPosition);
             foreach (var mullionId in vrtIdBySortedkeyPosition.Values)
             {
@@ -161,6 +163,7 @@ namespace WindowConfigurator.Interop
                 }
             }
 
+            // Extend transoms ending at the removing mullion
             int vrtTransomIndex = vrtIdBySortedkeyPosition.IndexOfKey(mullion.keyPosition);
             foreach (var transomId in horzIdBySortedkeyPosition.Values)
             {
