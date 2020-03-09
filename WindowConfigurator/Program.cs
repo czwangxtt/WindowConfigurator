@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -20,7 +21,8 @@ namespace WindowConfigurator
 
         static void Main(string[] args)
         {
-
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
 
 
             string fileName = @"d:\a.json";
@@ -29,9 +31,14 @@ namespace WindowConfigurator
 
             Window window = new Window(deserializedInput);
 
-            window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000)));
-            window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 2000), new Point(0, 1500, 2000)));
-            //window.wireFrame.addIntermediate(new Mullion(new Point(0, 750, 1000), new Point(0, 750, 3000)));
+            Transom t1 = new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000));
+            Transom t2 = new Transom(new Point(0, 0, 2000), new Point(0, 1500, 2000));
+            Mullion m1 = new Mullion(new Point(0, 750, 1000), new Point(0, 750, 2000));
+            window.wireFrame.addIntermediate(t1);
+            window.wireFrame.addIntermediate(t2);
+            window.wireFrame.addIntermediate(m1);
+            window.wireFrame.removeIntermediate(t1);
+            window.wireFrame.removeIntermediate(t2);
 
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
@@ -46,7 +53,10 @@ namespace WindowConfigurator
             string output = JsonConvert.SerializeObject(window);
             Console.WriteLine(output);
 
-            
+            stopWatch.Stop();
+            Console.WriteLine(stopWatch.ElapsedMilliseconds.ToString());
+
+
 
             //SortedList<double, int> sl = new SortedList<double, int>();
             //sl.Add(0.0, 1);

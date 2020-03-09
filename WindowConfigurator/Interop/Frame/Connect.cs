@@ -24,6 +24,5 @@ namespace WindowConfigurator.Interop
             connectFrameId = _connectFrameId;
             connectType = _connectType;
         }
-
     }
 }

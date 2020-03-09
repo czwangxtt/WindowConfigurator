@@ -9,7 +9,6 @@ namespace WindowConfigurator.Interop
 {
     class WireFrame
     {
-        //TODO Change data type since SortedList doesn't allow duplication.
         private SortedMultiValue<double, int> horzIdBySortedkeyPosition = new SortedMultiValue<double, int>();
         private SortedMultiValue<double, int> vrtIdBySortedkeyPosition = new SortedMultiValue<double, int>();
         private List<Frame> _frames = new List<Frame>();
@@ -98,7 +97,7 @@ namespace WindowConfigurator.Interop
                 if (mullion.keyPosition > _frames[id].startPoint.Y && mullion.keyPosition < _frames[id].endPoint.Y)
                     mullion.AddConnect(new Connect(startPt, id, "tee"));
             }
-            foreach (int id in vrtIdBySortedkeyPosition.Get(endPt.Z))
+            foreach (int id in horzIdBySortedkeyPosition.Get(endPt.Z))
             {
                 if (mullion.keyPosition > _frames[id].startPoint.Y && mullion.keyPosition < _frames[id].endPoint.Y)
                     mullion.AddConnect(new Connect(endPt, id, "tee"));
@@ -139,7 +138,7 @@ namespace WindowConfigurator.Interop
             int removeId = transom.id;
             foreach (var frame in _frames)
             {
-                foreach (var connect in frame.Connects)
+                foreach (var connect in frame.Connects.ToList())
                 {
                     if (connect.connectFrameId == removeId)
                     {
@@ -159,7 +158,9 @@ namespace WindowConfigurator.Interop
             }
 
             horzIdBySortedkeyPosition.Remove(transom.keyPosition, transom.id);
-            _frames.Remove(transom);
+
+            //intermediate should not been removed since the user may want to redo it.
+            //_frames.Remove(transom); 
         }
 
 
@@ -172,7 +173,7 @@ namespace WindowConfigurator.Interop
             int removeId = mullion.id;
             foreach (var frame in _frames)
             {
-                foreach (var connect in frame.Connects)
+                foreach (var connect in frame.Connects.ToList())
                 {
                     if (connect.connectFrameId == removeId)
                     {
@@ -193,7 +194,9 @@ namespace WindowConfigurator.Interop
                 }
 
                 horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
-                _frames.Remove(mullion);
+
+                //intermediate should not been removed since the user may want to redo it.
+                //_frames.Remove(mullion);
             }
         }
     }
