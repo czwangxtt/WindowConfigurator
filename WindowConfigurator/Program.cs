@@ -8,7 +8,7 @@ using WindowConfigurator.Geometry;
 using WindowConfigurator.Input;
 using WindowConfigurator.Interop;
 using WindowConfigurator.Module;
-using WindowConfigurator.Interop.FrameUtil;
+using WindowConfigurator.Utilities;
 
 namespace WindowConfigurator
 {
@@ -20,42 +20,33 @@ namespace WindowConfigurator
 
         static void Main(string[] args)
         {
-            //List<T> CreateList<T>(params T[] values)
-            //{
-            //    return new List<T>(values);
-            //}
-
-            //List<int> a = CreateList(1, 2, 3);
-            //List<int> b = new List<int>();
-            //b = a;
-
-            //Console.WriteLine(b.ElementAt(1));
 
 
 
-            //string fileName = @"d:\a.json";
-            //string input = File.ReadAllText(fileName);
-            //WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
+            string fileName = @"d:\a.json";
+            string input = File.ReadAllText(fileName);
+            WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
 
-            //Window window = new Window(deserializedInput);
+            Window window = new Window(deserializedInput);
 
-            //window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000)));
+            window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000)));
+            window.wireFrame.addIntermediate(new Transom(new Point(0, 0, 2000), new Point(0, 1500, 2000)));
+            //window.wireFrame.addIntermediate(new Mullion(new Point(0, 750, 1000), new Point(0, 750, 3000)));
 
-            //JsonSerializer serializer = new JsonSerializer();
-            //serializer.NullValueHandling = NullValueHandling.Ignore;
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+            serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            //using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
-            //using (JsonWriter writer = new JsonTextWriter(sw))
-            //{
-            //    serializer.Serialize(writer, window);
-            //}
+            using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, window);
+            }
 
-            //string output = JsonConvert.SerializeObject(window);
-            //Console.WriteLine(output);
+            string output = JsonConvert.SerializeObject(window);
+            Console.WriteLine(output);
 
-
-
-
+            
 
             //SortedList<double, int> sl = new SortedList<double, int>();
             //sl.Add(0.0, 1);
@@ -105,32 +96,6 @@ namespace WindowConfigurator
 
             //Product deserializedProduct = JsonConvert.DeserializeObject<Product>(output);
             //Console.WriteLine(deserializedProduct.Price);
-
-            var data = new SortedMultiValue<double, int>();
-
-            data.Add(1000, 0);
-            data.Add(0, 1);
-            data.Add(500, 2);
-            data.Add(500, 3);
-
-            Console.WriteLine(data.IndexOf(3));
-
-            foreach (double item in data)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine();
-            foreach (int item in data.Get(500))
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine();
-            foreach (int item in data.Get(1000))
-            {
-                Console.WriteLine(item);
-            }
         }
     }
 }

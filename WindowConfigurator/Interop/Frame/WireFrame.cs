@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using WindowConfigurator.Geometry;
-using WindowConfigurator.Interop.FrameUtil;
+using WindowConfigurator.Utilities;
 
 namespace WindowConfigurator.Interop
 {
@@ -71,7 +71,7 @@ namespace WindowConfigurator.Interop
         {
             Point startPt = transom.startPoint;
             Point endPt = transom.endPoint;
-            foreach(int id in vrtIdBySortedkeyPosition.Get(startPt.Y))
+            foreach (int id in vrtIdBySortedkeyPosition.Get(startPt.Y))
             {
                 if (transom.keyPosition > _frames[id].startPoint.Z && transom.keyPosition < _frames[id].endPoint.Z)
                     transom.AddConnect(new Connect(startPt, id, "tee"));
@@ -141,7 +141,8 @@ namespace WindowConfigurator.Interop
             {
                 foreach (var connect in frame.Connects)
                 {
-                    if (connect.connectFrameId == removeId) {
+                    if (connect.connectFrameId == removeId)
+                    {
                         frame.Connects.Remove(connect);
                     }
                 }
@@ -153,7 +154,7 @@ namespace WindowConfigurator.Interop
             {
                 if (_frames[mullionId].startPoint.Y == transom.keyPosition)
                     _frames[mullionId].startPoint.Y = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex - 1)].keyPosition;
-                else if(_frames[mullionId].endPoint.Y == transom.keyPosition)
+                else if (_frames[mullionId].endPoint.Y == transom.keyPosition)
                     _frames[mullionId].endPoint.Y = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex + 1)].keyPosition;
             }
 
@@ -184,14 +185,16 @@ namespace WindowConfigurator.Interop
             int vrtTransomIndex = vrtIdBySortedkeyPosition.IndexOf(mullion.id);
             foreach (var transomId in horzIdBySortedkeyPosition)
             {
-                if (_frames[transomId].startPoint.Z == mullion.keyPosition)
-                    _frames[transomId].startPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex - 1)].keyPosition;
-                else if (_frames[transomId].endPoint.Z == mullion.keyPosition)
-                    _frames[transomId].endPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
-            }
+                {
+                    if (_frames[transomId].startPoint.Z == mullion.keyPosition)
+                        _frames[transomId].startPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex - 1)].keyPosition;
+                    else if (_frames[transomId].endPoint.Z == mullion.keyPosition)
+                        _frames[transomId].endPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
+                }
 
-            horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
-            _frames.Remove(mullion);
+                horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
+                _frames.Remove(mullion);
+            }
         }
     }
 }

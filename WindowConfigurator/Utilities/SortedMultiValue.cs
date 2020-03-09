@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WindowConfigurator.Interop.FrameUtil
+namespace WindowConfigurator.Utilities
 {
     public class SortedMultiValue<TKey, TValue> : IEnumerable<TValue>
     {

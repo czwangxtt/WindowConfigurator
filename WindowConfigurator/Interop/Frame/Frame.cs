@@ -10,10 +10,10 @@ namespace WindowConfigurator.Interop
     {
         #region Properties
         public int id { get; protected set; }
+        public string type { get; set; }
         public Point startPoint { get; set; }
         public Point endPoint { get; set; }
         public double keyPosition { get; set; }
-        public string type { get; set; }
         public int level { get; set; }
 
         private List<Connect> _connects = new List<Connect>();
