@@ -9,15 +9,18 @@ namespace WindowConfigurator.Interop.FrameUtil
     {
         private SortedDictionary<TKey, List<TValue>> _data;
 
+
         public SortedMultiValue()
         {
-            _data = new SortedDictionary<TKey, System.Collections.Generic.List<TValue>>();
+            _data = new SortedDictionary<TKey, List<TValue>>();
         }
+
 
         public void Clear()
         {
             _data.Clear();
         }
+
 
         public void Add(TKey key, TValue value)
         {
@@ -29,10 +32,12 @@ namespace WindowConfigurator.Interop.FrameUtil
             items.Add(value);
         }
 
+
         public void Remove(TKey key, TValue value)
         {
             _data[key].Remove(value);
         }
+
 
         public int IndexOf(TValue value)
         {
@@ -48,6 +53,7 @@ namespace WindowConfigurator.Interop.FrameUtil
             return -1;
         }
 
+
         public IEnumerable<TValue> Get(TKey key)
         {
             if (_data.TryGetValue(key, out List<TValue> items))
@@ -57,15 +63,18 @@ namespace WindowConfigurator.Interop.FrameUtil
             throw new KeyNotFoundException();
         }
 
+
         public IEnumerator<TValue> GetEnumerator()
         {
             return CreateEnumerable().GetEnumerator();
         }
 
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return CreateEnumerable().GetEnumerator();
         }
+
 
         IEnumerable<TValue> CreateEnumerable()
         {
@@ -78,6 +87,4 @@ namespace WindowConfigurator.Interop.FrameUtil
             }
         }
     }
-
-
 }

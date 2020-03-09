@@ -10,8 +10,8 @@ namespace WindowConfigurator.Interop
     class WireFrame
     {
         //TODO Change data type since SortedList doesn't allow duplication.
-        private SortedList<double, int> horzIdBySortedkeyPosition = new SortedList<double, int>();
-        private SortedList<double, int> vrtIdBySortedkeyPosition = new SortedList<double, int>();
+        private SortedMultiValue<double, int> horzIdBySortedkeyPosition = new SortedMultiValue<double, int>();
+        private SortedMultiValue<double, int> vrtIdBySortedkeyPosition = new SortedMultiValue<double, int>();
         private List<Frame> _frames = new List<Frame>();
 
 
@@ -52,12 +52,12 @@ namespace WindowConfigurator.Interop
             get { return _frames; }
         }
 
-        public SortedList<double, int> hFrames
+        public SortedMultiValue<double, int> hFrames
         {
             get { return horzIdBySortedkeyPosition; }
         }
 
-        public SortedList<double, int> vFrames
+        public SortedMultiValue<double, int> vFrames
         {
             get { return vrtIdBySortedkeyPosition; }
         }
@@ -71,8 +71,16 @@ namespace WindowConfigurator.Interop
         {
             Point startPt = transom.startPoint;
             Point endPt = transom.endPoint;
-            transom.AddConnect(new Connect(startPt, vrtIdBySortedkeyPosition[startPt.Y], "tee"));
-            transom.AddConnect(new Connect(endPt, vrtIdBySortedkeyPosition[endPt.Y], "tee"));
+            foreach(int id in vrtIdBySortedkeyPosition.Get(startPt.Y))
+            {
+                if (transom.keyPosition > _frames[id].startPoint.Z && transom.keyPosition < _frames[id].endPoint.Z)
+                    transom.AddConnect(new Connect(startPt, id, "tee"));
+            }
+            foreach (int id in vrtIdBySortedkeyPosition.Get(endPt.Y))
+            {
+                if (transom.keyPosition > _frames[id].startPoint.Z && transom.keyPosition < _frames[id].endPoint.Z)
+                    transom.AddConnect(new Connect(endPt, id, "tee"));
+            }
         }
 
 
@@ -84,8 +92,17 @@ namespace WindowConfigurator.Interop
         {
             Point startPt = mullion.startPoint;
             Point endPt = mullion.endPoint;
-            mullion.AddConnect(new Connect(startPt, vrtIdBySortedkeyPosition[startPt.Y], "tee"));
-            mullion.AddConnect(new Connect(endPt, vrtIdBySortedkeyPosition[endPt.Y], "tee"));
+
+            foreach (int id in horzIdBySortedkeyPosition.Get(startPt.Z))
+            {
+                if (mullion.keyPosition > _frames[id].startPoint.Y && mullion.keyPosition < _frames[id].endPoint.Y)
+                    mullion.AddConnect(new Connect(startPt, id, "tee"));
+            }
+            foreach (int id in vrtIdBySortedkeyPosition.Get(endPt.Z))
+            {
+                if (mullion.keyPosition > _frames[id].startPoint.Y && mullion.keyPosition < _frames[id].endPoint.Y)
+                    mullion.AddConnect(new Connect(endPt, id, "tee"));
+            }
         }
 
 
@@ -131,16 +148,16 @@ namespace WindowConfigurator.Interop
             }
 
             // Extend mullions ending at the removing transom
-            int horzTransomIndex = horzIdBySortedkeyPosition.IndexOfKey(transom.keyPosition);
-            foreach (var mullionId in vrtIdBySortedkeyPosition.Values)
+            int horzTransomIndex = horzIdBySortedkeyPosition.IndexOf(transom.id);
+            foreach (var mullionId in vrtIdBySortedkeyPosition)
             {
                 if (_frames[mullionId].startPoint.Y == transom.keyPosition)
-                    _frames[mullionId].startPoint.Y = _frames[horzIdBySortedkeyPosition[horzTransomIndex - 1]].keyPosition;
+                    _frames[mullionId].startPoint.Y = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex - 1)].keyPosition;
                 else if(_frames[mullionId].endPoint.Y == transom.keyPosition)
-                    _frames[mullionId].endPoint.Y = _frames[horzIdBySortedkeyPosition[horzTransomIndex + 1]].keyPosition;
+                    _frames[mullionId].endPoint.Y = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex + 1)].keyPosition;
             }
 
-            horzIdBySortedkeyPosition.Remove(transom.keyPosition);
+            horzIdBySortedkeyPosition.Remove(transom.keyPosition, transom.id);
             _frames.Remove(transom);
         }
 
@@ -164,16 +181,16 @@ namespace WindowConfigurator.Interop
             }
 
             // Extend transoms ending at the removing mullion
-            int vrtTransomIndex = vrtIdBySortedkeyPosition.IndexOfKey(mullion.keyPosition);
-            foreach (var transomId in horzIdBySortedkeyPosition.Values)
+            int vrtTransomIndex = vrtIdBySortedkeyPosition.IndexOf(mullion.id);
+            foreach (var transomId in horzIdBySortedkeyPosition)
             {
                 if (_frames[transomId].startPoint.Z == mullion.keyPosition)
-                    _frames[transomId].startPoint.Z = _frames[vrtIdBySortedkeyPosition[vrtTransomIndex - 1]].keyPosition;
+                    _frames[transomId].startPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex - 1)].keyPosition;
                 else if (_frames[transomId].endPoint.Z == mullion.keyPosition)
-                    _frames[transomId].endPoint.Z = _frames[vrtIdBySortedkeyPosition[vrtTransomIndex + 1]].keyPosition;
+                    _frames[transomId].endPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
             }
 
-            horzIdBySortedkeyPosition.Remove(mullion.keyPosition);
+            horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
             _frames.Remove(mullion);
         }
     }
