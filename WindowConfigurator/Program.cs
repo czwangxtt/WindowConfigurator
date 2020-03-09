@@ -113,12 +113,12 @@ namespace WindowConfigurator
             data.Add(500, 2);
             data.Add(500, 3);
 
-            Console.WriteLine(data.ElementAt(0));
-            Console.WriteLine(data.ElementAt(1));
-            Console.WriteLine(data.ElementAt(2));
-            Console.WriteLine(data.ElementAt(3));
+            Console.WriteLine(data.IndexOf(3));
 
-            data.Remove(500, 2);
+            foreach (double item in data)
+            {
+                Console.WriteLine(item);
+            }
 
             Console.WriteLine();
             foreach (int item in data.Get(500))

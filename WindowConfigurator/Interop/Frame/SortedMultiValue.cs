@@ -34,6 +34,20 @@ namespace WindowConfigurator.Interop.FrameUtil
             _data[key].Remove(value);
         }
 
+        public int IndexOf(TValue value)
+        {
+            int index = 0;
+            var comparer = EqualityComparer<TValue>.Default; // or pass in as a parameter
+            foreach (List<TValue> items in _data.Values)
+            {
+                foreach (TValue item in items){
+                    if (comparer.Equals(value, item)) return index;
+                    index++;
+                }
+            }
+            return -1;
+        }
+
         public IEnumerable<TValue> Get(TKey key)
         {
             if (_data.TryGetValue(key, out List<TValue> items))
