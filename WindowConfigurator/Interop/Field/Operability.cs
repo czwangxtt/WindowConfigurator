@@ -6,5 +6,7 @@ namespace WindowConfigurator.Interop
 {
     class Operability
     {
+        public string type { get; set; }
+
     }
 }

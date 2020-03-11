@@ -24,37 +24,37 @@ namespace WindowConfigurator
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
-
             string fileName = @"d:\a.json";
             string input = File.ReadAllText(fileName);
-            WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
+            //Console.WriteLine(input);
+            JsonInput deserializedInput = JsonConvert.DeserializeObject<JsonInput>(input);
 
-            Window window = new Window(deserializedInput);
+            //Window window = new Window(deserializedInput);
 
-            Transom t1 = new Transom(new Point(0, 0, 1000), new Point(0, 1500, 1000));
-            Transom t2 = new Transom(new Point(0, 0, 2000), new Point(0, 1500, 2000));
-            Mullion m1 = new Mullion(new Point(0, 750, 1000), new Point(0, 750, 2000));
-            window.wireFrame.addIntermediate(t1);
-            window.wireFrame.addIntermediate(t2);
-            window.wireFrame.addIntermediate(m1);
-            window.wireFrame.removeIntermediate(t1);
-            window.wireFrame.removeIntermediate(t2);
+            //Transom t1 = new Transom(new Point3(0, 0, 1000), new Point3(0, 1500, 1000));
+            //Transom t2 = new Transom(new Point3(0, 0, 2000), new Point3(0, 1500, 2000));
+            //Mullion m1 = new Mullion(new Point3(0, 750, 1000), new Point3(0, 750, 2000));
+            //window.wireFrame.addIntermediate(t1);
+            //window.wireFrame.addIntermediate(t2);
+            //window.wireFrame.addIntermediate(m1);
+            //window.wireFrame.removeIntermediate(t1);
+            //window.wireFrame.removeIntermediate(t2);
 
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.NullValueHandling = NullValueHandling.Ignore;
-            serializer.NullValueHandling = NullValueHandling.Ignore;
+            //JsonSerializer serializer = new JsonSerializer();
+            //serializer.NullValueHandling = NullValueHandling.Ignore;
+            //serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, window);
-            }
+            //using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
+            //using (JsonWriter writer = new JsonTextWriter(sw))
+            //{
+            //    serializer.Serialize(writer, deserializedInput);
+            //}
 
-            string output = JsonConvert.SerializeObject(window);
-            Console.WriteLine(output);
+            //string output = JsonConvert.SerializeObject(deserializedInput);
+            //Console.WriteLine(output);
 
-            stopWatch.Stop();
-            Console.WriteLine(stopWatch.ElapsedMilliseconds.ToString());
+            //stopWatch.Stop();
+            //Console.WriteLine(stopWatch.ElapsedMilliseconds.ToString());
 
 
 

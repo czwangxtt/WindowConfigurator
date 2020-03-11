@@ -1,0 +1,142 @@
+{
+    "<<<<<AWS75Comments": "seeBelow>>>>>",
+
+    "cornerConnectionOptions":
+    {
+        "miter": "profileA===profileB",
+        "buttJoint": "profileA!=profileB",
+        "miterDefinition": "diagonalCutBetweenProfiles(Typically45Degrees)",
+        "buttJointDefinition": "flatCutWithNotchDeterminedByProfileTypes"
+    },
+
+    "intermediateConnectionConditions":
+    {
+        "notchIntermediate": "(a)by5.5mm",
+        "(a)": "distanceDefinedByProfileIntermediateConnectsTo"
+    },
+
+
+    "operabilityOptions": [
+    {
+        "operabilityType": "bottomHung",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": "inward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "topHung",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": "outward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "turnTilt",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": "inward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "sideHung",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": "inward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "doubleVent",
+        "fieldA": "%%fieldA%%",
+        "fieldB": "%%fieldB%%",
+        "openingDirection": "inward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "pivotHorizontal",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": "outward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "pivotVertical",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": "outward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "parallelOpening",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": "outward",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+    {
+        "operabilityType": "fixed",
+        "fieldA": "%%fieldA%%",
+        "fieldB": null,
+        "openingDirection": null,
+        "ventProfile": null,
+        "insertProfile": null,
+        "reverseRebateProfile": null
+    }],
+
+    "<<<<<FWS60Comments": "SeeBelow>>>>>",
+
+    "systemBoundaries": "defineMullionHeight/areaOfAnalysis",
+
+    "framingConfiguration": [
+    {
+        "profile": "%%ArticleNumber%%",
+        "type": "mullion(Level3)",
+        "location": "%%coordinateOnProfile%%"
+    },
+    {
+        "profile": "%%ArticleNumber%%",
+        "type": "transom(Level2)",
+        "location": "%%coordinateOnProfile%%"
+    },
+    {
+        "profile": "%%ArticleNumber%%",
+        "type": "transom(Level1)",
+        "location": "%%coordinateOnProfile%%"
+    },
+    {
+        "profile": "%%ArticleNumber%%",
+        "type": "mullion(Level1)",
+        "location": "%%coordinateOnProfile%%"
+    }],
+
+    "connectionSituations":
+    {
+        "level1toLevel3": "intermediateTransomToContinuousMullion",
+        "level1toLevel2toLevel3": "intermediateMullionToIntermediateTransomToContinuousMullion"
+    },
+
+    "connectionOptions":
+    {
+        "1to3Connection": "notch1",
+        "1to2Connection": "notch1",
+        "2to3Connection": "notch2AND3"
+    },
+
+    "insertUnitOptions": "NEEDTOCHECKINDOCUCENTER"
+}

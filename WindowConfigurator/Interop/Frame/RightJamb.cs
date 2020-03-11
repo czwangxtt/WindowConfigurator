@@ -14,13 +14,13 @@ namespace WindowConfigurator.Interop
         /// <param name="height">the outer height of the window</param>
         public RightJamb(double width, double height)
         {
-            startPoint = new Point(0, width, 0);
-            endPoint = new Point(0, width, height);
+            startPoint = new Point3(0, width, 0);
+            endPoint = new Point3(0, width, height);
             keyPosition = startPoint.Y;
             type = "rightJamb";
         }
 
-        public RightJamb(Point _start, Point _end) : base(_start, _end)
+        public RightJamb(Point3 _start, Point3 _end) : base(_start, _end)
         {
             keyPosition = startPoint.Y;
             type = "rightJamb";

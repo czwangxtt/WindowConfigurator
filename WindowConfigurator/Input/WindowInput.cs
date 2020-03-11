@@ -23,7 +23,7 @@ namespace WindowConfigurator.Input
         public int sillProfile { get; set; }
         public int leftJambProfile { get; set; }
         public int rightJambProfile { get; set; }
-        public List<int> intermediateProfile { get; set; }
+        public List<string> intermediateProfile { get; set; }
 
     }
 

@@ -10,14 +10,14 @@ namespace WindowConfigurator.Interop
     {
         public int id { get; set; }
         public string connectType { get; set; }
-        public Point position { get; set; }
+        public Point3 position { get; set; }
         public int connectFrameId { get; set; }
         
 
         // Counter for auto increment id.
         protected static int globalId = -1;
 
-        public Connect(Point _position, int _connectFrameId, string _connectType)
+        public Connect(Point3 _position, int _connectFrameId, string _connectType)
         {
             id = Interlocked.Increment(ref globalId);
             position = _position;

@@ -14,8 +14,8 @@ namespace WindowConfigurator.Interop
         /// <param name="height">the outer height of the window</param>
         public Head(double width, double height)
         {
-            startPoint = new Point(0, 0, height);
-            endPoint = new Point(0, width, height);
+            startPoint = new Point3(0, 0, height);
+            endPoint = new Point3(0, width, height);
             keyPosition = startPoint.Z;
             type = "head";
         }
@@ -26,7 +26,7 @@ namespace WindowConfigurator.Interop
         /// </summary>
         /// <param name="_start">start point, the left for head</param>
         /// <param name="_end">end point, the right for head</param>
-        public Head(Point _start, Point _end) : base(_start, _end)
+        public Head(Point3 _start, Point3 _end) : base(_start, _end)
         {
             startPoint = _start;
             endPoint = _end;

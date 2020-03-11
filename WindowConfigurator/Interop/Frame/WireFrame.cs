@@ -68,8 +68,8 @@ namespace WindowConfigurator.Interop
         /// <param name="transom">A new transom added</param>
         public void UpdateConnection(Transom transom)
         {
-            Point startPt = transom.startPoint;
-            Point endPt = transom.endPoint;
+            Point3 startPt = transom.startPoint;
+            Point3 endPt = transom.endPoint;
             foreach (int id in vrtIdBySortedkeyPosition.Get(startPt.Y))
             {
                 if (transom.keyPosition > _frames[id].startPoint.Z && transom.keyPosition < _frames[id].endPoint.Z)
@@ -89,8 +89,8 @@ namespace WindowConfigurator.Interop
         /// <param name="mullion">A new mullion added</param>
         public void UpdateConnection(Mullion mullion)
         {
-            Point startPt = mullion.startPoint;
-            Point endPt = mullion.endPoint;
+            Point3 startPt = mullion.startPoint;
+            Point3 endPt = mullion.endPoint;
 
             foreach (int id in horzIdBySortedkeyPosition.Get(startPt.Z))
             {

@@ -11,8 +11,8 @@ namespace WindowConfigurator.Interop
         #region Properties
         public int id { get; protected set; }
         public string type { get; set; }
-        public Point startPoint { get; set; }
-        public Point endPoint { get; set; }
+        public Point3 startPoint { get; set; }
+        public Point3 endPoint { get; set; }
         public double keyPosition { get; set; }
         public int level { get; set; }
 
@@ -34,7 +34,7 @@ namespace WindowConfigurator.Interop
         /// </summary>
         /// <param name="_start">start point, left for transom and bottom for mullion</param>
         /// <param name="_end">end point, right for transom and top for mullion</param>
-        public Frame(Point _start, Point _end)
+        public Frame(Point3 _start, Point3 _end)
         {
             startPoint = _start;
             endPoint = _end;

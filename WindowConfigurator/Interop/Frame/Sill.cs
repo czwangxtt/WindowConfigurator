@@ -14,8 +14,8 @@ namespace WindowConfigurator.Interop
         /// <param name="height">the outer height of the window</param>
         public Sill(double width, double height)
         {
-            startPoint = new Point(0, 0, 0);
-            endPoint = new Point(0, width, 0);
+            startPoint = new Point3(0, 0, 0);
+            endPoint = new Point3(0, width, 0);
             keyPosition = startPoint.Z;
             type = "sill";
         }
@@ -25,7 +25,7 @@ namespace WindowConfigurator.Interop
         /// </summary>
         /// <param name="_start">start point, the left for sill</param>
         /// <param name="_end">end point, the right for sill</param>
-        public Sill(Point _start, Point _end) : base(_start, _end)
+        public Sill(Point3 _start, Point3 _end) : base(_start, _end)
         {
             startPoint = _start;
             endPoint = _end;
