@@ -54,7 +54,6 @@ namespace WindowConfigurator
 
             stopWatch.Stop();
             Console.WriteLine(stopWatch.ElapsedMilliseconds.ToString());
-
         }
     }
 }

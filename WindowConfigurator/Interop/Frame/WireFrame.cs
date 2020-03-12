@@ -193,8 +193,6 @@ namespace WindowConfigurator.Interop
                         _frames[transomId].endPoint.Y = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
                 }
 
-                
-                
             }
             horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
             mullion.isVisible = false;
