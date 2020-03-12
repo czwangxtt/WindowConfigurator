@@ -15,6 +15,7 @@ namespace WindowConfigurator.Interop
         public Point3 endPoint { get; set; }
         public double keyPosition { get; set; }
         public int level { get; set; }
+        public Boolean isVisible { get; set; }
 
         private List<Connect> _connects = new List<Connect>();
         #endregion
@@ -27,6 +28,7 @@ namespace WindowConfigurator.Interop
         /// </summary>
         public Frame() {
             id = Interlocked.Increment(ref globalID);
+            isVisible = true;
         }
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace WindowConfigurator.Interop
             startPoint = _start;
             endPoint = _end;
             id = Interlocked.Increment(ref globalID);
+            isVisible = true;
         }
 
         public List<Connect> Connects

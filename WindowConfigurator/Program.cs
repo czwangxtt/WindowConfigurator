@@ -46,16 +46,14 @@ namespace WindowConfigurator
             using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
-                serializer.Serialize(writer, deserializedInput);
+                serializer.Serialize(writer, window);
             }
 
-            string output = JsonConvert.SerializeObject(deserializedInput);
+            string output = JsonConvert.SerializeObject(window);
             Console.WriteLine(output);
 
             stopWatch.Stop();
             Console.WriteLine(stopWatch.ElapsedMilliseconds.ToString());
-
-
 
         }
     }

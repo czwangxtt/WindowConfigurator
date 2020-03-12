@@ -151,14 +151,14 @@ namespace WindowConfigurator.Interop
             int horzTransomIndex = horzIdBySortedkeyPosition.IndexOf(transom.id);
             foreach (var mullionId in vrtIdBySortedkeyPosition)
             {
-                if (_frames[mullionId].startPoint.Y == transom.keyPosition)
-                    _frames[mullionId].startPoint.Y = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex - 1)].keyPosition;
-                else if (_frames[mullionId].endPoint.Y == transom.keyPosition)
-                    _frames[mullionId].endPoint.Y = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex + 1)].keyPosition;
+                if (_frames[mullionId].startPoint.Z == transom.keyPosition)
+                    _frames[mullionId].startPoint.Z = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex - 1)].keyPosition;
+                else if (_frames[mullionId].endPoint.Z == transom.keyPosition)
+                    _frames[mullionId].endPoint.Z = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex + 1)].keyPosition;
             }
 
             horzIdBySortedkeyPosition.Remove(transom.keyPosition, transom.id);
-
+            transom.isVisible = false;
             //intermediate should not been removed since the user may want to redo it.
             //_frames.Remove(transom); 
         }
@@ -187,17 +187,19 @@ namespace WindowConfigurator.Interop
             foreach (var transomId in horzIdBySortedkeyPosition)
             {
                 {
-                    if (_frames[transomId].startPoint.Z == mullion.keyPosition)
-                        _frames[transomId].startPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex - 1)].keyPosition;
-                    else if (_frames[transomId].endPoint.Z == mullion.keyPosition)
-                        _frames[transomId].endPoint.Z = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
+                    if (_frames[transomId].startPoint.Y == mullion.keyPosition)
+                        _frames[transomId].startPoint.Y = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex - 1)].keyPosition;
+                    else if (_frames[transomId].endPoint.Y == mullion.keyPosition)
+                        _frames[transomId].endPoint.Y = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
                 }
 
-                horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
-
-                //intermediate should not been removed since the user may want to redo it.
-                //_frames.Remove(mullion);
+                
+                
             }
+            horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
+            mullion.isVisible = false;
+            //intermediate should not been removed since the user may want to redo it.
+            //_frames.Remove(mullion);
         }
     }
 }

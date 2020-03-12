@@ -19,8 +19,8 @@ namespace WindowConfigurator.Module
 
         public Window(WindowInput input)
         {
-            width = input.configuration.windowWidth;
-            height = input.configuration.windowHeight;
+            width = 1500;
+            height = 3000;
             
             wireFrame = new WireFrame(width, height);
             field = new Field(width, height);
