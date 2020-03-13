@@ -16,7 +16,10 @@ namespace WindowConfigurator.Module
         public Field field { get; set; }
 
 
-
+        /// <summary>
+        /// Initializes a window system with input object.
+        /// </summary>
+        /// <param name="input">Converted json input</param>
         public Window(WindowInput input)
         {
             width = 1500;
