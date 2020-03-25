@@ -4,16 +4,23 @@ using System.Text;
 using WindowConfigurator;
 using WindowConfigurator.Input;
 using WindowConfigurator.Interop;
+using Newtonsoft.Json;
 
 namespace WindowConfigurator.Module
 {
-    class Window
+    public class Window
     {
-        public double width { get; set; }
-        public double height { get; set; }
+        [JsonProperty]
+        public static double width { get; set; }
 
-        public WireFrame wireFrame { get; set; }
-        public Field field { get; set; }
+        [JsonProperty]
+        public static double height { get; set; }
+
+        [JsonProperty]
+        public static WireFrame wireFrame { get; set; }
+
+        [JsonProperty]
+        public static Field field { get; set; }
 
 
         /// <summary>

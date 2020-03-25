@@ -6,7 +6,7 @@ using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
-    class Frame
+    public class Frame
     {
         #region Properties
         public int id { get; protected set; }

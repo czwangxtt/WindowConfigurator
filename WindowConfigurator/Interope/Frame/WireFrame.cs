@@ -7,7 +7,7 @@ using WindowConfigurator.Utilities;
 
 namespace WindowConfigurator.Interop
 {
-    class WireFrame
+    public class WireFrame
     {
         private SortedMultiValue<double, int> horzIdBySortedkeyPosition = new SortedMultiValue<double, int>();
         private SortedMultiValue<double, int> vrtIdBySortedkeyPosition = new SortedMultiValue<double, int>();

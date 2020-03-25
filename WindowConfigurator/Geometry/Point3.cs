@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WindowConfigurator.Geometry
 {
-    class Point3
+    public class Point3
     {
         public double X { get; set; }
         public double Y { get; set; }

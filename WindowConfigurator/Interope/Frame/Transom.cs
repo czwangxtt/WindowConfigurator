@@ -5,7 +5,7 @@ using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
-    class Transom : Frame
+    public class Transom : Frame
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Transom"/> class.
