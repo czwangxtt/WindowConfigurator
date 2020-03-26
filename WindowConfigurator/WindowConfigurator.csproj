@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -55,14 +58,43 @@
   <ItemGroup>
     <Compile Include="AddMullion.cs" />
     <Compile Include="AddTransom.cs" />
+    <Compile Include="Core\Mapping.cs" />
+    <Compile Include="Geometry\Coordinate.cs" />
+    <Compile Include="Geometry\Point3.cs" />
     <Compile Include="InitializeWindow.cs" />
+    <Compile Include="Input\JsonInput.cs" />
+    <Compile Include="Input\Mapping.cs" />
+    <Compile Include="Input\WindowInput.cs" />
+    <Compile Include="Interope\Field\Field.cs" />
+    <Compile Include="Interope\Field\Operability.cs" />
+    <Compile Include="Interope\Frame\Connect.cs" />
+    <Compile Include="Interope\Frame\Frame.cs" />
+    <Compile Include="Interope\Frame\Head.cs" />
+    <Compile Include="Interope\Frame\LeftJamb.cs" />
+    <Compile Include="Interope\Frame\Mullion.cs" />
+    <Compile Include="Interope\Frame\RightJamb.cs" />
+    <Compile Include="Interope\Frame\Sill.cs" />
+    <Compile Include="Interope\Frame\Transom.cs" />
+    <Compile Include="Interope\Frame\WireFrame.cs" />
+    <Compile Include="Module\Window.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="RemoveMullion.cs" />
     <Compile Include="RemoveTramsom.cs" />
+    <Compile Include="Utilities\SortedMultiValue.cs" />
     <Compile Include="WindowConfiguratorPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\plugin-utility.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Input\JsonFiles\AWS_75 _v1.json" />
+    <None Include="Input\JsonFiles\AWS_75 _v2.json" />
+    <None Include="Input\JsonFiles\AWS_75 _v3.json" />
+    <None Include="Input\JsonFiles\Comments.json" />
+    <None Include="Input\JsonFiles\FWS_60_v1.json" />
+    <None Include="Input\JsonFiles\JSON_Example1_updated.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

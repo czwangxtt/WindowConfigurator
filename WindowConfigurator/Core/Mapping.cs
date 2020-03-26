@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WindowConfiguratorCommnon.Core
+namespace WindowConfigurator.Core
 {
     class Mapping
     {

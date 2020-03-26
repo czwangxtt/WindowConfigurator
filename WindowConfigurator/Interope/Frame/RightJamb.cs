@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WindowConfiguratorCommnon.Geometry;
+using WindowConfigurator.Geometry;
 
-namespace WindowConfiguratorCommnon.Interop
+namespace WindowConfigurator.Interop
 {
     class RightJamb : Frame
     {

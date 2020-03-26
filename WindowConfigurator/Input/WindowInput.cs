@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WindowConfiguratorCommnon;
-using WindowConfiguratorCommnon.Geometry;
+using WindowConfigurator;
+using WindowConfigurator.Geometry;
 
 
-namespace WindowConfiguratorCommnon.Input
+namespace WindowConfigurator.Input
 {
 
     public class Configuration

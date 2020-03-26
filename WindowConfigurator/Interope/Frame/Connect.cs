@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using WindowConfiguratorCommnon.Geometry;
+using WindowConfigurator.Geometry;
 
-namespace WindowConfiguratorCommnon.Interop
+namespace WindowConfigurator.Interop
 {
     class Connect
     {

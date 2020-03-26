@@ -5,16 +5,15 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using WindowConfiguratorCommnon.Geometry;
-using WindowConfiguratorCommnon.Input;
-using WindowConfiguratorCommnon.Interop;
-using WindowConfiguratorCommnon.Module;
-using WindowConfiguratorCommnon.Utilities;
+using WindowConfigurator.Geometry;
+using WindowConfigurator.Input;
+using WindowConfigurator.Interop;
+using WindowConfigurator.Module;
+using WindowConfigurator.Utilities;
 
-namespace WindowConfiguratorCommnon
+namespace WindowConfigurator
 {
     
-
     class Program
     {
         

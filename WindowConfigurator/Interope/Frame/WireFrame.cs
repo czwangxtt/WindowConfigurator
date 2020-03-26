@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using WindowConfiguratorCommnon.Geometry;
-using WindowConfiguratorCommnon.Utilities;
+using WindowConfigurator.Geometry;
+using WindowConfigurator.Utilities;
 
-namespace WindowConfiguratorCommnon.Interop
+namespace WindowConfigurator.Interop
 {
     class WireFrame
     {
