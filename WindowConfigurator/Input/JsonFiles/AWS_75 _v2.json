@@ -1,0 +1,96 @@
+{
+    "configuration":
+    {
+        "systemName": "AWS 75.SI",
+        "windowHeight": 3000,
+        "windowWidth": 1500,
+        "ventDirection": "inward"
+    },
+
+
+    "windowFrameConfiguration": [
+    {
+        "profileType": "head",
+        "articleNumber": "xxx-xxx",
+        "length": "windowWidth"
+    },
+    {
+        "profileType": "sill",
+        "articleNumber": "xxx-xxx",
+        "length": "windowWidth"
+    },
+    {
+        "profileType": "jambLeft",
+        "articleNumber": "xxx-xxx",
+        "length": "windowHeight"
+    },
+    {
+        "profileType": "jambRight",
+        "articleNumber": "xxx-xxx",
+        "length": "windowHeight"
+    }],
+
+
+    "intermediateConfiguration": [
+    {
+        "intermediateProfile": "IPArticleNumber",
+        "type": "vertical",
+        "locator": "mouseClickWithinWindow"
+    },
+    {
+        "intermediateProfile": "IPArticleNumber2",
+        "type": "horizontal",
+        "locator": "mouseClickWithinWindow"
+    }],
+
+
+    "cornerConnectionConditions":
+    {
+        "miter": "profileTypeA === profileTypeB",
+        "buttJoint": "profileTypeA != profileTypeB"
+    },
+
+
+    "intermediateConnectionConditions":
+    {
+        "fabricationDrawing": "K1006449",
+        "intermediateToOuter": "notchIntermediate Outer(a)by5.5mm",
+        "intermediateToVent": "notchIntermediate Vent(a)by5.5mm",
+        "intermediatetoIntermediate": "notchIntermediate Intermediate(a)by5.5mm"
+    },
+
+
+    "operability": [
+    {
+        "operability": "turn/tilt",
+        "fieldName": "Field 0",
+        "direction": "inward",
+        "ventProfile": "xxx-xxx",
+        "reverseRebateProfile": null
+    },
+    {
+        "operability": "fixed",
+        "fieldName": "Field 1",
+        "direction": null,
+        "ventProfile": null,
+        "reverseRebateProfile": null
+    },
+    {
+        "operability": "topHung",
+        "fieldName": "Field 2",
+        "direction": "outward",
+        "ventProfile": "xxx-xxx",
+        "reverseRebateProfile": "xxx-xxx"
+    },
+    {
+        "operability": "doubleVent",
+        "fieldNameA": "Field 3",
+        "fieldNameB": "Field 4",
+        "intermediateToOmit": "intermediateProfileName",
+        "direction": "outward",
+        "ventProfile": "xxx-xxx",
+        "insertProfile": "xxx-xxx",
+        "reverseRebateProfile": "xxx-xxx"
+    }]
+
+}

@@ -8,9 +8,9 @@ using Rhino.Input.Custom;
 
 namespace WindowConfigurator
 {
-    public class WindowConfiguratorCommand : Command
+    public class InitializeWindow : Command
     {
-        public WindowConfiguratorCommand()
+        public InitializeWindow()
         {
             // Rhino only creates one instance of each command class defined in a
             // plug-in, so it is safe to store a refence in a static property.
@@ -18,7 +18,7 @@ namespace WindowConfigurator
         }
 
         ///<summary>The only instance of this command.</summary>
-        public static WindowConfiguratorCommand Instance
+        public static InitializeWindow Instance
         {
             get; private set;
         }
@@ -31,8 +31,6 @@ namespace WindowConfigurator
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-            // TODO: start here modifying the behaviour of your command.
-            // ---
             RhinoApp.WriteLine("The {0} command will create a wireframe right now.", EnglishName);
 
             double width;
@@ -74,7 +72,6 @@ namespace WindowConfigurator
             doc.Views.Redraw();
             RhinoApp.WriteLine("The {0} command created a wireframe to the window document.", EnglishName);
 
-            // ---
 
             return Result.Success;
         }

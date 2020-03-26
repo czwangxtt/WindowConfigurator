@@ -1,0 +1,36 @@
+{
+    "systemType": "%%systemType%%",
+    "boundaries": "%%systemBoundaries%%",
+
+    "framingConfiguration":
+    {
+        "profile": "%%ArticleNumber%%",
+        "type": "%%profileType%%",
+        "location": "%%coordinateOnProfile%%"
+    },
+
+    "connectionConfiguration":
+    {
+        "profileEndA": "%%endAConnection%%",
+        "profileEndB": "%%endBConnection%%"
+    },
+
+    "operabilityConfiguration":
+    {
+        "operabilityType": "%%ventOperability%%",
+        "fieldA": "%%fieldA%%",
+        "fieldB": "%%fieldB%%",
+        "openingDirection": "%%direction%%",
+        "outerProfile": "%%outerProfileArticleNumber%%",
+        "ventProfile": "%%ventProfileArticleNumber%%",
+        "insertProfile": "%%insertProfileArticleNumber%%",
+        "reverseRebateProfile": "%%reverseRebateProfileArticleNumber%%"
+    },
+
+    "glassConfiguration":
+    {
+        "fieldName": "%%glassMakeUp%%",
+        "glazingBeadArticleNumber": "%%glassDepth",
+        "steppedGlass?": "%%steppedGlassConfiguration"
+    }
+}
