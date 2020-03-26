@@ -26,45 +26,53 @@ namespace WindowConfigurator
         ///<returns>The command name as it appears on the Rhino command line.</returns>
         public override string EnglishName
         {
-            get { return "WindowConfiguratorCommand"; }
+            get { return "InitializeWindow"; }
         }
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             // TODO: start here modifying the behaviour of your command.
             // ---
-            RhinoApp.WriteLine("The {0} command will add a line right now.", EnglishName);
+            RhinoApp.WriteLine("The {0} command will create a wireframe right now.", EnglishName);
 
+            double width;
             Point3d pt0;
-            using (GetPoint getPointAction = new GetPoint())
+            Point3d pt1;
+            using (GetNumber getNumberAction = new GetNumber())
             {
-                getPointAction.SetCommandPrompt("Please select the start point");
-                if (getPointAction.Get() != GetResult.Point)
+                getNumberAction.SetCommandPrompt("Please enter the width");
+                if (getNumberAction.Get() != GetResult.Number)
                 {
-                    RhinoApp.WriteLine("No start point was selected.");
-                    return getPointAction.CommandResult();
+                    RhinoApp.WriteLine("No width was entered.");
+                    return getNumberAction.CommandResult();
                 }
-                pt0 = getPointAction.Point();
+                width = getNumberAction.Number();
+                pt0 = new Point3d(0, 0, 0);
+                pt1 = new Point3d(0, width, 0);
             }
 
-            Point3d pt1;
-            using (GetPoint getPointAction = new GetPoint())
+            double height;
+            Point3d pt2;
+            Point3d pt3;
+            using (GetNumber getNumberAction = new GetNumber())
             {
-                getPointAction.SetCommandPrompt("Please select the end point");
-                getPointAction.SetBasePoint(pt0, true);
-                getPointAction.DynamicDraw +=
-                  (sender, e) => e.Display.DrawLine(pt0, e.CurrentPoint, System.Drawing.Color.DarkRed);
-                if (getPointAction.Get() != GetResult.Point)
+                getNumberAction.SetCommandPrompt("Please enter the height");
+                if (getNumberAction.Get() != GetResult.Number)
                 {
-                    RhinoApp.WriteLine("No end point was selected.");
-                    return getPointAction.CommandResult();
+                    RhinoApp.WriteLine("No height was entered.");
+                    return getNumberAction.CommandResult();
                 }
-                pt1 = getPointAction.Point();
+                height = getNumberAction.Number();
+                pt2 = new Point3d(0, width, height);
+                pt3 = new Point3d(0, 0, height);
             }
 
             doc.Objects.AddLine(pt0, pt1);
+            doc.Objects.AddLine(pt1, pt2);
+            doc.Objects.AddLine(pt2, pt3);
+            doc.Objects.AddLine(pt3, pt0);
             doc.Views.Redraw();
-            RhinoApp.WriteLine("The {0} command added one line to the document.", EnglishName);
+            RhinoApp.WriteLine("The {0} command created a wireframe to the window document.", EnglishName);
 
             // ---
 
