@@ -63,7 +63,21 @@ namespace WindowConfigurator
                 }
             }
 
+            using (GetString getArticleNumberAction = new GetString())
+            {
+                getArticleNumberAction.SetCommandPrompt("Please input the article Number.");
+                if (getArticleNumberAction.Get() != GetResult.String)
+                {
+                    RhinoApp.WriteLine("No article number was input.");
+                    return getArticleNumberAction.CommandResult();
+                }
 
+                //TODO AddArticleNumber to Window wireframe.
+            }
+
+
+            
+            //TODO Change Window to a oberall publc static class.
             doc.Objects.AddLine(pt0, pt1);
             doc.Views.Redraw();
             RhinoApp.WriteLine("The {0} command added one mullion to the document.", EnglishName);

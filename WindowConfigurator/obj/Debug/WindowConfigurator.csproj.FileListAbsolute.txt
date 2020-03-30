@@ -4,3 +4,6 @@ D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csp
 D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csproj.CoreCompileInputs.cache
 D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.dll
 D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.pdb
+D:\GitHub\WindowConfigurator\WindowConfigurator\bin\Newtonsoft.Json.dll
+D:\GitHub\WindowConfigurator\WindowConfigurator\bin\Newtonsoft.Json.xml
+D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csproj.CopyComplete

@@ -20,11 +20,9 @@ namespace WindowConfigurator.Input
 
         public void update()
         {
-
             storage.Add("age", 12);
             storage.Add("name", "test");
             storage.Add("bmi", 24.1);
-
 
             int a = (int)storage["age"];
             string b = (string)storage["name"];

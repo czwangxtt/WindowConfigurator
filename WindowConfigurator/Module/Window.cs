@@ -29,8 +29,8 @@ namespace WindowConfigurator.Module
         /// <param name="input">Converted json input</param>
         public Window(WindowInput input)
         {
-            width = 1500;
-            height = 3000;
+            width = input.configuration.windowWidth;
+            height = input.configuration.windowHeight;
             
             wireFrame = new WireFrame(width, height);
             field = new Field(width, height);
