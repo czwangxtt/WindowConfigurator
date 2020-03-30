@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Rhino;
 using Rhino.Commands;
+using Rhino.Geometry;
+using Rhino.Input;
+using Rhino.Input.Custom;
+
 
 namespace WindowConfigurator
 {
@@ -25,7 +30,22 @@ namespace WindowConfigurator
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-            // TODO: complete command.
+            using (GetObject getObjectAction = new GetObject())
+            {
+                getObjectAction.SetCommandPrompt("Please select a mullion.");
+                if (getObjectAction.Get() != GetResult.Object)
+                {
+                    RhinoApp.WriteLine("No mullion was selected.");
+                    return getObjectAction.CommandResult();
+                }
+                doc.Objects.Delete(getObjectAction.Object(0), true, true);
+
+                //TODO AddArticleNumber to Window wireframe.
+            }
+
+            doc.Views.Redraw();
+            RhinoApp.WriteLine("The {0} command removed one mullion to the document.", EnglishName);
+
             return Result.Success;
         }
     }

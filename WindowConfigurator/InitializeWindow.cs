@@ -83,11 +83,8 @@ namespace WindowConfigurator
                 pt3 = new Point3d(0, 0, height);
             }
 
-            
 
             
-            
-
             Window window = new Window(deserializedInput);
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
