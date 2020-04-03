@@ -13,10 +13,8 @@ using WindowConfigurator.Utilities;
 
 namespace WindowConfigurator
 {
-    
     class Program
     {
-        
         static void Main(string[] args)
         {
             Stopwatch stopWatch = new Stopwatch();

@@ -65,7 +65,7 @@ namespace WindowConfigurator
 
             using (GetString getArticleNumberAction = new GetString())
             {
-                getArticleNumberAction.SetCommandPrompt("Please input the article Number.");
+                getArticleNumberAction.SetCommandPrompt("Please input the article Number");
                 if (getArticleNumberAction.Get() != GetResult.String)
                 {
                     RhinoApp.WriteLine("No article number was input.");

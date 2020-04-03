@@ -32,15 +32,19 @@ namespace WindowConfigurator
         {
             using (GetObject getObjectAction = new GetObject())
             {
-                getObjectAction.SetCommandPrompt("Please select a mullion.");
+                getObjectAction.SetCommandPrompt("Please select a mullion");
                 if (getObjectAction.Get() != GetResult.Object)
                 {
                     RhinoApp.WriteLine("No mullion was selected.");
                     return getObjectAction.CommandResult();
                 }
-                doc.Objects.Delete(getObjectAction.Object(0), true, true);
+                if (getObjectAction.Objects().Length > 1)
+                {
+                    RhinoApp.WriteLine("Please select one object each time");
+                    return getObjectAction.CommandResult();
+                }
 
-                //TODO AddArticleNumber to Window wireframe.
+                doc.Objects.Delete(getObjectAction.Object(0), true, true);
             }
 
             doc.Views.Redraw();
