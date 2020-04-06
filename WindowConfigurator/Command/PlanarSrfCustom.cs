@@ -46,16 +46,16 @@ namespace WindowConfigurator
                 getCurvesAction.SubObjectSelect = false;
                 RhinoApp.WriteLine("Two curves selected");
 
-                Brep[] planar = Brep.CreatePlanarBreps(getCurvesAction.Object(0).Curve(), doc.ModelAbsoluteTolerance);
+                Brep[] planarSurfaces = Brep.CreatePlanarBreps(getCurvesAction.Object(0).Curve(), doc.ModelAbsoluteTolerance);
 
-                Vector3d extrusionDirect = new Vector3d(0, 0, 0.25);
-                Surface extrusion = Surface.CreateExtrusion(getCurvesAction.Object(1).Curve(), extrusionDirect);
+                Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
+                Surface extrusion = Surface.CreateExtrusion(getCurvesAction.Object(1).Curve(), extrusionDirection);
 
 
-                foreach (var p in planar)
+                foreach (var planarSurface in planarSurfaces)
                 {
-                    Brep[] newp = p.Split(extrusion.ToBrep(), 0.25);
-                    doc.Objects.AddBrep(newp[0]);
+                    Brep[] splittedPlanarSurface = planarSurface.Split(extrusion.ToBrep(), 0.25);
+                    doc.Objects.AddBrep(splittedPlanarSurface[0]);
                 }
                 doc.Views.Redraw();
             }
