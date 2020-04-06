@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
+using Rhino.DocObjects;
 using Newtonsoft.Json;
 using WindowConfigurator.Input;
 using WindowConfigurator.Module;
@@ -35,6 +37,8 @@ namespace WindowConfigurator
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
+            doc.Objects.Clear();
+
             RhinoApp.WriteLine("The {0} command will create a wireframe right now.", EnglishName);
 
             RhinoApp.WriteLine("Please select a json file.");
@@ -84,7 +88,7 @@ namespace WindowConfigurator
             }
 
 
-            
+
             Window window = new Window(deserializedInput);
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;

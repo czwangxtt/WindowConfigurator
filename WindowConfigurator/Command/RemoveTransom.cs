@@ -17,7 +17,7 @@ namespace WindowConfigurator
             _instance = this;
         }
 
-        ///<summary>The only instance of the RemoveTramsom command.</summary>
+        ///<summary>The only instance of the RemoveTransom command.</summary>
         public static RemoveTransom Instance
         {
             get { return _instance; }

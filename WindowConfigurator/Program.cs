@@ -19,7 +19,7 @@ namespace WindowConfigurator
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-
+            
             string fileName = @"d:\a.json";
             string input = File.ReadAllText(fileName);
             //Console.WriteLine(input);
