@@ -196,6 +196,23 @@ namespace WindowConfigurator
             return polygons;
         }
 
+        public Curve CreateCurve(List<Point3d> points)
+        {
+            RhinoApp.WriteLine("{0} points in current polygon loaded", points.Count);
+
+            List<NurbsCurve> lines = new List<NurbsCurve>();
+
+            for (int i = 0; i < points.Count - 1; i++)
+            {
+                lines.Add(new Rhino.Geometry.Line(points[i], points[i + 1]).ToNurbsCurve());
+
+            }
+            lines.Add(new Rhino.Geometry.Line(points[points.Count - 1], points[0]).ToNurbsCurve());
+            Curve contour = Curve.JoinCurves(lines.ToArray())[0];
+
+            return contour;
+        }
+
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             RhinoApp.WriteLine("The {0} command will extrude a wireframe right now.", EnglishName);
@@ -206,27 +223,13 @@ namespace WindowConfigurator
                 return Result.Cancel;
 
             string filename = fileDialog.FileName;
-
             List<Polygon> geometry = GetGeometry(filename);
-
-            // TODO convert netdxf geometry information to RhinoCommon
-
-            //Brep[] planarSurfaces = Brep.CreatePlanarBreps(getCurvesAction.Object(0).Curve(), doc.ModelAbsoluteTolerance);
-
-            //Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
-            //Surface extrusion = Surface.CreateExtrusion(getCurvesAction.Object(1).Curve(), extrusionDirection);
-
-
-            //foreach (var planarSurface in planarSurfaces)
-            //{
-            //    Brep[] splittedPlanarSurface = planarSurface.Split(extrusion.ToBrep(), 0.25);
-            //    doc.Objects.AddBrep(splittedPlanarSurface[0]);
-            //}
-
             RhinoApp.WriteLine("{0} polygons loaded", geometry.Count);
 
-            List<Curve> curves = new List<Curve>();
+
             List<Brep> breps = new List<Brep>();
+            Curve extrusionPath = new Rhino.Geometry.Line(new Point3d(0, 0, 0), new Point3d(0, 0, 100)).ToNurbsCurve();
+            Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
 
             foreach (var polygon in geometry)
             {
@@ -238,19 +241,17 @@ namespace WindowConfigurator
                     continue;
                 }
 
-                List<NurbsCurve> lines = new List<NurbsCurve>();
+                Curve contour = CreateCurve(polygon.outCountour);
+                Brep brep = Brep.CreatePlanarBreps(contour, doc.ModelAbsoluteTolerance)[0];
 
-                for (int i = 0; i < points.Count - 1; i++)
+                foreach (var holePoints in polygon.holes)
                 {
-                    lines.Add(new Rhino.Geometry.Line(points[i], points[i + 1]).ToNurbsCurve());
-
+                    Curve holeContour = CreateCurve(holePoints);
+                    Surface splitExtrusion = Surface.CreateExtrusion(holeContour, extrusionDirection);
+                    brep = brep.Split(splitExtrusion.ToBrep(), 0.25)[0];
                 }
-                lines.Add(new Rhino.Geometry.Line(points[points.Count - 1], points[0]).ToNurbsCurve());
-                Curve[] contours = Curve.JoinCurves(lines.ToArray());
 
-                breps.Add(Brep.CreatePlanarBreps(contours[0], doc.ModelAbsoluteTolerance)[0]);
-                
-                // curves.Add(contours[0]);
+                breps.Add(brep.Faces[0].CreateExtrusion(extrusionPath, true));
             }
 
             foreach (var brep in breps)
@@ -258,10 +259,6 @@ namespace WindowConfigurator
                 doc.Objects.AddBrep(brep);
             }
 
-            //foreach (var curve in curves)
-            //{
-            //    doc.Objects.AddCurve(curve);
-            //}
             doc.Views.Redraw();
 
             return Result.Success;

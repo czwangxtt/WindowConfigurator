@@ -1,0 +1,56 @@
+{
+    "systemType": "string systemType",
+
+    "windowFrameConfiguration": [
+    {
+        "headProfile": "int headArticleNumber",
+        "length": "double windowWidth"
+    },
+    {
+        "sillProfile": "int sillArticleNumber",
+        "length": "double windowWidth"
+    },
+    {
+        "rightJambProfile": "int rightJambArticleNumber",
+        "length": "double windowHeight"
+    },
+    {
+        "leftJambProfile": "int leftJambArticleNumber",
+        "length": "double windowHeight"
+    }],
+
+
+    "intermediateConfiguration": [
+    {
+        "intermediateProfile": "int intermediateArticleNumber",
+        "intermediateDirection": "bollean intermediateDirection",
+        "locator": "Point coordinateOnIntermediate"
+    }],
+
+  "connectionConfiguration": [
+    {
+      "id": "int id",
+      "connectType": "string connectType",
+      "position": "Point position",
+      "connectFrameId": "int id"
+    }
+  ],
+
+    "operabilityConfiguration": [
+    {
+        "operabilityType": "string ventOperability",
+        "fieldA": "Field fieldA",
+        "fieldB": "Field fieldB",
+        "openingDirection": "boolean direction",
+        "ventProfile": "int ventProfileArticleNumber",
+        "insertProfile": "int insertProfileArticleNumber",
+        "reverseRebateProfile": "int reverseRebateProfileArticleNumber"
+    }],
+
+    "glassConfiguration": [
+    {
+        "fieldName":"string glassMakeUp",
+        "glazingBeadArticleNumber":"int glassDepth",
+        "isSteppedGlass?":"boolean steppedGlassConfiguration"
+    }]
+}
