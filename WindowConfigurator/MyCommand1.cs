@@ -26,6 +26,13 @@ namespace WindowConfigurator
     {
         public List<Point3d> outCountour { get; set; }
         public List<List<Point3d>> holes { get; set; }
+
+        public Polygon()
+        {
+            outCountour = new List<Point3d>();
+            holes = new List<List<Point3d>>();
+        }
+
         public void AddContour(List<Point3d> countour, Boolean isHole)
         {
             if (isHole)
@@ -202,6 +209,39 @@ namespace WindowConfigurator
 
             List<Polygon> geometry = GetGeometry(filename);
 
+            // TODO convert netdxf geometry information to RhinoCommon
+
+
+            //Brep[] planarSurfaces = Brep.CreatePlanarBreps(getCurvesAction.Object(0).Curve(), doc.ModelAbsoluteTolerance);
+
+            //Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
+            //Surface extrusion = Surface.CreateExtrusion(getCurvesAction.Object(1).Curve(), extrusionDirection);
+
+
+            //foreach (var planarSurface in planarSurfaces)
+            //{
+            //    Brep[] splittedPlanarSurface = planarSurface.Split(extrusion.ToBrep(), 0.25);
+            //    doc.Objects.AddBrep(splittedPlanarSurface[0]);
+            //}
+
+            List <Point3d> points = new List<Point3d>();
+            points.Add(new Point3d(0, 0, 0));
+            points.Add(new Point3d(0, 100, 0));
+            points.Add(new Point3d(100, 100, 0));
+            points.Add(new Point3d(100, 0, 0));
+            points.Add(new Point3d(0, 0, 0));
+
+            List<Rhino.Geometry.NurbsCurve> lines = new List<Rhino.Geometry.NurbsCurve>();
+            for(int i = 0; i < points.Count - 1; i++)
+            {
+                lines.Add(new Rhino.Geometry.Line(points[i], points[i + 1]).ToNurbsCurve());
+            }
+            lines.Add(new Rhino.Geometry.Line(points[points.Count - 1], points[0]).ToNurbsCurve());
+            Curve[] curves = Curve.JoinCurves(lines.ToArray());
+            doc.Objects.AddCurve(curves[0]);
+
+
+            doc.Views.Redraw();
 
             return Result.Success;
         }

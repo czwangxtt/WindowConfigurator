@@ -7,3 +7,5 @@ D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.pdb
 D:\GitHub\WindowConfigurator\WindowConfigurator\bin\Newtonsoft.Json.dll
 D:\GitHub\WindowConfigurator\WindowConfigurator\bin\Newtonsoft.Json.xml
 D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csproj.CopyComplete
+D:\GitHub\WindowConfigurator\WindowConfigurator\bin\netDxf.dll
+D:\GitHub\WindowConfigurator\WindowConfigurator\bin\netDxf.xml

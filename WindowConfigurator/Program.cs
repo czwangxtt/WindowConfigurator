@@ -15,7 +15,7 @@ namespace WindowConfigurator
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -36,9 +36,10 @@ namespace WindowConfigurator
             Window.wireFrame.removeIntermediate(t1);
             Window.wireFrame.removeIntermediate(t2);
 
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.NullValueHandling = NullValueHandling.Ignore;
-            serializer.NullValueHandling = NullValueHandling.Ignore;
+            JsonSerializer serializer = new JsonSerializer
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
 
             using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
             using (JsonWriter writer = new JsonTextWriter(sw))
