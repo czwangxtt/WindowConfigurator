@@ -15,10 +15,7 @@ using netDxf;
 using netDxf.Blocks;
 using netDxf.Collections;
 using netDxf.Entities;
-using netDxf.Header;
-using netDxf.Objects;
-using netDxf.Tables;
-using netDxf.Units;
+
 
 namespace WindowConfigurator
 {
@@ -27,11 +24,13 @@ namespace WindowConfigurator
         public List<Point3d> outCountour { get; set; }
         public List<List<Point3d>> holes { get; set; }
 
+
         public Polygon()
         {
             outCountour = new List<Point3d>();
             holes = new List<List<Point3d>>();
         }
+
 
         public void AddContour(List<Point3d> countour, Boolean isHole)
         {
@@ -45,6 +44,7 @@ namespace WindowConfigurator
             }
         }
     }
+
 
     public class MyCommand1 : Command
     {
@@ -180,7 +180,7 @@ namespace WindowConfigurator
 
                             bool isHole = true;
                             // Check if is hole
-                            if (blockNumber == 0 || blockNumber == 1)
+                            if (blockNumber > -1)
                             {
                                 if (pathNumber == 0)
                                 {
@@ -211,7 +211,6 @@ namespace WindowConfigurator
 
             // TODO convert netdxf geometry information to RhinoCommon
 
-
             //Brep[] planarSurfaces = Brep.CreatePlanarBreps(getCurvesAction.Object(0).Curve(), doc.ModelAbsoluteTolerance);
 
             //Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
@@ -224,23 +223,45 @@ namespace WindowConfigurator
             //    doc.Objects.AddBrep(splittedPlanarSurface[0]);
             //}
 
-            List <Point3d> points = new List<Point3d>();
-            points.Add(new Point3d(0, 0, 0));
-            points.Add(new Point3d(0, 100, 0));
-            points.Add(new Point3d(100, 100, 0));
-            points.Add(new Point3d(100, 0, 0));
-            points.Add(new Point3d(0, 0, 0));
+            RhinoApp.WriteLine("{0} polygons loaded", geometry.Count);
 
-            List<Rhino.Geometry.NurbsCurve> lines = new List<Rhino.Geometry.NurbsCurve>();
-            for(int i = 0; i < points.Count - 1; i++)
+            List<Curve> curves = new List<Curve>();
+            List<Brep> breps = new List<Brep>();
+
+            foreach (var polygon in geometry)
             {
-                lines.Add(new Rhino.Geometry.Line(points[i], points[i + 1]).ToNurbsCurve());
+                List<Point3d> points = polygon.outCountour;
+                RhinoApp.WriteLine("{0} points in current polygon loaded", points.Count);
+                if (points.Count < 1)
+                {
+                    RhinoApp.WriteLine("Error: polygon must contain at least one point");
+                    continue;
+                }
+
+                List<NurbsCurve> lines = new List<NurbsCurve>();
+
+                for (int i = 0; i < points.Count - 1; i++)
+                {
+                    lines.Add(new Rhino.Geometry.Line(points[i], points[i + 1]).ToNurbsCurve());
+
+                }
+                lines.Add(new Rhino.Geometry.Line(points[points.Count - 1], points[0]).ToNurbsCurve());
+                Curve[] contours = Curve.JoinCurves(lines.ToArray());
+
+                breps.Add(Brep.CreatePlanarBreps(contours[0], doc.ModelAbsoluteTolerance)[0]);
+                
+                // curves.Add(contours[0]);
             }
-            lines.Add(new Rhino.Geometry.Line(points[points.Count - 1], points[0]).ToNurbsCurve());
-            Curve[] curves = Curve.JoinCurves(lines.ToArray());
-            doc.Objects.AddCurve(curves[0]);
 
+            foreach (var brep in breps)
+            {
+                doc.Objects.AddBrep(brep);
+            }
 
+            //foreach (var curve in curves)
+            //{
+            //    doc.Objects.AddCurve(curve);
+            //}
             doc.Views.Redraw();
 
             return Result.Success;
