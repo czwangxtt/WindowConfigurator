@@ -228,6 +228,9 @@ namespace WindowConfigurator
 
 
             List<Brep> breps = new List<Brep>();
+
+
+            // Two variables to be replaced.
             Curve extrusionPath = new Rhino.Geometry.Line(new Point3d(0, 0, 0), new Point3d(0, 0, 100)).ToNurbsCurve();
             Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
 

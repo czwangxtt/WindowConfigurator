@@ -35,5 +35,11 @@ namespace WindowConfigurator.Module
             wireFrame = new WireFrame(width, height);
             field = new Field(width, height);
         }
+
+        public Window(double width, double height)
+        {
+            wireFrame = new WireFrame(width, height);
+            field = new Field(width, height);
+        }
     }
 }

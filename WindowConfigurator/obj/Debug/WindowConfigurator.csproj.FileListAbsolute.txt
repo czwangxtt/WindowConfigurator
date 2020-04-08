@@ -9,3 +9,14 @@ D:\GitHub\WindowConfigurator\WindowConfigurator\bin\Newtonsoft.Json.xml
 D:\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csproj.CopyComplete
 D:\GitHub\WindowConfigurator\WindowConfigurator\bin\netDxf.dll
 D:\GitHub\WindowConfigurator\WindowConfigurator\bin\netDxf.xml
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\bin\WindowConfigurator.dll
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\bin\WindowConfigurator.pdb
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\bin\netDxf.dll
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\bin\Newtonsoft.Json.dll
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\bin\netDxf.xml
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\bin\Newtonsoft.Json.xml
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csprojAssemblyReference.cache
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csproj.CoreCompileInputs.cache
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csproj.CopyComplete
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.dll
+C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.pdb

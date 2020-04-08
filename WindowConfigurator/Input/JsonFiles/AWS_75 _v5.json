@@ -3,19 +3,19 @@
 
     "windowFrameConfiguration": [
     {
-        "headProfile": "int headArticleNumber",
+        "Profile": "int headArticleNumber",
         "length": "double windowWidth"
     },
     {
-        "sillProfile": "int sillArticleNumber",
+        "Profile": "int sillArticleNumber",
         "length": "double windowWidth"
     },
     {
-        "rightJambProfile": "int rightJambArticleNumber",
+        "Profile": "int rightJambArticleNumber",
         "length": "double windowHeight"
     },
     {
-        "leftJambProfile": "int leftJambArticleNumber",
+        "Profile": "int leftJambArticleNumber",
         "length": "double windowHeight"
     }],
 
