@@ -7,29 +7,9 @@ namespace WindowConfigurator.Input
 {
     class WindowFrameConfiguration
     {
+        public string profile { get; set; }
         public string length { get; set; }
-        public string headProfile { get; set; }
     }
-
-    //class HeadProfile : WindowFrameConfiguration
-    //{
-    //    public string headProfile { get; set; }
-    //}
-
-    //class SillProfile : WindowFrameConfiguration
-    //{
-    //    public string sillProfile { get; set; }
-    //}
-
-    //class RightJambProfile : WindowFrameConfiguration
-    //{
-    //    public string rightJamb { get; set; }
-    //}
-
-    //class LeftJambProfile : WindowFrameConfiguration
-    //{
-    //    public string leftJamb { get; set; }
-    //}
 
 
     class IntermediateConfiguration
@@ -41,8 +21,9 @@ namespace WindowConfigurator.Input
 
     class ConnectionConfiguration
     {
-        public string profileEndA { get; set; }
-        public string profileEndB { get; set; }
+        public string connectType { get; set; }
+        public string position { get; set; }
+        public string connectFrameId { get; set; }
     }
 
     class OperabilityConfiguration
@@ -67,19 +48,19 @@ namespace WindowConfigurator.Input
     {
         public string systemType { get; set; }
 
-        [JsonProperty("windowFrameConfiguration")]
+        [JsonProperty("windowFrameConfigurations")]
         public List<WindowFrameConfiguration> windowFrameConfigurations { get; set; }
 
         [JsonProperty("intermediateConfigurations")]
         public List<IntermediateConfiguration> intermediateConfigurations { get; set; }
 
-        [JsonProperty("connectionConfiguration")]
+        [JsonProperty("connectionConfigurations")]
         public List<ConnectionConfiguration> connectionConfigurations { get; set; }
 
-        [JsonProperty("operabilityConfiguration")]
+        [JsonProperty("operabilityConfigurations")]
         public List<OperabilityConfiguration> operabilityConfigurations { get; set; }
 
-        [JsonProperty("glassConfiguration")]
+        [JsonProperty("glassConfigurations")]
         public List<GlassConfiguration> glassConfigurations { get; set; }
     }
 }

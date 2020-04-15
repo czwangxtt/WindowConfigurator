@@ -48,7 +48,7 @@ namespace WindowConfigurator
 
             string fileName = fd.FileName;
             string input = File.ReadAllText(fileName);
-            WindowInput deserializedInput = JsonConvert.DeserializeObject<WindowInput>(input);
+            JsonInput deserializedInput = JsonConvert.DeserializeObject<JsonInput>(input);
 
 
             double width;
@@ -63,7 +63,7 @@ namespace WindowConfigurator
                     return getNumberAction.CommandResult();
                 }
                 width = getNumberAction.Number();
-                deserializedInput.configuration.windowWidth = width;
+                //deserializedInput.configuration.windowWidth = width;
 
                 pt0 = new Point3d(0, 0, 0);
                 pt1 = new Point3d(0, width, 0);
@@ -81,7 +81,7 @@ namespace WindowConfigurator
                     return getNumberAction.CommandResult();
                 }
                 height = getNumberAction.Number();
-                deserializedInput.configuration.windowHeight = height;
+                //deserializedInput.configuration.windowHeight = height;
 
                 pt2 = new Point3d(0, width, height);
                 pt3 = new Point3d(0, 0, height);
@@ -89,12 +89,12 @@ namespace WindowConfigurator
 
 
 
-            Window window = new Window(deserializedInput);
+            Window window = new Window(width, height);
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
             serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(@"d:\c.json"))
+            using (StreamWriter sw = new StreamWriter(@"C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\Output\output.json"))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, window);

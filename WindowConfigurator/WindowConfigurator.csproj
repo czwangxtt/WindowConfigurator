@@ -64,6 +64,7 @@
     <Compile Include="Geometry\Coordinate.cs" />
     <Compile Include="Geometry\Point3.cs" />
     <Compile Include="Command\InitializeWindow.cs" />
+    <Compile Include="Input\AssignedJsonInput.cs" />
     <Compile Include="Input\JsonInput.cs" />
     <Compile Include="Input\Mapping.cs" />
     <Compile Include="Input\WindowInput.cs" />
@@ -98,6 +99,7 @@
     <None Include="Input\JsonFiles\Comments.json" />
     <None Include="Input\JsonFiles\FWS_60_v1.json" />
     <None Include="Input\JsonFiles\JSON_Example1_updated.json" />
+    <None Include="Output\output.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

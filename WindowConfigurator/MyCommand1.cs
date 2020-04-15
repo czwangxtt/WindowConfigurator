@@ -245,6 +245,7 @@ namespace WindowConfigurator
             List<Brep> breps = new List<Brep>();
 
 
+
             //List<Point3d> points1 = new List<Point3d>();
             //points1.Add(new Point3d(0, 0, 0));
             //points1.Add(new Point3d(0, 0, 3000));
@@ -254,6 +255,7 @@ namespace WindowConfigurator
             //Curve nc = CreateCurve(points1);
 
             Curve extrusionPath = new Rhino.Geometry.Line(new Point3d(0, 0, 0), new Point3d(0, 0, 1000)).ToNurbsCurve();
+
             Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
 
             foreach (var polygon in geometry)
