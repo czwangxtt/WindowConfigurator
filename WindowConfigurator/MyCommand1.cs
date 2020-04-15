@@ -278,7 +278,7 @@ namespace WindowConfigurator
                     brep = brep.Split(splitExtrusion.ToBrep(), 0.25)[0];
                 }
 
-//breps.Add(brep.Faces[0].CreateExtrusion(nc, true));
+                //breps.Add(brep.Faces[0].CreateExtrusion(nc, true));
                 breps.Add(brep.Faces[0].CreateExtrusion(extrusionPath, true));
             }
 
