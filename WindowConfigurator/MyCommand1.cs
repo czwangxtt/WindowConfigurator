@@ -100,6 +100,7 @@ namespace WindowConfigurator
             // loop over all relevant blacks and store the hatch boundaries
             foreach (var bl in dxfTest.Blocks)
             {
+                RhinoApp.WriteLine("The x location {0} ", bl.Origin.X);
                 // loop over the enteties in the block and decompose them if they belong to an aluminum layer
                 foreach (var ent in bl.Entities)
                 {
@@ -120,9 +121,22 @@ namespace WindowConfigurator
                             // Store the contour
                             for (int i = 0; i < bPath.Edges.Count; i++)
                             {
+                                RhinoApp.WriteLine(bPath.Edges[i].Type.ToString().ToLower());
                                 switch (bPath.Edges[i].Type.ToString().ToLower())
                                 {
+                                    case "polyline":
+                                        var myPolyline = (HatchBoundaryPath.Polyline)bPath.Edges[i];
+                                        foreach (var vertex in myPolyline.Vertexes)
+                                        {
+                                            var vPolyline = new Point3d();
+                                            vPolyline.X = vertex.X;
+                                            vPolyline.Y = vertex.Y;
+                                            contour.Add(vPolyline);
+                                        }
+                                        break;
+
                                     case "line":
+                                        
                                         var myLine = (HatchBoundaryPath.Line)bPath.Edges[i];
                                         var vLine = new Point3d();
                                         vLine.X = myLine.Start.X;
@@ -175,6 +189,7 @@ namespace WindowConfigurator
                                             contour.Add(vEllipse);
                                         }
                                         break;
+
                                 }
                             }
 
@@ -228,7 +243,17 @@ namespace WindowConfigurator
 
 
             List<Brep> breps = new List<Brep>();
-            Curve extrusionPath = new Rhino.Geometry.Line(new Point3d(0, 0, 0), new Point3d(0, 0, 100)).ToNurbsCurve();
+
+
+            //List<Point3d> points1 = new List<Point3d>();
+            //points1.Add(new Point3d(0, 0, 0));
+            //points1.Add(new Point3d(0, 0, 3000));
+            ////points1.Add(new Point3d(0, 1500, 3000));
+            ////points1.Add(new Point3d(0, 1500, 0));
+            ////points1.Add(new Point3d(0, 0, 0));
+            //Curve nc = CreateCurve(points1);
+
+            Curve extrusionPath = new Rhino.Geometry.Line(new Point3d(0, 0, 0), new Point3d(0, 0, 1000)).ToNurbsCurve();
             Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
 
             foreach (var polygon in geometry)
@@ -251,6 +276,7 @@ namespace WindowConfigurator
                     brep = brep.Split(splitExtrusion.ToBrep(), 0.25)[0];
                 }
 
+//breps.Add(brep.Faces[0].CreateExtrusion(nc, true));
                 breps.Add(brep.Faces[0].CreateExtrusion(extrusionPath, true));
             }
 
