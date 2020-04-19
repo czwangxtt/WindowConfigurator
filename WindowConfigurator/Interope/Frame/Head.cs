@@ -5,7 +5,7 @@ using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
-    class  Head : Frame
+    public class  Head : Frame
     {
         /// <summary>
         /// Initializes a new instance of th e<see cref="Head"/> class.

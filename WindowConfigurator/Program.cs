@@ -30,11 +30,11 @@ namespace WindowConfigurator
             Transom t1 = new Transom(new Point3(0, 0, 1000), new Point3(0, 1500, 1000));
             Transom t2 = new Transom(new Point3(0, 0, 2000), new Point3(0, 1500, 2000));
             Mullion m1 = new Mullion(new Point3(0, 750, 1000), new Point3(0, 750, 2000));
-            Window.wireFrame.addIntermediate(t1);
-            Window.wireFrame.addIntermediate(t2);
-            Window.wireFrame.addIntermediate(m1);
-            Window.wireFrame.removeIntermediate(t1);
-            Window.wireFrame.removeIntermediate(t2);
+            window.wireFrame.addIntermediate(t1);
+            window.wireFrame.addIntermediate(t2);
+            window.wireFrame.addIntermediate(m1);
+            window.wireFrame.removeIntermediate(t1);
+            window.wireFrame.removeIntermediate(t2);
 
             JsonSerializer serializer = new JsonSerializer
             {

@@ -5,7 +5,7 @@ using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
-    class RightJamb : Frame
+    public class RightJamb : Frame
     {
         /// <summary>
         /// Initializes a new instance of th e<see cref="RightJamb"/> class.

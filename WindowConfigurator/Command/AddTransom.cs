@@ -5,6 +5,8 @@ using Rhino.Commands;
 using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
+using WindowConfigurator.Geometry;
+using WindowConfigurator.Interop;
 
 namespace WindowConfigurator
 {
@@ -75,8 +77,13 @@ namespace WindowConfigurator
                 //TODO AddArticleNumber to Window wireframe.
             }
 
-            doc.Objects.AddLine(pt0, pt1);
+
+            Guid guid = doc.Objects.AddLine(pt0, pt1);
+            Mullion transom = new Mullion(new Point3(pt0.X, pt0.Y, pt0.Z), new Point3(pt1.X, pt1.Y, pt1.Z), guid);
+            InitializeWindow.window.wireFrame.addIntermediate(transom);
+
             doc.Views.Redraw();
+
             RhinoApp.WriteLine("The {0} command added one transom to the document.", EnglishName);
 
             return Result.Success;

@@ -128,9 +128,13 @@ namespace WindowConfigurator
                                         var myPolyline = (HatchBoundaryPath.Polyline)bPath.Edges[i];
                                         foreach (var vertex in myPolyline.Vertexes)
                                         {
+                                            
                                             var vPolyline = new Point3d();
-                                            vPolyline.X = vertex.X;
                                             vPolyline.Y = vertex.Y;
+                                            if (vertex.X < 0)
+                                                vPolyline.X = -vertex.X;
+                                            else
+                                                vPolyline.X = vertex.X;
                                             contour.Add(vPolyline);
                                         }
                                         break;

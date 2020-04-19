@@ -23,6 +23,8 @@ namespace WindowConfigurator
             Instance = this;
         }
 
+        public static Window window { get; set; }
+
         ///<summary>The only instance of this command.</summary>
         public static InitializeWindow Instance
         {
@@ -87,14 +89,12 @@ namespace WindowConfigurator
                 pt3 = new Point3d(0, 0, height);
             }
 
+            window = new Window(width, height);
 
-
-            Window window = new Window(width, height);
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
-            serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(@"C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\Output\output.json"))
+            using (StreamWriter sw = new StreamWriter(@"D:\GitHub\WindowConfigurator\WindowConfigurator\Output\output.json"))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, window);
@@ -108,6 +108,10 @@ namespace WindowConfigurator
             doc.Objects.AddLine(pt2, pt3);
             doc.Objects.AddLine(pt3, pt0);
             doc.Views.Redraw();
+
+            
+
+
             RhinoApp.WriteLine("The {0} command created a wireframe to the window document.", EnglishName);
 
 

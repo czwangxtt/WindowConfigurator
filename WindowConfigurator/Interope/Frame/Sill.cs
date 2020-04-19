@@ -5,7 +5,7 @@ using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
-    class  Sill : Frame
+    public class Sill : Frame
     {
         /// <summary>
         /// Initializes a new instance of th e<see cref="Sill"/> class.

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WindowConfigurator.Interop
 {
-    class Field
+    public class Field
     {
         public Dictionary<int, List<int>> fields = new Dictionary<int, List<int>>();
 

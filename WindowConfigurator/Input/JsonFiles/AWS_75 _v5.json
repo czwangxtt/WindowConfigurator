@@ -2,20 +2,16 @@
     "systemType": "string systemType",
 
     "windowFrameConfiguration": [
-    {
-        "Profile": "int headArticleNumber",
+    {              
         "length": "double windowWidth"
     },
     {
-        "Profile": "int sillArticleNumber",
         "length": "double windowWidth"
     },
     {
-        "Profile": "int rightJambArticleNumber",
         "length": "double windowHeight"
     },
     {
-        "Profile": "int leftJambArticleNumber",
         "length": "double windowHeight"
     }],
 

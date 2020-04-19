@@ -8,19 +8,19 @@ using Newtonsoft.Json;
 
 namespace WindowConfigurator.Module
 {
-    class Window
+    public class Window
     {
         [JsonProperty]
-        public static double width { get; set; }
+        public double width { get; set; }
 
         [JsonProperty]
-        public static double height { get; set; }
+        public double height { get; set; }
 
         [JsonProperty]
-        public static WireFrame wireFrame { get; set; }
+        public WireFrame wireFrame { get; set; }
 
         [JsonProperty]
-        public static Field field { get; set; }
+        public Field field { get; set; }
 
 
         /// <summary>

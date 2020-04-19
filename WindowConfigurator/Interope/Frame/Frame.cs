@@ -6,10 +6,11 @@ using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
-    class Frame
+    public class Frame
     {
         #region Properties
         public int id { get; protected set; }
+        public Guid guid { get; set; }
         public string type { get; set; }
         public Point3 startPoint { get; set; }
         public Point3 endPoint { get; set; }

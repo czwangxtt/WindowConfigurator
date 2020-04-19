@@ -29,7 +29,7 @@ namespace WindowConfigurator.Input
     //TODO: Remove redundant class
     //TODO: Add input class to handle intermediate
 
-    class WindowInput
+    public class WindowInput
     {
         public Configuration configuration { get; set; }
         public WindowFrameProfiles windowFrameProfiles { get; set; }

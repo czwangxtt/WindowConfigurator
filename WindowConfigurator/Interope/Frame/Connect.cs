@@ -6,7 +6,7 @@ using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Interop
 {
-    class Connect
+    public class Connect
     {
         public int id { get; set; }
         public string connectType { get; set; }
