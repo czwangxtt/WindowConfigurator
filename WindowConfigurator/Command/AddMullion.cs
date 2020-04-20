@@ -78,7 +78,21 @@ namespace WindowConfigurator
             }
 
             Guid guid = doc.Objects.AddLine(pt0, pt1);
-            Mullion mullion = new Mullion(new Point3(pt0.X, pt0.Y, pt0.Z), new Point3(pt1.X, pt1.Y, pt1.Z), guid);
+
+            Point3 p0;
+            Point3 p1;
+            if (pt0.Z < pt1.Z)
+            {
+                p0 = new Point3(pt0.X, pt0.Y, pt0.Z);
+                p1 = new Point3(pt1.X, pt1.Y, pt1.Z);
+            }
+            else
+            {
+                p0 = new Point3(pt1.X, pt1.Y, pt1.Z);
+                p1 = new Point3(pt0.X, pt0.Y, pt0.Z);
+            }
+
+            Mullion mullion = new Mullion(p0, p1, guid);
             InitializeWindow.window.wireFrame.addIntermediate(mullion);
 
 
