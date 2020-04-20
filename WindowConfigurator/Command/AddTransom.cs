@@ -79,7 +79,7 @@ namespace WindowConfigurator
 
 
             Guid guid = doc.Objects.AddLine(pt0, pt1);
-            Mullion transom = new Mullion(new Point3(pt0.X, pt0.Y, pt0.Z), new Point3(pt1.X, pt1.Y, pt1.Z), guid);
+            Transom transom = new Transom(new Point3(pt0.X, pt0.Y, pt0.Z), new Point3(pt1.X, pt1.Y, pt1.Z), guid);
             InitializeWindow.window.wireFrame.addIntermediate(transom);
 
             doc.Views.Redraw();

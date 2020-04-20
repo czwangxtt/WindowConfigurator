@@ -12,6 +12,8 @@ namespace WindowConfigurator.Interop
         private SortedMultiValue<double, int> horzIdBySortedkeyPosition = new SortedMultiValue<double, int>();
         private SortedMultiValue<double, int> vrtIdBySortedkeyPosition = new SortedMultiValue<double, int>();
         private List<Frame> _frames = new List<Frame>();
+        private Dictionary<Guid, Transom> transomByGuid = new Dictionary<Guid, Transom>();
+        private Dictionary<Guid, Mullion> mullionByGuid = new Dictionary<Guid, Mullion>();
 
 
         /// <summary>
@@ -59,6 +61,16 @@ namespace WindowConfigurator.Interop
         public SortedMultiValue<double, int> vFrames
         {
             get { return vrtIdBySortedkeyPosition; }
+        }
+
+        public Transom GetTransomByGuid(Guid guid)
+        {
+            return transomByGuid[guid];
+        }
+
+        public Mullion GetMullionByGuid(Guid guid)
+        {
+            return mullionByGuid[guid];
         }
 
 
@@ -111,6 +123,7 @@ namespace WindowConfigurator.Interop
         /// <param name="transom">the new transom object</param>
         public void addIntermediate(Transom transom)
         {
+            transomByGuid[transom.guid] = transom;
             _frames.Add(transom);
             horzIdBySortedkeyPosition.Add(transom.keyPosition, transom.id);
             UpdateConnection(transom);
@@ -123,6 +136,7 @@ namespace WindowConfigurator.Interop
         /// <param name="mullion">the new mullion object</param>
         public void addIntermediate(Mullion mullion)
         {
+            mullionByGuid[mullion.guid] = mullion;
             _frames.Add(mullion);
             vrtIdBySortedkeyPosition.Add(mullion.keyPosition, mullion.id);
             UpdateConnection(mullion);
@@ -133,8 +147,10 @@ namespace WindowConfigurator.Interop
         /// Removes transom from the frames and extends all mullions ending at that transom to the next one.
         /// </summary>
         /// <param name="transom">the transom need to be removed</param>
-        public void removeIntermediate(Transom transom)
+        public List<Guid> removeIntermediate(Transom transom)
         {
+            List<Guid> updatedMullion = new List<Guid>();
+
             int removeId = transom.id;
             foreach (var frame in _frames)
             {
@@ -151,16 +167,27 @@ namespace WindowConfigurator.Interop
             int horzTransomIndex = horzIdBySortedkeyPosition.IndexOf(transom.id);
             foreach (var mullionId in vrtIdBySortedkeyPosition)
             {
-                if (_frames[mullionId].startPoint.Z == transom.keyPosition)
-                    _frames[mullionId].startPoint.Z = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex - 1)].keyPosition;
-                else if (_frames[mullionId].endPoint.Z == transom.keyPosition)
-                    _frames[mullionId].endPoint.Z = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex + 1)].keyPosition;
+                Frame frame = _frames[mullionId];
+
+                if (frame.startPoint.Z == transom.keyPosition)
+                {
+                    frame.startPoint.Z = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex - 1)].keyPosition;
+                    updatedMullion.Add(frame.guid);
+                }
+                else if (frame.endPoint.Z == transom.keyPosition)
+                {
+                    frame.endPoint.Z = _frames[horzIdBySortedkeyPosition.ElementAt(horzTransomIndex + 1)].keyPosition;
+                    updatedMullion.Add(frame.guid);
+                }
+                    
             }
 
             horzIdBySortedkeyPosition.Remove(transom.keyPosition, transom.id);
             transom.isVisible = false;
             //intermediate should not been removed since the user may want to redo it.
             //_frames.Remove(transom); 
+
+            return updatedMullion;
         }
 
 
@@ -168,8 +195,11 @@ namespace WindowConfigurator.Interop
         /// Removes mullion from the frames and extends all transoms ending at that mullion to the next one.
         /// </summary>
         /// <param name="mullion">the mullion need to be removed</param>
-        public void removeIntermediate(Mullion mullion)
+        public List<Guid> removeIntermediate(Mullion mullion)
         {
+            List<Guid> updatedTransom = new List<Guid>();
+
+
             int removeId = mullion.id;
             foreach (var frame in _frames)
             {
@@ -186,18 +216,26 @@ namespace WindowConfigurator.Interop
             int vrtTransomIndex = vrtIdBySortedkeyPosition.IndexOf(mullion.id);
             foreach (var transomId in horzIdBySortedkeyPosition)
             {
+                Frame frame = _frames[transomId];
+                if (frame.startPoint.Y == mullion.keyPosition)
                 {
-                    if (_frames[transomId].startPoint.Y == mullion.keyPosition)
-                        _frames[transomId].startPoint.Y = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex - 1)].keyPosition;
-                    else if (_frames[transomId].endPoint.Y == mullion.keyPosition)
-                        _frames[transomId].endPoint.Y = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
+                    frame.startPoint.Y = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex - 1)].keyPosition;
+                    updatedTransom.Add(frame.guid);
                 }
-
+                else if (frame.endPoint.Y == mullion.keyPosition)
+                {
+                    frame.endPoint.Y = _frames[vrtIdBySortedkeyPosition.ElementAt(vrtTransomIndex + 1)].keyPosition;
+                    updatedTransom.Add(frame.guid);
+                }
+                    
+                
             }
-            horzIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
+            vrtIdBySortedkeyPosition.Remove(mullion.keyPosition, mullion.id);
             mullion.isVisible = false;
             //intermediate should not been removed since the user may want to redo it.
             //_frames.Remove(mullion);
+
+            return updatedTransom;
         }
     }
 }

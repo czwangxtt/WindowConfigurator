@@ -6,7 +6,7 @@ using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
 using Rhino.DocObjects;
-
+using WindowConfigurator.Interop;
 
 namespace WindowConfigurator
 {
@@ -32,7 +32,7 @@ namespace WindowConfigurator
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             Guid objGuid;
-            ObjRef mullion;
+            ObjRef mullionRef;
 
             using (GetObject getObjectAction = new GetObject())
             {
@@ -48,13 +48,24 @@ namespace WindowConfigurator
                     RhinoApp.WriteLine("Please select one object each time");
                     return getObjectAction.CommandResult();
                 }
-                mullion = getObjectAction.Object(0);
+                mullionRef = getObjectAction.Object(0);
                 objGuid = getObjectAction.Object(0).ObjectId;
                 
             }
 
+            Mullion mullion = InitializeWindow.window.wireFrame.GetMullionByGuid(objGuid);
+            List<Guid> updatedTransom = InitializeWindow.window.wireFrame.removeIntermediate(mullion);
 
-            doc.Objects.Delete(mullion, true, true);
+            foreach (var guid in updatedTransom)
+            {
+                Transom transom = InitializeWindow.window.wireFrame.GetTransomByGuid(guid);
+                Point3d pt0 = new Point3d(transom.startPoint.X, transom.startPoint.Y, transom.startPoint.Z);
+                Point3d pt1 = new Point3d(transom.endPoint.X, transom.endPoint.Y, transom.endPoint.Z);
+                Line newTransom = new Line(pt0, pt1);
+                doc.Objects.Replace(guid, newTransom);
+            }
+
+            doc.Objects.Delete(mullionRef, true, true);
             doc.Views.Redraw();
             RhinoApp.WriteLine("The {0} command removed one mullion to the document.", EnglishName);
 
