@@ -56,6 +56,7 @@ WindowConfigurator pulgin refer to the Json.net library to load and process the 
 The WindowConfigurator canbe compiled to the rhp plugin for Rhino.
 - Install RhinioCommon following the instuction at https://developer.rhino3d.com/guides/rhinocommon/your-first-plugin-windows/
 - Run and compile the WindowConfigurator source code then a rhp plugin will be generated under ~/WindowConfigurator/bin and Rhino should start automatically.
+- Find rhp plugin in ~/WindowConfigurator/WindowConfigurator/bin/
 - Install the rhp plugin in Rhino PluginManager.
 
 
