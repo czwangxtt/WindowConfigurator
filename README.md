@@ -67,16 +67,4 @@ Specific people to contact about this project:
 * David Rutten - https://github.com/DavidRutten
 * Giulio Piacentino - https://github.com/piac
 
-Legal Stuff
------------
-Copyright (c) 2020 The Virtual Construction Lab of Schuco. All Rights Reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
-Software.
-
-THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY. ALL IMPLIED
-WARRANTIES OF FITNESS FOR ANY PARTICULAR PURPOSE AND OF MERCHANTABILITY ARE HEREBY
-DISCLAIMED.
