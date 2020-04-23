@@ -224,7 +224,6 @@ namespace WindowConfigurator
             for (int i = 0; i < points.Count - 1; i++)
             {
                 lines.Add(new Rhino.Geometry.Line(points[i], points[i + 1]).ToNurbsCurve());
-
             }
             lines.Add(new Rhino.Geometry.Line(points[points.Count - 1], points[0]).ToNurbsCurve());
             Curve contour = Curve.JoinCurves(lines.ToArray())[0];
@@ -248,18 +247,7 @@ namespace WindowConfigurator
 
             List<Brep> breps = new List<Brep>();
 
-
-
-            //List<Point3d> points1 = new List<Point3d>();
-            //points1.Add(new Point3d(0, 0, 0));
-            //points1.Add(new Point3d(0, 0, 3000));
-            ////points1.Add(new Point3d(0, 1500, 3000));
-            ////points1.Add(new Point3d(0, 1500, 0));
-            ////points1.Add(new Point3d(0, 0, 0));
-            //Curve nc = CreateCurve(points1);
-
             Curve extrusionPath = new Rhino.Geometry.Line(new Point3d(0, 0, 0), new Point3d(0, 0, 1000)).ToNurbsCurve();
-
             Vector3d extrusionDirection = new Vector3d(0, 0, 0.25);
 
             foreach (var polygon in geometry)
@@ -282,7 +270,6 @@ namespace WindowConfigurator
                     brep = brep.Split(splitExtrusion.ToBrep(), 0.25)[0];
                 }
 
-                //breps.Add(brep.Faces[0].CreateExtrusion(nc, true));
                 breps.Add(brep.Faces[0].CreateExtrusion(extrusionPath, true));
             }
 
