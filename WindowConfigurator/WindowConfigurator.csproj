@@ -68,6 +68,7 @@
     <Compile Include="Input\JsonInput.cs" />
     <Compile Include="Input\Mapping.cs" />
     <Compile Include="Input\WindowInput.cs" />
+    <Compile Include="Interope\Field\GlazingPanel.cs" />
     <Compile Include="Interope\Field\Field.cs" />
     <Compile Include="Interope\Field\Operability.cs" />
     <Compile Include="Interope\Frame\Connect.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="Interope\Frame\RightJamb.cs" />
     <Compile Include="Interope\Frame\Sill.cs" />
     <Compile Include="Interope\Frame\Transom.cs" />
-    <Compile Include="Interope\Frame\WireFrame.cs" />
+    <Compile Include="Interope\WireFrame.cs" />
     <Compile Include="Module\Window.cs" />
     <Compile Include="Command\PlanarSrfCustom.cs" />
     <Compile Include="MyCommand1.cs" />
