@@ -20,3 +20,4 @@ C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\o
 C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.csproj.CopyComplete
 C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.dll
 C:\Users\Chenzhang Wang\Documents\GitHub\WindowConfigurator\WindowConfigurator\obj\Debug\WindowConfigurator.pdb
+D:\GitHub\WindowConfigurator\WindowConfigurator\bin\System.Drawing.Primitives.dll

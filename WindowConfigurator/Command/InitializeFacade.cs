@@ -14,9 +14,9 @@ using WindowConfigurator.Module;
 
 namespace WindowConfigurator
 {
-    public class InitializeWindow : Command
+    public class InitializeFacade : Command
     {
-        public InitializeWindow()
+        public InitializeFacade()
         {
             // Rhino only creates one instance of each command class defined in a
             // plug-in, so it is safe to store a refence in a static property.
@@ -26,7 +26,7 @@ namespace WindowConfigurator
         public static Window window { get; set; }
 
         ///<summary>The only instance of this command.</summary>
-        public static InitializeWindow Instance
+        public static InitializeFacade Instance
         {
             get; private set;
         }
@@ -34,7 +34,7 @@ namespace WindowConfigurator
         ///<returns>The command name as it appears on the Rhino command line.</returns>
         public override string EnglishName
         {
-            get { return "InitializeWindow"; }
+            get { return "InitializeFacade"; }
         }
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
@@ -139,7 +139,7 @@ namespace WindowConfigurator
             doc.Views.Redraw();
 
 
-            RhinoApp.WriteLine("The {0} command created a wireframe to the window document.", EnglishName);
+            RhinoApp.WriteLine("The {0} command created a wireframe to the facade document.", EnglishName);
 
 
             
@@ -184,7 +184,7 @@ namespace WindowConfigurator
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(@"D:\GitHub\WindowConfigurator\WindowConfigurator\Output\output.json"))
+            using (StreamWriter sw = new StreamWriter(@"D:\GitHub\WindowConfigurator\WindowConfigurator\Output\output2.json"))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, window);
