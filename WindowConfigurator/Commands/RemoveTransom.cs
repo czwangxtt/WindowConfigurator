@@ -69,7 +69,7 @@ namespace WindowConfigurator
 
             doc.Objects.Delete(transomRef, true, true);
             doc.Views.Redraw();
-            RhinoApp.WriteLine("The {0} command removed one transom to the document.", EnglishName);
+            RhinoApp.WriteLine("The {0} command removed a transom in the document.", EnglishName);
 
             return Result.Success;
         }
