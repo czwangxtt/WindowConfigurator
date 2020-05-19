@@ -6,7 +6,7 @@ using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
 using WindowConfigurator.Geometry;
-using WindowConfigurator.Interop;
+using WindowConfigurator.Core;
 
 namespace WindowConfigurator
 {

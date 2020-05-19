@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WindowConfigurator.Geometry;
 
-namespace WindowConfigurator.Interop
+namespace WindowConfigurator.Core
 {
     public class RightJamb : Frame
     {

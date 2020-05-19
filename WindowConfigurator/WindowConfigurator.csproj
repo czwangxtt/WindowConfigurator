@@ -62,34 +62,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\AddMullion.cs" />
-    <Compile Include="Command\AddTransom.cs" />
+    <Compile Include="Commands\AddMullion.cs" />
+    <Compile Include="Commands\AddIntermediate.cs" />
+    <Compile Include="Commands\AddTransom.cs" />
+    <Compile Include="Commands\InitializeFacade.cs" />
+    <Compile Include="Commands\RemoveIntermediate.cs" />
+    <Compile Include="Commands\SwitchSystem.cs" />
     <Compile Include="Geometry\Coordinate.cs" />
     <Compile Include="Geometry\Point3.cs" />
-    <Compile Include="Command\InitializeWindow.cs" />
+    <Compile Include="Commands\InitializeWindow.cs" />
     <Compile Include="Input\AssignedJsonInput.cs" />
     <Compile Include="Input\JsonInput.cs" />
     <Compile Include="Input\Mapping.cs" />
     <Compile Include="Input\WindowInput.cs" />
-    <Compile Include="Interope\Field\GlazingPanel.cs" />
-    <Compile Include="Interope\Field\Field.cs" />
-    <Compile Include="Interope\Field\Operability.cs" />
-    <Compile Include="Interope\Frame\Connect.cs" />
-    <Compile Include="Interope\Frame\Frame.cs" />
-    <Compile Include="Interope\Frame\Head.cs" />
-    <Compile Include="Interope\Frame\LeftJamb.cs" />
-    <Compile Include="Interope\Frame\Mullion.cs" />
-    <Compile Include="Interope\Frame\RightJamb.cs" />
-    <Compile Include="Interope\Frame\Sill.cs" />
-    <Compile Include="Interope\Frame\Transom.cs" />
-    <Compile Include="Interope\WireFrame.cs" />
+    <Compile Include="Core\Field\GlazingPanel.cs" />
+    <Compile Include="Core\Field\Field.cs" />
+    <Compile Include="Core\Field\Operability.cs" />
+    <Compile Include="Core\Frame\Connect.cs" />
+    <Compile Include="Core\Frame\Frame.cs" />
+    <Compile Include="Core\Frame\Head.cs" />
+    <Compile Include="Core\Frame\LeftJamb.cs" />
+    <Compile Include="Core\Frame\Mullion.cs" />
+    <Compile Include="Core\Frame\RightJamb.cs" />
+    <Compile Include="Core\Frame\Sill.cs" />
+    <Compile Include="Core\Frame\Transom.cs" />
+    <Compile Include="Core\WireFrame.cs" />
     <Compile Include="Module\Window.cs" />
-    <Compile Include="Command\PlanarSrfCustom.cs" />
-    <Compile Include="MyCommand1.cs" />
-    <Compile Include="MyCommand2.cs" />
+    <Compile Include="Commands\PlanarSrfCustom.cs" />
+    <Compile Include="Commands\MyCommand1.cs" />
+    <Compile Include="Commands\MyCommand2.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Command\RemoveMullion.cs" />
-    <Compile Include="Command\RemoveTransom.cs" />
+    <Compile Include="Commands\RemoveMullion.cs" />
+    <Compile Include="Commands\RemoveTransom.cs" />
     <Compile Include="Utilities\SortedMultiValue.cs" />
     <Compile Include="WindowConfiguratorPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,15 +105,15 @@
     <None Include="Input\JsonFiles\AWS_75 _v1.json" />
     <None Include="Input\JsonFiles\AWS_75 _v2.json" />
     <None Include="Input\JsonFiles\AWS_75 _v3.json" />
+    <None Include="Input\JsonFiles\AWS_75 _v4.json" />
+    <None Include="Input\JsonFiles\AWS_75 _v5.json" />
     <None Include="Input\JsonFiles\Comments.json" />
     <None Include="Input\JsonFiles\FWS_60_v1.json" />
     <None Include="Input\JsonFiles\JSON_Example1_updated.json" />
     <None Include="Output\output.json" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

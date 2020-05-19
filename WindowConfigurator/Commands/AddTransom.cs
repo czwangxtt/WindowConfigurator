@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Geometry;
+using Rhino.DocObjects;
 using Rhino.Input;
 using Rhino.Input.Custom;
 using WindowConfigurator.Geometry;
-using WindowConfigurator.Interop;
+using WindowConfigurator.Core;
+using System.Linq;
 
 namespace WindowConfigurator
 {
@@ -32,6 +33,8 @@ namespace WindowConfigurator
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             RhinoApp.WriteLine("The {0} command will add a transom now.", EnglishName);
+
+            double offset = 8.0;
 
             Point3d pt0;
             using (GetPoint getPointAction = new GetPoint())
@@ -94,6 +97,16 @@ namespace WindowConfigurator
             
             Transom transom = new Transom(p0, p1, guid);
             InitializeWindow.window.wireFrame.addIntermediate(transom);
+
+            ObjectAttributes trimAttribute = new ObjectAttributes();
+            trimAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 0, 0);
+            trimAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+
+            Guid trimGuid0 = doc.Objects.AddLine(new Point3d(pt0.X, pt0.Y + offset, pt0.Z + offset), new Point3d(pt0.X, pt0.Y + offset, pt0.Z - offset), trimAttribute);
+            Guid trimGuid1 = doc.Objects.AddLine(new Point3d(pt1.X, pt1.Y - offset, pt1.Z + offset), new Point3d(pt1.X, pt1.Y - offset, pt1.Z - offset), trimAttribute);
+            InitializeWindow.window.wireFrame._frames.Last<Frame>().Connects[0].guid = trimGuid0;
+            InitializeWindow.window.wireFrame._frames.Last<Frame>().Connects[1].guid = trimGuid1;
+
 
             doc.Views.Redraw();
 

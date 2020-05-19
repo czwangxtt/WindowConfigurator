@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WindowConfigurator;
 using WindowConfigurator.Input;
-using WindowConfigurator.Interop;
+using WindowConfigurator.Core;
 using Newtonsoft.Json;
 
 namespace WindowConfigurator.Module

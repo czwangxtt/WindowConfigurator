@@ -6,7 +6,7 @@ using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
 using Rhino.DocObjects;
-using WindowConfigurator.Interop;
+using WindowConfigurator.Core;
 
 namespace WindowConfigurator
 {
@@ -67,7 +67,7 @@ namespace WindowConfigurator
 
             doc.Objects.Delete(mullionRef, true, true);
             doc.Views.Redraw();
-            RhinoApp.WriteLine("The {0} command removed one mullion to the document.", EnglishName);
+            RhinoApp.WriteLine("The {0} command removed a mullion in the document.", EnglishName);
 
             return Result.Success;
         }

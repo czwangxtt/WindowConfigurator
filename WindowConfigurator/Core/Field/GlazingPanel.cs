@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowConfigurator.Interop
+namespace WindowConfigurator.Core
 {
     public class GlazingPanel
     {

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WindowConfigurator.Geometry;
 using WindowConfigurator.Input;
-using WindowConfigurator.Interop;
+using WindowConfigurator.Core;
 using WindowConfigurator.Module;
-using WindowConfigurator.Utilities;
 
 namespace WindowConfigurator
 {

@@ -6,32 +6,32 @@ using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
 using WindowConfigurator.Geometry;
-using WindowConfigurator.Interop;
+using WindowConfigurator.Core;
 
 namespace WindowConfigurator
 {
-    public class AddTransom : Command
+    public class AddIntermediate : Command
     {
-        static AddTransom _instance;
-        public AddTransom()
+        static AddIntermediate _instance;
+        public AddIntermediate()
         {
             _instance = this;
         }
 
         ///<summary>The only instance of the MyCommand1 command.</summary>
-        public static AddTransom Instance
+        public static AddIntermediate Instance
         {
             get { return _instance; }
         }
 
         public override string EnglishName
         {
-            get { return "AddTransom"; }
+            get { return "AddIntermediate"; }
         }
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-            RhinoApp.WriteLine("The {0} command will add a transom now.", EnglishName);
+            RhinoApp.WriteLine("The {0} command will add an intermediate now.", EnglishName);
 
             Point3d pt0;
             using (GetPoint getPointAction = new GetPoint())

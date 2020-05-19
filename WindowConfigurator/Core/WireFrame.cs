@@ -5,14 +5,14 @@ using System.Linq;
 using WindowConfigurator.Geometry;
 using WindowConfigurator.Utilities;
 
-namespace WindowConfigurator.Interop
+namespace WindowConfigurator.Core
 {
     public class WireFrame
     {
         private SortedMultiValue<double, int> horzIdBySortedkeyPosition = new SortedMultiValue<double, int>();
         private SortedMultiValue<double, int> vrtIdBySortedkeyPosition = new SortedMultiValue<double, int>();
-        private List<Frame> _frames = new List<Frame>();
-        private List<Field> _fields = new List<Field>();
+        public List<Frame> _frames = new List<Frame>();
+        public List<Field> _fields = new List<Field>();
         private Dictionary<Guid, Transom> transomByGuid = new Dictionary<Guid, Transom>();
         private Dictionary<Guid, Mullion> mullionByGuid = new Dictionary<Guid, Mullion>();
 

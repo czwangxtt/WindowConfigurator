@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using WindowConfigurator.Geometry;
 
-namespace WindowConfigurator.Interop
+namespace WindowConfigurator.Core
 {
     public class Frame
     {
