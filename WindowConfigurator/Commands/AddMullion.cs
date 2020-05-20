@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Geometry;
@@ -7,6 +8,7 @@ using Rhino.Input;
 using Rhino.Input.Custom;
 using WindowConfigurator.Geometry;
 using WindowConfigurator.Core;
+
 
 namespace WindowConfigurator
 {
@@ -101,10 +103,10 @@ namespace WindowConfigurator
             trimAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 0, 0);
             trimAttribute.ColorSource = ObjectColorSource.ColorFromObject;
 
-            Guid trimGuid0 = doc.Objects.AddLine(new Point3d(pt0.X, pt0.Y + offset, pt0.Z + offset), new Point3d(pt0.X, pt0.Y + offset, pt0.Z - offset), trimAttribute);
-            Guid trimGuid1 = doc.Objects.AddLine(new Point3d(pt1.X, pt1.Y - offset, pt1.Z + offset), new Point3d(pt1.X, pt1.Y - offset, pt1.Z - offset), trimAttribute);
-            InitializeWindow.window.wireFrame._frames.Last<Frame>().Connects[0].guid = trimGuid0;
-            InitializeWindow.window.wireFrame._frames.Last<Frame>().Connects[1].guid = trimGuid1;
+            Guid trimGuid0 = doc.Objects.AddLine(new Point3d(pt0.X, pt0.Y - offset, pt0.Z + offset), new Point3d(pt0.X, pt0.Y + offset, pt0.Z + offset), trimAttribute);
+            Guid trimGuid1 = doc.Objects.AddLine(new Point3d(pt1.X, pt1.Y - offset, pt1.Z - offset), new Point3d(pt1.X, pt1.Y + offset, pt1.Z - offset), trimAttribute);
+            InitializeWindow.window.wireFrame._frames.Last().Connects[0].guid = trimGuid0;
+            InitializeWindow.window.wireFrame._frames.Last().Connects[1].guid = trimGuid1;
 
             doc.Views.Redraw();
 

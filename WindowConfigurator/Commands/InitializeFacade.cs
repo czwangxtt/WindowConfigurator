@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using Rhino;
 using Rhino.Commands;
@@ -55,6 +54,7 @@ namespace WindowConfigurator
             //double width;
             //Point3d pt0;
             //Point3d pt1;
+            double offset = 8.0; 
 
             Point3d pt0;
             Point3d pt1;
@@ -71,7 +71,6 @@ namespace WindowConfigurator
 
             using (GetNumber gn = new GetNumber())
             {
-                
                 gn.AddOptionDouble("Height", ref _height);
                 gn.AddOptionDouble("Width", ref _width);
 
@@ -88,7 +87,6 @@ namespace WindowConfigurator
 
             using (GetNumber gn = new GetNumber())
             {
-
                 gn.AddOptionDouble("Height", ref _height);
                 gn.AddOptionDouble("Width", ref _width);
 
@@ -104,23 +102,34 @@ namespace WindowConfigurator
                 pt1 = new Point3d(0, _width.CurrentValue, 0);
                 pt2 = new Point3d(0, _width.CurrentValue, _height.CurrentValue);
                 pt3 = new Point3d(0, 0, _height.CurrentValue);
-
-                panelPt0 = new Point3d(5, 5, 5);
-                panelPt1 = new Point3d(5, _width.CurrentValue - 5, 5);
-                panelPt2 = new Point3d(5, _width.CurrentValue - 5, _height.CurrentValue - 5);
-                panelPt3 = new Point3d(5, 5, _height.CurrentValue - 5);
-
-
             }
 
             RhinoApp.WriteLine("Command line option values are");
             RhinoApp.WriteLine(" Height = {0}", _height.CurrentValue);
             RhinoApp.WriteLine(" Width = {0}", _width.CurrentValue);
 
-            doc.Objects.AddLine(pt0, pt1);
-            doc.Objects.AddLine(pt1, pt2);
-            doc.Objects.AddLine(pt2, pt3);
-            doc.Objects.AddLine(pt3, pt0);
+            panelPt0 = new Point3d(0, offset, offset);
+            panelPt1 = new Point3d(0, _width.CurrentValue - offset, offset);
+            panelPt2 = new Point3d(0, _width.CurrentValue - offset, _height.CurrentValue - offset);
+            panelPt3 = new Point3d(0, offset, _height.CurrentValue - offset);
+
+            Guid frameGuid0 = doc.Objects.AddLine(pt0, pt1);
+            Guid frameGuid1 = doc.Objects.AddLine(pt1, pt2);
+            Guid frameGuid2 = doc.Objects.AddLine(pt2, pt3);
+            Guid frameGuid3 = doc.Objects.AddLine(pt3, pt0);
+
+            double facadeOffset = Math.Min(_width.CurrentValue, _height.CurrentValue) * 0.2;
+            ObjectAttributes frameAttr = new ObjectAttributes();
+            frameAttr.ObjectColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            frameAttr.ColorSource = ObjectColorSource.ColorFromObject;
+            doc.Objects.AddLine(pt0, new Point3d(pt0.X, pt0.Y - facadeOffset, pt0.Z), frameAttr);
+            doc.Objects.AddLine(pt0, new Point3d(pt0.X, pt0.Y, pt0.Z - facadeOffset), frameAttr);
+            doc.Objects.AddLine(pt1, new Point3d(pt1.X, pt1.Y + facadeOffset, pt1.Z), frameAttr);
+            doc.Objects.AddLine(pt1, new Point3d(pt1.X, pt1.Y, pt1.Z - facadeOffset), frameAttr);
+            doc.Objects.AddLine(pt2, new Point3d(pt2.X, pt2.Y + facadeOffset, pt2.Z), frameAttr);
+            doc.Objects.AddLine(pt2, new Point3d(pt2.X, pt2.Y, pt2.Z + facadeOffset), frameAttr);
+            doc.Objects.AddLine(pt3, new Point3d(pt3.X, pt3.Y - facadeOffset, pt3.Z), frameAttr);
+            doc.Objects.AddLine(pt3, new Point3d(pt3.X, pt3.Y, pt3.Z + facadeOffset), frameAttr);
 
             List<Curve> panelCurves = new List<Curve>();
             panelCurves.Add(new Line(panelPt0, panelPt1).ToNurbsCurve());
@@ -130,61 +139,41 @@ namespace WindowConfigurator
 
             Curve panelContour = Curve.JoinCurves(panelCurves.ToArray())[0];
             Brep brep = Brep.CreatePlanarBreps(panelContour, doc.ModelAbsoluteTolerance)[0];
-            ObjectAttributes attribute = new ObjectAttributes();
-            attribute.ObjectColor = System.Drawing.Color.FromArgb(101,228,253);
-            attribute.ColorSource = ObjectColorSource.ColorFromObject;
-            doc.Objects.AddBrep(brep, attribute);
-            
+            ObjectAttributes glazingAttribute = new ObjectAttributes();
+            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(101,228,253);
+            glazingAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            doc.Objects.AddBrep(brep, glazingAttribute);
+
+            ObjectAttributes trimAttribute = new ObjectAttributes();
+            trimAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 0, 0);
+            trimAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            Guid trimGuid0 = doc.Objects.AddLine(new Point3d(0, pt0.Y + offset, pt0.Z + offset), pt0, trimAttribute);
+            Guid trimGuid1 = doc.Objects.AddLine(new Point3d(0, pt1.Y - offset, pt1.Z + offset), pt1, trimAttribute);
+            Guid trimGuid2 = doc.Objects.AddLine(new Point3d(0, pt2.Y - offset, pt2.Z - offset), pt2, trimAttribute);
+            Guid trimGuid3 = doc.Objects.AddLine(new Point3d(0, pt3.Y + offset, pt3.Z - offset), pt3, trimAttribute);
+
 
             doc.Views.Redraw();
 
-
-            RhinoApp.WriteLine("The {0} command created a wireframe to the facade document.", EnglishName);
-
-
-            
+            RhinoApp.WriteLine("The {0} command created a wireframe to the window document.", EnglishName);
 
 
+            window = new Window(_width.CurrentValue, _height.CurrentValue);
 
-            //using (GetNumber getNumberAction = new GetNumber())
-            //{
-            //    getNumberAction.SetCommandPrompt("Please enter the width");
-            //    if (getNumberAction.Get() != GetResult.Number)
-            //    {
-            //        RhinoApp.WriteLine("No width was entered.");
-            //        return getNumberAction.CommandResult();
-            //    }
-            //    width = getNumberAction.Number();
-            //    //deserializedInput.configuration.windowWidth = width;
+            window.wireFrame._frames[1].guid = frameGuid0;
+            window.wireFrame._frames[3].guid = frameGuid1;
+            window.wireFrame._frames[0].guid = frameGuid2;
+            window.wireFrame._frames[2].guid = frameGuid3;
 
-            //    pt0 = new Point3d(0, 0, 0);
-            //    pt1 = new Point3d(0, width, 0);
-            //}
-
-            //double height;
-            //Point3d pt2;
-            //Point3d pt3;
-            //using (GetNumber getNumberAction = new GetNumber())
-            //{
-            //    getNumberAction.SetCommandPrompt("Please enter the height");
-            //    if (getNumberAction.Get() != GetResult.Number)
-            //    {
-            //        RhinoApp.WriteLine("No height was entered.");
-            //        return getNumberAction.CommandResult();
-            //    }
-            //    height = getNumberAction.Number();
-            //    //deserializedInput.configuration.windowHeight = height;
-
-            //    pt2 = new Point3d(0, width, height);
-            //    pt3 = new Point3d(0, 0, height);
-            //}
-
-            window = new Window(_height.CurrentValue, _width.CurrentValue);
+            window.wireFrame._frames[1].Connects[0].guid = trimGuid0;
+            window.wireFrame._frames[3].Connects[0].guid = trimGuid1;
+            window.wireFrame._frames[0].Connects[0].guid = trimGuid2;
+            window.wireFrame._frames[2].Connects[0].guid = trimGuid3;
 
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(@"D:\GitHub\WindowConfigurator\WindowConfigurator\Output\output2.json"))
+            using (StreamWriter sw = new StreamWriter(@"D:\GitHub\WindowConfigurator\WindowConfigurator\Output\output.json"))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, window);

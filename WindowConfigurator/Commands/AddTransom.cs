@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Geometry;
@@ -7,7 +8,6 @@ using Rhino.Input;
 using Rhino.Input.Custom;
 using WindowConfigurator.Geometry;
 using WindowConfigurator.Core;
-using System.Linq;
 
 namespace WindowConfigurator
 {
@@ -94,7 +94,8 @@ namespace WindowConfigurator
                 p0 = new Point3(pt1.X, pt1.Y, pt1.Z);
                 p1 = new Point3(pt0.X, pt0.Y, pt0.Z);
             }
-            
+
+            #region Wireframe
             Transom transom = new Transom(p0, p1, guid);
             InitializeWindow.window.wireFrame.addIntermediate(transom);
 
@@ -104,8 +105,13 @@ namespace WindowConfigurator
 
             Guid trimGuid0 = doc.Objects.AddLine(new Point3d(pt0.X, pt0.Y + offset, pt0.Z + offset), new Point3d(pt0.X, pt0.Y + offset, pt0.Z - offset), trimAttribute);
             Guid trimGuid1 = doc.Objects.AddLine(new Point3d(pt1.X, pt1.Y - offset, pt1.Z + offset), new Point3d(pt1.X, pt1.Y - offset, pt1.Z - offset), trimAttribute);
-            InitializeWindow.window.wireFrame._frames.Last<Frame>().Connects[0].guid = trimGuid0;
-            InitializeWindow.window.wireFrame._frames.Last<Frame>().Connects[1].guid = trimGuid1;
+            InitializeWindow.window.wireFrame._frames.Last().Connects[0].guid = trimGuid0;
+            InitializeWindow.window.wireFrame._frames.Last().Connects[1].guid = trimGuid1;
+            #endregion
+
+            #region Field
+
+            #endregion
 
 
             doc.Views.Redraw();
