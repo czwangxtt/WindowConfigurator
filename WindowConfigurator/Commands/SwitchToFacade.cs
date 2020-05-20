@@ -13,9 +13,9 @@ using WindowConfigurator.Module;
 
 namespace WindowConfigurator
 {
-    public class InitializeWindow : Command
+    public class SwitchToFacade : Command
     {
-        public InitializeWindow()
+        public SwitchToFacade()
         {
             // Rhino only creates one instance of each command class defined in a
             // plug-in, so it is safe to store a refence in a static property.
@@ -25,7 +25,7 @@ namespace WindowConfigurator
         public static Window window { get; set; }
 
         ///<summary>The only instance of this command.</summary>
-        public static InitializeWindow Instance
+        public static SwitchToFacade Instance
         {
             get; private set;
         }
@@ -33,7 +33,7 @@ namespace WindowConfigurator
         ///<returns>The command name as it appears on the Rhino command line.</returns>
         public override string EnglishName
         {
-            get { return "InitializeWindow"; }
+            get { return "SwitchToFacade"; }
         }
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
@@ -118,6 +118,19 @@ namespace WindowConfigurator
             Guid frameGuid2 = doc.Objects.AddLine(pt2, pt3);
             Guid frameGuid3 = doc.Objects.AddLine(pt3, pt0);
 
+            double facadeOffset = Math.Min(_width.CurrentValue, _height.CurrentValue) * 0.2;
+            ObjectAttributes frameAttr = new ObjectAttributes();
+            frameAttr.ObjectColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            frameAttr.ColorSource = ObjectColorSource.ColorFromObject;
+            doc.Objects.AddLine(pt0, new Point3d(pt0.X, pt0.Y - facadeOffset, pt0.Z), frameAttr);
+            doc.Objects.AddLine(pt0, new Point3d(pt0.X, pt0.Y, pt0.Z - facadeOffset), frameAttr);
+            doc.Objects.AddLine(pt1, new Point3d(pt1.X, pt1.Y + facadeOffset, pt1.Z), frameAttr);
+            doc.Objects.AddLine(pt1, new Point3d(pt1.X, pt1.Y, pt1.Z - facadeOffset), frameAttr);
+            doc.Objects.AddLine(pt2, new Point3d(pt2.X, pt2.Y + facadeOffset, pt2.Z), frameAttr);
+            doc.Objects.AddLine(pt2, new Point3d(pt2.X, pt2.Y, pt2.Z + facadeOffset), frameAttr);
+            doc.Objects.AddLine(pt3, new Point3d(pt3.X, pt3.Y - facadeOffset, pt3.Z), frameAttr);
+            doc.Objects.AddLine(pt3, new Point3d(pt3.X, pt3.Y, pt3.Z + facadeOffset), frameAttr);
+
             List<Curve> panelCurves = new List<Curve>();
             panelCurves.Add(new Line(panelPt0, panelPt1).ToNurbsCurve());
             panelCurves.Add(new Line(panelPt1, panelPt2).ToNurbsCurve());
@@ -129,13 +142,11 @@ namespace WindowConfigurator
             ObjectAttributes glazingAttribute = new ObjectAttributes();
             glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(101,228,253);
             glazingAttribute.ColorSource = ObjectColorSource.ColorFromObject;
-            Guid initialFieldGuid = doc.Objects.AddBrep(brep, glazingAttribute);
-            
+            doc.Objects.AddBrep(brep, glazingAttribute);
 
             ObjectAttributes trimAttribute = new ObjectAttributes();
             trimAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 0, 0);
             trimAttribute.ColorSource = ObjectColorSource.ColorFromObject;
-
             Guid trimGuid0 = doc.Objects.AddLine(new Point3d(0, pt0.Y + offset, pt0.Z + offset), pt0, trimAttribute);
             Guid trimGuid1 = doc.Objects.AddLine(new Point3d(0, pt1.Y - offset, pt1.Z + offset), pt1, trimAttribute);
             Guid trimGuid2 = doc.Objects.AddLine(new Point3d(0, pt2.Y - offset, pt2.Z - offset), pt2, trimAttribute);
@@ -148,8 +159,6 @@ namespace WindowConfigurator
 
 
             window = new Window(_width.CurrentValue, _height.CurrentValue);
-
-            window.wireFrame._fields.Add(new Core.Field(initialFieldGuid));
 
             window.wireFrame._frames[1].guid = frameGuid0;
             window.wireFrame._frames[3].guid = frameGuid1;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Geometry;
@@ -8,6 +9,7 @@ using Rhino.Input;
 using Rhino.Input.Custom;
 using WindowConfigurator.Geometry;
 using WindowConfigurator.Core;
+using System.Collections.Generic;
 
 namespace WindowConfigurator
 {
@@ -110,7 +112,45 @@ namespace WindowConfigurator
             #endregion
 
             #region Field
+            Field originalFrame = InitializeWindow.window.wireFrame._fields[0];
 
+           
+            ObjectAttributes glazingAttribute = new ObjectAttributes();
+            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(101, 228, 253);
+            glazingAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            
+
+            Point3d panel1Pt0 = new Point3d(0, offset, offset);
+            Point3d panel1Pt1 = new Point3d(0, transom.endPoint.Y - offset, offset);
+            Point3d panel1Pt2 = new Point3d(0, transom.endPoint.Y - offset, transom.endPoint.Z - 4);
+            Point3d panel1Pt3 = new Point3d(0, transom.startPoint.Y + offset, transom.startPoint.Z - 4);
+
+            List<Curve> panel1Curves = new List<Curve>();
+            panel1Curves.Add(new Line(panel1Pt0, panel1Pt1).ToNurbsCurve());
+            panel1Curves.Add(new Line(panel1Pt1, panel1Pt2).ToNurbsCurve());
+            panel1Curves.Add(new Line(panel1Pt2, panel1Pt3).ToNurbsCurve());
+            panel1Curves.Add(new Line(panel1Pt3, panel1Pt0).ToNurbsCurve());
+
+            Curve panel1Contour = Curve.JoinCurves(panel1Curves.ToArray())[0];
+            Brep brep1 = Brep.CreatePlanarBreps(panel1Contour, doc.ModelAbsoluteTolerance)[0];
+            doc.Objects.AddBrep(brep1, glazingAttribute);
+
+            Point3d panel2Pt0 = new Point3d(0, transom.startPoint.Y + offset, transom.startPoint.Z + 4);
+            Point3d panel2Pt1 = new Point3d(0, transom.endPoint.Y - offset, transom.endPoint.Z + 4);
+            Point3d panel2Pt2 = new Point3d(0, transom.endPoint.Y - offset, 100 - offset);
+            Point3d panel2Pt3 = new Point3d(0, offset, 100 - offset);
+
+            List<Curve> panel2Curves = new List<Curve>();
+            panel2Curves.Add(new Line(panel2Pt0, panel2Pt1).ToNurbsCurve());
+            panel2Curves.Add(new Line(panel2Pt1, panel2Pt2).ToNurbsCurve());
+            panel2Curves.Add(new Line(panel2Pt2, panel2Pt3).ToNurbsCurve());
+            panel2Curves.Add(new Line(panel2Pt3, panel2Pt0).ToNurbsCurve());
+
+            Curve panel2Contour = Curve.JoinCurves(panel2Curves.ToArray())[0];
+            Brep brep2 = Brep.CreatePlanarBreps(panel2Contour, doc.ModelAbsoluteTolerance)[0];
+            doc.Objects.AddBrep(brep2, glazingAttribute);
+            
+            doc.Objects.Delete(originalFrame.guid, true);
             #endregion
 
 

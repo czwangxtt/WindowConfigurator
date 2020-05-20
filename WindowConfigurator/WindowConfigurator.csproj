@@ -65,6 +65,7 @@
     <Compile Include="Commands\AddMullion.cs" />
     <Compile Include="Commands\AddIntermediate.cs" />
     <Compile Include="Commands\AddTransom.cs" />
+    <Compile Include="Commands\SwitchToFacade.cs" />
     <Compile Include="Commands\InitializeFacade.cs" />
     <Compile Include="Commands\RemoveIntermediate.cs" />
     <Compile Include="Commands\SwitchSystem.cs" />

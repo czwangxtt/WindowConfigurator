@@ -14,14 +14,16 @@ namespace WindowConfigurator.Core
         public GlazingPanel glazingPanel { get; set; }
         public List<int> frameIds { get; set; }
         public List<Point3> vertics { get; set; }
+        public List<double> keyPosition { get; set; }
 
         // Counter for auto increment id.
         protected static int globalID = -1;
 
-        public Field(double width, double height)
+        public Field(Guid _guid)
         {
             id = Interlocked.Increment(ref globalID);
             isVisible = true;
+            guid = _guid;
         }
     }
 }
