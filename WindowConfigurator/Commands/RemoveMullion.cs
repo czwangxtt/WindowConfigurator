@@ -66,6 +66,10 @@ namespace WindowConfigurator
             }
 
             doc.Objects.Delete(mullionRef, true, true);
+            foreach (var connection in mullion.Connects)
+            {
+                doc.Objects.Delete(connection.guid, true);
+            }
             doc.Views.Redraw();
             RhinoApp.WriteLine("The {0} command removed a mullion in the document.", EnglishName);
 

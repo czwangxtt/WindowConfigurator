@@ -51,7 +51,6 @@ namespace WindowConfigurator
                 }
                 transomRef = getObjectAction.Object(0);
                 objGuid = getObjectAction.Object(0).ObjectId;
-
             }
 
             Transom transom = InitializeWindow.window.wireFrame.GetTransomByGuid(objGuid);
@@ -68,6 +67,11 @@ namespace WindowConfigurator
             }
 
             doc.Objects.Delete(transomRef, true, true);
+            foreach(var connection in transom.Connects)
+            {
+                doc.Objects.Delete(connection.guid, true);
+            }
+            
             doc.Views.Redraw();
             RhinoApp.WriteLine("The {0} command removed a transom in the document.", EnglishName);
 
