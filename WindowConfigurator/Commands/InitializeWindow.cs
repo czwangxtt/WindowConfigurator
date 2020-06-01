@@ -54,7 +54,7 @@ namespace WindowConfigurator
             //double width;
             //Point3d pt0;
             //Point3d pt1;
-            double offset = 8.0; 
+            double offset = 18.0; 
 
             Point3d pt0;
             Point3d pt1;
@@ -127,7 +127,7 @@ namespace WindowConfigurator
             Curve panelContour = Curve.JoinCurves(panelCurves.ToArray())[0];
             Brep brep = Brep.CreatePlanarBreps(panelContour, doc.ModelAbsoluteTolerance)[0];
             ObjectAttributes glazingAttribute = new ObjectAttributes();
-            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(101,228,253);
+            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 255, 255);
             glazingAttribute.ColorSource = ObjectColorSource.ColorFromObject;
             Guid initialFieldGuid = doc.Objects.AddBrep(brep, glazingAttribute);
             

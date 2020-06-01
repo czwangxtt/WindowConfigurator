@@ -36,7 +36,7 @@ namespace WindowConfigurator
         {
             RhinoApp.WriteLine("The {0} command will add a transom now.", EnglishName);
 
-            double offset = 8.0;
+            double offset = 18.0;
 
             Point3d pt0;
             using (GetPoint getPointAction = new GetPoint())
@@ -135,10 +135,10 @@ namespace WindowConfigurator
             Brep brep1 = Brep.CreatePlanarBreps(panel1Contour, doc.ModelAbsoluteTolerance)[0];
             doc.Objects.AddBrep(brep1, glazingAttribute);
 
-            Point3d panel2Pt0 = new Point3d(0, transom.startPoint.Y + offset, transom.startPoint.Z + 4);
-            Point3d panel2Pt1 = new Point3d(0, transom.endPoint.Y - offset, transom.endPoint.Z + 4);
-            Point3d panel2Pt2 = new Point3d(0, transom.endPoint.Y - offset, 100 - offset);
-            Point3d panel2Pt3 = new Point3d(0, offset, 100 - offset);
+            Point3d panel2Pt0 = new Point3d(0, transom.startPoint.Y + offset, transom.startPoint.Z + 9);
+            Point3d panel2Pt1 = new Point3d(0, transom.endPoint.Y - offset, transom.endPoint.Z + 9);
+            Point3d panel2Pt2 = new Point3d(0, transom.endPoint.Y - offset, 1000 - offset);
+            Point3d panel2Pt3 = new Point3d(0, offset, 1000 - offset);
 
             List<Curve> panel2Curves = new List<Curve>();
             panel2Curves.Add(new Line(panel2Pt0, panel2Pt1).ToNurbsCurve());

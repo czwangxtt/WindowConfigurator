@@ -95,6 +95,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Commands\RemoveMullion.cs" />
     <Compile Include="Commands\RemoveTransom.cs" />
+    <Compile Include="SetGlazingPanel.cs" />
     <Compile Include="Utilities\SortedMultiValue.cs" />
     <Compile Include="WindowConfiguratorPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

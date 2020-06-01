@@ -35,7 +35,7 @@ namespace WindowConfigurator
         {
             RhinoApp.WriteLine("The {0} command will add a mullion now.", EnglishName);
 
-            double offset = 8.0;
+            double offset = 18.0;
 
             Point3d pt0;
             using (GetPoint getPointAction = new GetPoint())
@@ -132,10 +132,10 @@ namespace WindowConfigurator
             Brep brep1 = Brep.CreatePlanarBreps(panel1Contour, doc.ModelAbsoluteTolerance)[0];
             doc.Objects.AddBrep(brep1, glazingAttribute);
 
-            Point3d panel2Pt0 = new Point3d(0, mullion.startPoint.Y + 4, mullion.startPoint.Z + offset);
-            Point3d panel2Pt1 = new Point3d(0, 150 - offset, offset);
-            Point3d panel2Pt2 = new Point3d(0, 150 - offset, 100 - offset);
-            Point3d panel2Pt3 = new Point3d(0, mullion.startPoint.Y + 4, 100 - offset);
+            Point3d panel2Pt0 = new Point3d(0, mullion.startPoint.Y + 9, mullion.startPoint.Z + offset);
+            Point3d panel2Pt1 = new Point3d(0, 1500 - offset, offset);
+            Point3d panel2Pt2 = new Point3d(0, 1500 - offset, 1000 - offset);
+            Point3d panel2Pt3 = new Point3d(0, mullion.startPoint.Y + 9, 1000 - offset);
 
             List<Curve> panel2Curves = new List<Curve>();
             panel2Curves.Add(new Line(panel2Pt0, panel2Pt1).ToNurbsCurve());
