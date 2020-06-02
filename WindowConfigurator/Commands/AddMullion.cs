@@ -113,13 +113,13 @@ namespace WindowConfigurator
 
 
             ObjectAttributes glazingAttribute = new ObjectAttributes();
-            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(101, 228, 253);
+            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 255, 255);
             glazingAttribute.ColorSource = ObjectColorSource.ColorFromObject;
 
 
             Point3d panel1Pt0 = new Point3d(0, offset, offset);
-            Point3d panel1Pt1 = new Point3d(0, mullion.startPoint.Y - 4, offset);
-            Point3d panel1Pt2 = new Point3d(0, mullion.endPoint.Y - 4, mullion.endPoint.Z - offset);
+            Point3d panel1Pt1 = new Point3d(0, mullion.startPoint.Y - 9, offset);
+            Point3d panel1Pt2 = new Point3d(0, mullion.endPoint.Y - 9, mullion.endPoint.Z - offset);
             Point3d panel1Pt3 = new Point3d(0, offset, mullion.endPoint.Z - offset);
 
             List<Curve> panel1Curves = new List<Curve>();

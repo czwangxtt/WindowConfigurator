@@ -1,0 +1,17 @@
+{
+  "Configuration": {
+    "SystemName": "AWS 75.SI",
+    "WindowHeight": 3000,
+    "WindowWidth": 1500,
+    "Vertical": true,
+    "Horizontal": false
+  },
+
+  "WindowFrameProfiles": {
+    "HeadProfile":11111,
+    "SillProfile": 22222,
+    "LeftJambProfile": 33333,
+    "RightJambProfile": 44444,
+    "IntermediateProfile": [ 55555, 66666 ]
+  }
+}

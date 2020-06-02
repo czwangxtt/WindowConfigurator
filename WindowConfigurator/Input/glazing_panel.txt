@@ -1,0 +1,68 @@
+BERKELEY LAB WINDOW v7.6.4.0 Glazing System Thermal and Optical Properties 06/01/20 11:29:29
+
+
+ID      : 62
+Name    : default
+Tilt    : 90.0
+Glazings: 2
+KEFF    : 0.0959
+Width   : 18.796
+Uvalue  : 2.73
+SHGCc   : 0.76
+SCc     : 0.88
+Vtc     : 0.81
+RHG     : 575.83
+
+
+
+Layer Data for Glazing System '62 default'
+
+ID     Name            D(mm) Tsol  1 Rsol 2 Tvis  1 Rvis 2  Tir  1 Emis 2 Keff
+------ --------------- ----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+Outside
+   102 CLEAR_3.DAT    #  3.0 .834 .075 .075 .899 .083 .083 .000 .840 .840 1.00  
+       1 Air            12.7                                              .067  
+   102 CLEAR_3.DAT    #  3.0 .834 .075 .075 .899 .083 .083 .000 .840 .840 1.00  
+Inside
+
+
+Environmental Conditions: 1 NFRC 100-2010
+
+          Tout   Tin  WndSpd   Wnd Dir   Solar  Tsky  Esky
+          (C)    (C)   (m/s)            (W/m2)  (C)
+         -----  ----  ------  --------  ------  ----  ----
+Uvalue   -18.0  21.0    5.50  Windward     0.0 -18.0  1.00
+Solar     32.0  24.0    2.75  Windward   783.0  32.0  1.00
+
+Optical Properties for Glazing System '62 default'
+
+Angle      0    10    20    30    40    50    60    70    80    90 Hemis
+
+Vtc  : 0.814 0.814 0.813 0.809 0.797 0.766 0.693 0.537 0.273 0.000 0.712
+Rf   : 0.150 0.150 0.150 0.153 0.164 0.193 0.264 0.418 0.682 1.000 0.238
+Rb   : 0.150 0.150 0.150 0.153 0.164 0.193 0.264 0.418 0.682 1.000 0.238
+
+Tsol : 0.703 0.702 0.699 0.692 0.678 0.646 0.577 0.438 0.208 0.000 0.601
+Rf   : 0.128 0.128 0.128 0.130 0.139 0.164 0.227 0.365 0.612 1.000 0.206
+Rb   : 0.128 0.128 0.128 0.130 0.139 0.164 0.227 0.365 0.612 1.000 0.206
+
+Abs1 : 0.096 0.097 0.099 0.102 0.106 0.112 0.119 0.127 0.130 0.000 0.110
+Abs2 : 0.072 0.073 0.074 0.075 0.077 0.078 0.077 0.070 0.050 0.000 0.073
+
+SHGCc: 0.763 0.763 0.761 0.755 0.742 0.712 0.644 0.502 0.259 0.000 0.664
+
+Tdw-K  :  0.598
+Tdw-ISO:  0.738
+Tuv    :  0.564
+
+
+
+
+
+      Temperature Distribution (degrees C)
+        Winter         Summer
+       Out   In       Out   In
+      ----  ----     ----  ----
+Lay1 -14.4 -14.0     35.0  35.1   
+Lay2   6.2   6.5     33.2  33.0   
+

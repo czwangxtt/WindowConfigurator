@@ -9,7 +9,6 @@ using Rhino.Input;
 using Rhino.Input.Custom;
 using WindowConfigurator.Geometry;
 using WindowConfigurator.Core;
-using System.Collections.Generic;
 
 namespace WindowConfigurator
 {
@@ -116,14 +115,14 @@ namespace WindowConfigurator
 
            
             ObjectAttributes glazingAttribute = new ObjectAttributes();
-            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(101, 228, 253);
+            glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 255, 255);
             glazingAttribute.ColorSource = ObjectColorSource.ColorFromObject;
             
 
             Point3d panel1Pt0 = new Point3d(0, offset, offset);
             Point3d panel1Pt1 = new Point3d(0, transom.endPoint.Y - offset, offset);
-            Point3d panel1Pt2 = new Point3d(0, transom.endPoint.Y - offset, transom.endPoint.Z - 4);
-            Point3d panel1Pt3 = new Point3d(0, transom.startPoint.Y + offset, transom.startPoint.Z - 4);
+            Point3d panel1Pt2 = new Point3d(0, transom.endPoint.Y - offset, transom.endPoint.Z - 9);
+            Point3d panel1Pt3 = new Point3d(0, transom.startPoint.Y + offset, transom.startPoint.Z - 9);
 
             List<Curve> panel1Curves = new List<Curve>();
             panel1Curves.Add(new Line(panel1Pt0, panel1Pt1).ToNurbsCurve());

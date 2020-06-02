@@ -65,6 +65,8 @@
     <Compile Include="Commands\AddMullion.cs" />
     <Compile Include="Commands\AddIntermediate.cs" />
     <Compile Include="Commands\AddTransom.cs" />
+    <Compile Include="Commands\SweepTest.cs" />
+    <Compile Include="Commands\SetOpening.cs" />
     <Compile Include="Commands\SwitchToFacade.cs" />
     <Compile Include="Commands\InitializeFacade.cs" />
     <Compile Include="Commands\RemoveIntermediate.cs" />
@@ -90,8 +92,9 @@
     <Compile Include="Core\WireFrame.cs" />
     <Compile Include="Module\Window.cs" />
     <Compile Include="Commands\PlanarSrfCustom.cs" />
-    <Compile Include="Commands\MyCommand1.cs" />
+    <Compile Include="Commands\Extrusion.cs" />
     <Compile Include="Commands\MyCommand2.cs" />
+    <Compile Include="MyCommand1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Commands\RemoveMullion.cs" />
     <Compile Include="Commands\RemoveTransom.cs" />
