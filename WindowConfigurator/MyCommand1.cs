@@ -59,7 +59,7 @@ namespace WindowConfigurator
         {
             // read the dxf file
             DxfDocument dxfTest = OpenProfile(filename);
-            int numberSegments = 16;
+            int numberSegments = 1;
             int blockNumber = -1;
 
             var polygons = new List<Polygon>();
@@ -68,7 +68,7 @@ namespace WindowConfigurator
             foreach (var bl in dxfTest.Blocks)
             {
                 RhinoApp.WriteLine("The x location {0} ", bl.Origin.X);
-                // loop over the enteties in the block and decompose them if they belong to an aluminum layer
+                
                 foreach (var ent in bl.Entities)
                 {
                     if (ent.Layer.Name.ToString().Contains("hatch"))
@@ -212,47 +212,84 @@ namespace WindowConfigurator
             List<Polygon> geometry = GetGeometry(filename);
             RhinoApp.WriteLine("{0} polygons loaded", geometry.Count);
 
+            List<Point3d> extrusionVertex = new List<Point3d>();
+            extrusionVertex.Add(new Point3d(1000, 0, 0));
+            extrusionVertex.Add(new Point3d(0, 0, 0));
+            extrusionVertex.Add(new Point3d(0, 0, 1000));
+            extrusionVertex.Add(new Point3d(1000, 0, 1000));
+            
+            
+            
+            
+            Curve rail_crv = CreateCurve(extrusionVertex);
+            rail_crv.Domain = new Interval(0, 4000);
 
+            doc.Objects.AddCurve(rail_crv);
 
-            Rhino.DocObjects.ObjRef rail_ref;
-            var rc = RhinoGet.GetOneObject("Select rail curve", false, Rhino.DocObjects.ObjectType.Curve, out rail_ref);
-            if (rc != Result.Success)
-                return rc;
+            //Curve extrusionPath = new Rhino.Geometry.Line(new Point3d(0, 0, 0), new Point3d(0, 0, 1000)).ToNurbsCurve();
 
-            var rail_crv = rail_ref.Curve();
-            if (rail_crv == null)
+            Polygon polygon = geometry[0];
+            List<Point3d> points = polygon.outCountour;
+            RhinoApp.WriteLine("{0} points in current polygon loaded", points.Count);
+            if (points.Count < 1)
             {
-                RhinoApp.WriteLine("No rail selected");
-                return Result.Failure;
+                RhinoApp.WriteLine("Error: polygon must contain at least one point");
             }
-                
 
-            var gx = new Rhino.Input.Custom.GetObject();
-            gx.SetCommandPrompt("Select cross section curves");
-            gx.GeometryFilter = Rhino.DocObjects.ObjectType.Curve;
-            gx.EnablePreSelect(false, true);
-            gx.GetMultiple(1, 0);
-            if (gx.CommandResult() != Result.Success)
-                return gx.CommandResult();
+            Curve cross_sections = CreateCurve(polygon.outCountour);
 
-            var cross_sections = new List<Rhino.Geometry.Curve>();
-            for (int i = 0; i < gx.ObjectCount; i++)
-            {
-                var crv = gx.Object(i).Curve();
-                if (crv != null)
-                    cross_sections.Add(crv);
-            }
-            if (cross_sections.Count < 1)
-            {
-                RhinoApp.WriteLine("No cross section selected");
-                return Result.Failure;
-            }
-                
+            doc.Objects.AddCurve(cross_sections);
 
-            var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true , doc.ModelAbsoluteTolerance);
+            //Rhino.DocObjects.ObjRef rail_ref;
+            //var rc = RhinoGet.GetOneObject("Select rail curve", false, Rhino.DocObjects.ObjectType.Curve, out rail_ref);
+            //if (rc != Result.Success)
+            //    return rc;
+
+            //var rail_crv = rail_ref.Curve();
+            //if (rail_crv == null)
+            //{
+            //    RhinoApp.WriteLine("No rail selected");
+            //    return Result.Failure;
+            //}
+
+            //var gx = new Rhino.Input.Custom.GetObject();
+            //gx.SetCommandPrompt("Select cross section curves");
+            //gx.GeometryFilter = Rhino.DocObjects.ObjectType.Curve;
+            //gx.EnablePreSelect(false, true);
+            //gx.GetMultiple(1, 0);
+            //if (gx.CommandResult() != Result.Success)
+            //    return gx.CommandResult();
+
+            //var cross_sections = new List<Rhino.Geometry.Curve>();
+            //for (int i = 0; i < gx.ObjectCount; i++)
+            //{
+            //    var crv = gx.Object(i).Curve();
+            //    if (crv != null)
+            //        cross_sections.Add(crv);
+            //}
+            //if (cross_sections.Count < 1)
+            //{
+            //    RhinoApp.WriteLine("No cross section selected");
+            //    return Result.Failure;
+            //}
+
+
+            var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true, doc.ModelAbsoluteTolerance);
             RhinoApp.WriteLine("Brep numbers: {0} ", breps.Length);
             for (int i = 0; i < breps.Length; i++)
                 doc.Objects.AddBrep(breps[i]);
+
+
+
+
+
+
+
+
+            //var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true , doc.ModelAbsoluteTolerance);
+            //RhinoApp.WriteLine("Brep numbers: {0} ", breps.Length);
+            //for (int i = 0; i < breps.Length; i++)
+            //    doc.Objects.AddBrep(breps[i]);
             doc.Views.Redraw();
             RhinoApp.WriteLine("Sweep success");
             return Result.Success;

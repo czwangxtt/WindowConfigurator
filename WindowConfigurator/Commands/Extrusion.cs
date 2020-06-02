@@ -92,7 +92,7 @@ namespace WindowConfigurator
         {
             // read the dxf file
             DxfDocument dxfTest = OpenProfile(filename);
-            int numberSegments = 16;
+            int numberSegments = 2;
             int blockNumber = -1;
 
             var polygons = new List<Polygon>();
