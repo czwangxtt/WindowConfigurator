@@ -224,7 +224,7 @@ namespace WindowConfigurator
             //double width;
             //Point3d pt0;
             //Point3d pt1;
-            double offset = 18.0; 
+            double offset = 30; 
 
             Point3d pt0;
             Point3d pt1;
@@ -278,15 +278,18 @@ namespace WindowConfigurator
             RhinoApp.WriteLine(" Height = {0}", _height.CurrentValue);
             RhinoApp.WriteLine(" Width = {0}", _width.CurrentValue);
 
-            panelPt0 = new Point3d(0, offset, offset);
-            panelPt1 = new Point3d(0, _width.CurrentValue - offset, offset);
-            panelPt2 = new Point3d(0, _width.CurrentValue - offset, _height.CurrentValue - offset);
-            panelPt3 = new Point3d(0, offset, _height.CurrentValue - offset);
+            panelPt0 = new Point3d(11, offset, offset);
+            panelPt1 = new Point3d(11, _width.CurrentValue - offset, offset);
+            panelPt2 = new Point3d(11, _width.CurrentValue - offset, _height.CurrentValue - offset);
+            panelPt3 = new Point3d(11, offset, _height.CurrentValue - offset);
 
-            Guid frameGuid0 = doc.Objects.AddLine(pt0, pt1);
-            Guid frameGuid1 = doc.Objects.AddLine(pt1, pt2);
-            Guid frameGuid2 = doc.Objects.AddLine(pt2, pt3);
-            Guid frameGuid3 = doc.Objects.AddLine(pt3, pt0);
+            ObjectAttributes frameAttribute = new ObjectAttributes();
+            frameAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 0, 0);
+            frameAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            Guid frameGuid0 = doc.Objects.AddLine(pt0, pt1, frameAttribute);
+            Guid frameGuid1 = doc.Objects.AddLine(pt1, pt2, frameAttribute);
+            Guid frameGuid2 = doc.Objects.AddLine(pt2, pt3, frameAttribute);
+            Guid frameGuid3 = doc.Objects.AddLine(pt3, pt0, frameAttribute);
 
             List<Curve> panelCurves = new List<Curve>();
             panelCurves.Add(new Rhino.Geometry.Line(panelPt0, panelPt1).ToNurbsCurve());
@@ -328,11 +331,9 @@ namespace WindowConfigurator
             extrusionVertex.Add(new Point3d(0, 0, 0));
             extrusionVertex.Add(new Point3d(0, 0, 1000));
             extrusionVertex.Add(new Point3d(0, 1500, 1000));
-
-
             Curve rail_crv = CreateCurve(extrusionVertex);
             rail_crv.Domain = new Interval(0, 4000);
-            doc.Objects.AddCurve(rail_crv);
+            //doc.Objects.AddCurve(rail_crv);
 
             Polygon polygon = geometry[0];
             List<Point3d> points = polygon.outCountour;
@@ -341,23 +342,24 @@ namespace WindowConfigurator
             {
                 RhinoApp.WriteLine("Error: polygon must contain at least one point");
             }
-
             Curve cross_sections = CreateCurve(polygon.outCountour);
 
-            doc.Objects.AddCurve(cross_sections);
+            //doc.Objects.AddCurve(cross_sections);
 
             var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true, doc.ModelAbsoluteTolerance);
             RhinoApp.WriteLine("Brep numbers: {0} ", breps.Length);
 
-            ObjectAttributes frameAttribute = new ObjectAttributes();
-            frameAttribute.ObjectColor = System.Drawing.Color.FromArgb(58, 69, 77);
-            frameAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            ObjectAttributes framePaintAttribute = new ObjectAttributes();
+            framePaintAttribute.ObjectColor = System.Drawing.Color.FromArgb(58, 69, 77);
+            framePaintAttribute.ColorSource = ObjectColorSource.ColorFromObject;
             for (int i = 0; i < breps.Length; i++)
-                doc.Objects.AddBrep(breps[i], frameAttribute);
+                doc.Objects.AddBrep(breps[i], framePaintAttribute);
             #endregion
 
 
             doc.Views.Redraw();
+
+
             RhinoApp.WriteLine("Sweep success");
             RhinoApp.WriteLine("The {0} command created a wireframe to the window document.", EnglishName);
 
