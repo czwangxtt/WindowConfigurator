@@ -15,9 +15,10 @@ namespace WindowConfigurator.Core
             this.type = "mullion";
         }
 
-        public Mullion(Point3 _start, Point3 _end, Guid _guid) : base(_start, _end)
+        public Mullion(Point3 _start, Point3 _end, Guid _guid, Guid _extrusionGuid) : base(_start, _end)
         {
             guid = _guid;
+            extrusionGuid = _extrusionGuid;
             startPoint = _start;
             endPoint = _end;
             this.keyPosition = this.startPoint.Y;

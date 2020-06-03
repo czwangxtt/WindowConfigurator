@@ -59,7 +59,7 @@ namespace WindowConfigurator
             return dxf;
         }
 
-        public List<Polygon> GetGeometry(string filename)
+        public List<Polygon> GetGeometry(string filename, double offsetY, double offsetZ)
         {
             // read the dxf file
             DxfDocument dxfTest = OpenProfile(filename);
@@ -101,11 +101,9 @@ namespace WindowConfigurator
                                         {
 
                                             var vPolyline = new Point3d();
-                                            vPolyline.Y = vertex.Y;
-                                            if (vertex.X < 0)
-                                                vPolyline.X = -vertex.X;
-                                            else
-                                                vPolyline.X = vertex.X;
+                                            vPolyline.Z = vertex.Y + offsetY;
+                                            vPolyline.X = vertex.X;
+                                            vPolyline.Y = offsetZ + 59;
                                             contour.Add(vPolyline);
                                         }
                                         break;
@@ -115,7 +113,8 @@ namespace WindowConfigurator
                                         var myLine = (HatchBoundaryPath.Line)bPath.Edges[i];
                                         var vLine = new Point3d();
                                         vLine.X = myLine.Start.X;
-                                        vLine.Y = myLine.Start.Y;
+                                        vLine.Z = myLine.Start.Y + offsetY;
+                                        vLine.Y = offsetZ + 59;
                                         contour.Add(vLine);
                                         break;
 
@@ -130,12 +129,14 @@ namespace WindowConfigurator
                                             if (myArc.IsCounterclockwise == true)
                                             {
                                                 vArc.X = myArc.Center.X + myArc.Radius * Math.Cos(angleArc);
-                                                vArc.Y = myArc.Center.Y + myArc.Radius * Math.Sin(angleArc);
+                                                vArc.Z = myArc.Center.Y + myArc.Radius * Math.Sin(angleArc) + offsetY;
+                                                vArc.Y = offsetZ + 59;
                                             }
                                             else
                                             {
                                                 vArc.X = myArc.Center.X + myArc.Radius * Math.Cos(Math.PI + angleArc);
-                                                vArc.Y = myArc.Center.Y + myArc.Radius * Math.Sin(Math.PI - angleArc);
+                                                vArc.Z = myArc.Center.Y + myArc.Radius * Math.Sin(Math.PI - angleArc) + offsetY;
+                                                vArc.Y = offsetZ + 59;
                                             }
                                             contour.Add(vArc);
                                         }
@@ -154,12 +155,14 @@ namespace WindowConfigurator
                                             if (myEllipse.IsCounterclockwise == true)
                                             {
                                                 vEllipse.X = myEllipse.Center.X + ellipseRadius * Math.Cos(angleEllipse);
-                                                vEllipse.Y = myEllipse.Center.Y + ellipseRadius * Math.Sin(angleEllipse);
+                                                vEllipse.Z = myEllipse.Center.Y + ellipseRadius * Math.Sin(angleEllipse) + offsetY;
+                                                vEllipse.Y = offsetZ + 59;
                                             }
                                             else
                                             {
                                                 vEllipse.X = myEllipse.Center.X + ellipseRadius * Math.Cos(Math.PI + angleEllipse);
-                                                vEllipse.Y = myEllipse.Center.Y + ellipseRadius * Math.Sin(Math.PI - angleEllipse);
+                                                vEllipse.Z = myEllipse.Center.Y + ellipseRadius * Math.Sin(Math.PI - angleEllipse) + offsetY;
+                                                vEllipse.Y = offsetZ + 59;
                                             }
                                             contour.Add(vEllipse);
                                         }
@@ -259,15 +262,10 @@ namespace WindowConfigurator
                 return Result.Cancel;
 
             string filename = fileDialog.FileName;
-            List<Polygon> geometry = GetGeometry(filename);
+            List<Polygon> geometry = GetGeometry(filename, pt0.Z, pt0.Y);
             RhinoApp.WriteLine("{0} polygons loaded", geometry.Count);
 
-            List<Point3d> extrusionVertex = new List<Point3d>();
-            extrusionVertex.Add(new Point3d(0, 1500, 0));
-            extrusionVertex.Add(new Point3d(0, 0, 0));
-            extrusionVertex.Add(new Point3d(0, 0, 1000));
-            extrusionVertex.Add(new Point3d(0, 1500, 1000));
-            Curve rail_crv = CreateCurve(extrusionVertex);
+            Curve rail_crv = new Rhino.Geometry.Line(new Point3d(pt0.X, pt0.Y + 59, pt0.Z), new Point3d(pt1.X, pt1.Y - 59, pt1.Z)).ToNurbsCurve();
             rail_crv.Domain = new Interval(0, 4000);
             //doc.Objects.AddCurve(rail_crv);
 

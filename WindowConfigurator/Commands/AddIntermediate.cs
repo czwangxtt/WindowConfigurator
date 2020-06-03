@@ -92,7 +92,8 @@ namespace WindowConfigurator
                 p1 = new Point3(pt0.X, pt0.Y, pt0.Z);
             }
             
-            Transom transom = new Transom(p0, p1, guid);
+            /// TODO: Update extrusion guid
+            Transom transom = new Transom(p0, p1, guid, guid);
             InitializeWindow.window.wireFrame.addIntermediate(transom);
 
             doc.Views.Redraw();
