@@ -189,8 +189,6 @@ namespace WindowConfigurator
 
         public Curve CreateCurve(List<Point3d> points)
         {
-            RhinoApp.WriteLine("{0} points in current polygon loaded", points.Count);
-
             List<NurbsCurve> lines = new List<NurbsCurve>();
 
             for (int i = 0; i < points.Count - 1; i++)
@@ -281,7 +279,6 @@ namespace WindowConfigurator
 
             Curve rail_crv = new Rhino.Geometry.Line(new Point3d(pt0.X, pt0.Y, pt0.Z + offset0), new Point3d(pt1.X, pt1.Y, pt1.Z + offset1)).ToNurbsCurve();
             rail_crv.Domain = new Interval(0, 4000);
-            //doc.Objects.AddCurve(rail_crv);
 
             Polygon polygon = geometry[0];
             List<Point3d> points = polygon.outCountour;
@@ -290,11 +287,10 @@ namespace WindowConfigurator
             {
                 RhinoApp.WriteLine("Error: polygon must contain at least one point");
             }
-            Curve cross_sections = CreateCurve(polygon.outCountour);
+            Curve cross_section = CreateCurve(polygon.outCountour);
 
-            //doc.Objects.AddCurve(cross_sections);
 
-            var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true, doc.ModelAbsoluteTolerance);
+            var breps = Brep.CreateFromSweep(rail_crv, cross_section, true, doc.ModelAbsoluteTolerance);
             RhinoApp.WriteLine("Brep numbers: {0} ", breps.Length);
 
             ObjectAttributes framePaintAttribute = new ObjectAttributes();
@@ -321,6 +317,7 @@ namespace WindowConfigurator
             }
 
             Mullion mullion = new Mullion(p0, p1, guid, extrusionGuid);
+            mullion.cross_section = cross_section;
             InitializeWindow.window.wireFrame.addIntermediate(mullion);
 
             ObjectAttributes trimAttribute = new ObjectAttributes();
@@ -354,7 +351,7 @@ namespace WindowConfigurator
 
             Curve panel1Contour = Curve.JoinCurves(panel1Curves.ToArray())[0];
             Brep brep1 = Brep.CreatePlanarBreps(panel1Contour, doc.ModelAbsoluteTolerance)[0];
-            doc.Objects.AddBrep(brep1, glazingAttribute);
+            Guid glazingPanelGuid1 = doc.Objects.AddBrep(brep1, glazingAttribute);
 
             Point3d panel2Pt0 = new Point3d(11, mullion.startPoint.Y + 9, mullion.startPoint.Z + offset);
             Point3d panel2Pt1 = new Point3d(11, 1500 - offset, offset);
@@ -369,7 +366,10 @@ namespace WindowConfigurator
 
             Curve panel2Contour = Curve.JoinCurves(panel2Curves.ToArray())[0];
             Brep brep2 = Brep.CreatePlanarBreps(panel2Contour, doc.ModelAbsoluteTolerance)[0];
-            doc.Objects.AddBrep(brep2, glazingAttribute);
+            Guid glazingPanelGuid2 = doc.Objects.AddBrep(brep2, glazingAttribute);
+
+            mullion.glazingPanelGuids.Add(glazingPanelGuid1);
+            mullion.glazingPanelGuids.Add(glazingPanelGuid2);
 
             doc.Objects.Delete(originalFrame.guid, true);
             #endregion

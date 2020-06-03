@@ -61,14 +61,33 @@ namespace WindowConfigurator
                 Mullion mullion = InitializeWindow.window.wireFrame.GetMullionByGuid(guid);
                 Point3d pt0 = new Point3d(mullion.startPoint.X, mullion.startPoint.Y, mullion.startPoint.Z);
                 Point3d pt1 = new Point3d(mullion.endPoint.X, mullion.endPoint.Y, mullion.endPoint.Z);
-
                 Line newMullion = new Line(pt0, pt1);
+
+                double offset0 = 0.0;
+                double offset1 = 0.0;
+                if (pt0.Z == 0)
+                    offset0 = 59;
+                else
+                    offset0 = 38.5;
+                if (pt1.Z == 1000)
+                    offset1 = -59;
+                else
+                    offset1 = -38.5;
+                Curve rail_crv = new Line(new Point3d(pt0.X, pt0.Y, pt0.Z + offset0), new Point3d(pt1.X, pt1.Y, pt1.Z + offset1)).ToNurbsCurve();
+                var breps = Brep.CreateFromSweep(rail_crv, mullion.cross_section, true, doc.ModelAbsoluteTolerance);
+                doc.Objects.Replace(mullion.extrusionGuid, breps[0]);
                 doc.Objects.Replace(guid, newMullion);
             }
 
             doc.Objects.Delete(transomRef, true, true);
             doc.Objects.Delete(transom.extrusionGuid, true);
-            foreach(var connection in transom.Connects)
+
+            foreach (var glazingPanelGuid in transom.glazingPanelGuids)
+            {
+                doc.Objects.Delete(glazingPanelGuid, true);
+            }
+
+            foreach (var connection in transom.Connects)
             {
                 doc.Objects.Delete(connection.guid, true);
             }

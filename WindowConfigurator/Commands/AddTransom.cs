@@ -191,8 +191,6 @@ namespace WindowConfigurator
 
         public Curve CreateCurve(List<Point3d> points)
         {
-            RhinoApp.WriteLine("{0} points in current polygon loaded", points.Count);
-
             List<NurbsCurve> lines = new List<NurbsCurve>();
 
             for (int i = 0; i < points.Count - 1; i++)
@@ -281,7 +279,6 @@ namespace WindowConfigurator
 
             Curve rail_crv = new Rhino.Geometry.Line(new Point3d(pt0.X, pt0.Y + offset0, pt0.Z), new Point3d(pt1.X, pt1.Y + offset1, pt1.Z)).ToNurbsCurve();
             rail_crv.Domain = new Interval(0, 4000);
-            //doc.Objects.AddCurve(rail_crv);
 
             Polygon polygon = geometry[0];
             List<Point3d> points = polygon.outCountour;
@@ -290,11 +287,9 @@ namespace WindowConfigurator
             {
                 RhinoApp.WriteLine("Error: polygon must contain at least one point");
             }
-            Curve cross_sections = CreateCurve(polygon.outCountour);
+            Curve cross_section = CreateCurve(polygon.outCountour);
 
-            //doc.Objects.AddCurve(cross_sections);
-
-            var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true, doc.ModelAbsoluteTolerance);
+            var breps = Brep.CreateFromSweep(rail_crv, cross_section, true, doc.ModelAbsoluteTolerance);
             RhinoApp.WriteLine("Brep numbers: {0} ", breps.Length);
 
             
@@ -321,6 +316,7 @@ namespace WindowConfigurator
 
             #region Wireframe
             Transom transom = new Transom(p0, p1, guid, extrusionGuid);
+            transom.cross_section = cross_section;
             InitializeWindow.window.wireFrame.addIntermediate(transom);
 
             ObjectAttributes trimAttribute = new ObjectAttributes();
@@ -355,7 +351,7 @@ namespace WindowConfigurator
 
             Curve panel1Contour = Curve.JoinCurves(panel1Curves.ToArray())[0];
             Brep brep1 = Brep.CreatePlanarBreps(panel1Contour, doc.ModelAbsoluteTolerance)[0];
-            doc.Objects.AddBrep(brep1, glazingAttribute);
+            Guid glazingPanelGuid1 = doc.Objects.AddBrep(brep1, glazingAttribute);
 
             Point3d panel2Pt0 = new Point3d(15, transom.startPoint.Y + offset, transom.startPoint.Z + 9);
             Point3d panel2Pt1 = new Point3d(15, transom.endPoint.Y - offset, transom.endPoint.Z + 9);
@@ -370,7 +366,10 @@ namespace WindowConfigurator
 
             Curve panel2Contour = Curve.JoinCurves(panel2Curves.ToArray())[0];
             Brep brep2 = Brep.CreatePlanarBreps(panel2Contour, doc.ModelAbsoluteTolerance)[0];
-            doc.Objects.AddBrep(brep2, glazingAttribute);
+            Guid glazingPanelGuid2 = doc.Objects.AddBrep(brep2, glazingAttribute);
+
+            transom.glazingPanelGuids.Add(glazingPanelGuid1);
+            transom.glazingPanelGuids.Add(glazingPanelGuid2);
             
             doc.Objects.Delete(originalFrame.guid, true);
             #endregion

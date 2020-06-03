@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using Rhino.Geometry;
 using WindowConfigurator.Geometry;
 
 namespace WindowConfigurator.Core
@@ -16,9 +17,12 @@ namespace WindowConfigurator.Core
         public Point3 startPoint { get; set; }
         public Point3 endPoint { get; set; }
         public double keyPosition { get; set; }
+        public Curve cross_section { get; set; }
+        
         public int level { get; set; }
         public Boolean isVisible { get; set; }
 
+        public List<Guid> glazingPanelGuids = new List<Guid>();
         private List<Connect> _connects = new List<Connect>();
         #endregion
 
