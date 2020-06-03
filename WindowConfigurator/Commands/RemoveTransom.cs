@@ -67,6 +67,7 @@ namespace WindowConfigurator
             }
 
             doc.Objects.Delete(transomRef, true, true);
+            doc.Objects.Delete(transom.extrusionGuid, true);
             foreach(var connection in transom.Connects)
             {
                 doc.Objects.Delete(connection.guid, true);

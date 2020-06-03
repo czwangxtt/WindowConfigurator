@@ -57,7 +57,7 @@ namespace WindowConfigurator
             return dxf;
         }
 
-        public List<Polygon> GetGeometry(string filename, double offsetY, double offsetZ)
+        public List<Polygon> GetGeometry(string filename, double offsetY, double offsetZ, double offset0)
         {
             // read the dxf file
             DxfDocument dxfTest = OpenProfile(filename);
@@ -101,7 +101,7 @@ namespace WindowConfigurator
                                             var vPolyline = new Point3d();
                                             vPolyline.Y = vertex.Y + offsetY;
                                             vPolyline.X = vertex.X;
-                                            vPolyline.Z = offsetZ + 59;
+                                            vPolyline.Z = offsetZ + offset0;
                                             contour.Add(vPolyline);
                                         }
                                         break;
@@ -112,7 +112,7 @@ namespace WindowConfigurator
                                         var vLine = new Point3d();
                                         vLine.X = myLine.Start.X;
                                         vLine.Y = myLine.Start.Y + offsetY;
-                                        vLine.Z = offsetZ + 59;
+                                        vLine.Z = offsetZ + offset0;
                                         contour.Add(vLine);
                                         break;
 
@@ -128,13 +128,13 @@ namespace WindowConfigurator
                                             {
                                                 vArc.X = myArc.Center.X + myArc.Radius * Math.Cos(angleArc);
                                                 vArc.Y = myArc.Center.Y + myArc.Radius * Math.Sin(angleArc) + offsetY;
-                                                vArc.Z = offsetZ + 59;
+                                                vArc.Z = offsetZ + offset0;
                                             }
                                             else
                                             {
                                                 vArc.X = myArc.Center.X + myArc.Radius * Math.Cos(Math.PI + angleArc);
                                                 vArc.Y = myArc.Center.Y + myArc.Radius * Math.Sin(Math.PI - angleArc) + offsetY;
-                                                vArc.Z = offsetZ + 59;
+                                                vArc.Z = offsetZ + offset0;
                                             }
                                             contour.Add(vArc);
                                         }
@@ -154,13 +154,13 @@ namespace WindowConfigurator
                                             {
                                                 vEllipse.X = myEllipse.Center.X + ellipseRadius * Math.Cos(angleEllipse);
                                                 vEllipse.Y = myEllipse.Center.Y + ellipseRadius * Math.Sin(angleEllipse) + offsetY;
-                                                vEllipse.Z = offsetZ + 59;
+                                                vEllipse.Z = offsetZ + offset0;
                                             }
                                             else
                                             {
                                                 vEllipse.X = myEllipse.Center.X + ellipseRadius * Math.Cos(Math.PI + angleEllipse);
                                                 vEllipse.Y = myEllipse.Center.Y + ellipseRadius * Math.Sin(Math.PI - angleEllipse) + offsetY;
-                                                vEllipse.Z = offsetZ + 59;
+                                                vEllipse.Z = offsetZ + offset0;
                                             }
                                             contour.Add(vEllipse);
                                         }
@@ -261,13 +261,25 @@ namespace WindowConfigurator
             if (!fileDialog.ShowOpenDialog())
                 return Result.Cancel;
 
+            double offset0 = 0.0;
+            double offset1 = 0.0;
+            if (pt0.Z == 0)
+                offset0 = 59;
+            else
+                offset0 = 38.5;
+            if (pt1.Z == 1000)
+                offset1 = -59;
+            else
+                offset1 = -38.5;
+
+
             string filename = fileDialog.FileName;
-            List<Polygon> geometry = GetGeometry(filename, pt0.Y, pt0.Z);
+            List<Polygon> geometry = GetGeometry(filename, pt0.Y, pt0.Z, offset0);
             RhinoApp.WriteLine("{0} polygons loaded", geometry.Count);
 
             
-            
-            Curve rail_crv = new Rhino.Geometry.Line(new Point3d(pt0.X, pt0.Y, pt0.Z + 59), new Point3d(pt1.X, pt1.Y, pt1.Z - 59)).ToNurbsCurve();
+
+            Curve rail_crv = new Rhino.Geometry.Line(new Point3d(pt0.X, pt0.Y, pt0.Z + offset0), new Point3d(pt1.X, pt1.Y, pt1.Z + offset1)).ToNurbsCurve();
             rail_crv.Domain = new Interval(0, 4000);
             //doc.Objects.AddCurve(rail_crv);
 
@@ -288,13 +300,13 @@ namespace WindowConfigurator
             ObjectAttributes framePaintAttribute = new ObjectAttributes();
             framePaintAttribute.ObjectColor = System.Drawing.Color.FromArgb(58, 69, 77);
             framePaintAttribute.ColorSource = ObjectColorSource.ColorFromObject;
-            for (int i = 0; i < breps.Length; i++)
-                doc.Objects.AddBrep(breps[i], framePaintAttribute);
+
+            Guid extrusionGuid = doc.Objects.AddBrep(breps[0], framePaintAttribute);
             #endregion
 
             Guid guid = doc.Objects.AddLine(pt0, pt1);
-            Guid extrusionGuid = doc.Objects.AddLine(pt0, pt1);
 
+            
             Point3 p0;
             Point3 p1;
             if (pt0.Z < pt1.Z)

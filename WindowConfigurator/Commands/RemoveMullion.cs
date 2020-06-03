@@ -66,6 +66,7 @@ namespace WindowConfigurator
             }
 
             doc.Objects.Delete(mullionRef, true, true);
+            doc.Objects.Delete(mullion.extrusionGuid, true);
             foreach (var connection in mullion.Connects)
             {
                 doc.Objects.Delete(connection.guid, true);
