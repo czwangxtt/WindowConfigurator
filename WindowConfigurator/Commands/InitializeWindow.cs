@@ -206,6 +206,8 @@ namespace WindowConfigurator
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
+            var xform = Transform.Translation(-75, 0, 0);
+
             doc.Objects.Clear();
             RhinoApp.WriteLine("The {0} command will create a wireframe right now.", EnglishName);
 
@@ -224,7 +226,7 @@ namespace WindowConfigurator
             //double width;
             //Point3d pt0;
             //Point3d pt1;
-            double offset = 30; 
+            double offset = 50; 
 
             Point3d pt0;
             Point3d pt1;
@@ -303,7 +305,8 @@ namespace WindowConfigurator
             glazingAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 255, 255);
             glazingAttribute.ColorSource = ObjectColorSource.ColorFromObject;
             Guid initialFieldGuid = doc.Objects.AddBrep(brep, glazingAttribute);
-            
+            doc.Objects.Transform(initialFieldGuid, xform, true);
+
 
             ObjectAttributes trimAttribute = new ObjectAttributes();
             trimAttribute.ObjectColor = System.Drawing.Color.FromArgb(255, 0, 0);
@@ -335,25 +338,39 @@ namespace WindowConfigurator
             rail_crv.Domain = new Interval(0, 4000);
             //doc.Objects.AddCurve(rail_crv);
 
-            Polygon polygon = geometry[0];
-            List<Point3d> points = polygon.outCountour;
-            RhinoApp.WriteLine("{0} points in current polygon loaded", points.Count);
-            if (points.Count < 1)
+            List<Curve> cross_sections = new List<Curve>();
+            foreach (var polygon in geometry)
             {
-                RhinoApp.WriteLine("Error: polygon must contain at least one point");
+                //Polygon polygon = geometry[0];
+                List<Point3d> points = polygon.outCountour;
+                RhinoApp.WriteLine("{0} points in current polygon loaded", points.Count);
+                if (points.Count < 1)
+                {
+                    RhinoApp.WriteLine("Error: polygon must contain at least one point");
+                }
+                //Curve cross_sections = CreateCurve(polygon.outCountour);
+                Curve cross_section = CreateCurve(polygon.outCountour);
+                cross_sections.Add(cross_section);
             }
-            Curve cross_sections = CreateCurve(polygon.outCountour);
+            
 
             //doc.Objects.AddCurve(cross_sections);
 
-            var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true, doc.ModelAbsoluteTolerance);
+            var breps = Brep.CreateFromSweep(rail_crv, cross_sections[0], true, doc.ModelAbsoluteTolerance);
             RhinoApp.WriteLine("Brep numbers: {0} ", breps.Length);
 
             ObjectAttributes framePaintAttribute = new ObjectAttributes();
             framePaintAttribute.ObjectColor = System.Drawing.Color.FromArgb(58, 69, 77);
             framePaintAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            
+            
             for (int i = 0; i < breps.Length; i++)
-                doc.Objects.AddBrep(breps[i], framePaintAttribute);
+            {
+                Guid brepGuid = doc.Objects.AddBrep(breps[i], framePaintAttribute);
+                doc.Objects.Transform(brepGuid, xform, true);
+            }
+                
+
             #endregion
 
 

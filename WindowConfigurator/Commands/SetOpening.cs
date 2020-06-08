@@ -254,7 +254,7 @@ namespace WindowConfigurator.Commands
 
             Curve rail_crv = CreateCurve(extrusionVertex);
             rail_crv.Domain = new Interval(0, 4000);
-            doc.Objects.AddCurve(rail_crv);
+            //doc.Objects.AddCurve(rail_crv);
 
             Polygon polygon = geometry[0];
             List<Point3d> points = polygon.outCountour;
@@ -266,7 +266,7 @@ namespace WindowConfigurator.Commands
 
             Curve cross_sections = CreateCurve(polygon.outCountour);
 
-            doc.Objects.AddCurve(cross_sections);
+            //doc.Objects.AddCurve(cross_sections);
 
             var breps = Brep.CreateFromSweep(rail_crv, cross_sections, true, doc.ModelAbsoluteTolerance);
             RhinoApp.WriteLine("Brep numbers: {0} ", breps.Length);
@@ -274,8 +274,12 @@ namespace WindowConfigurator.Commands
             ObjectAttributes frameAttribute = new ObjectAttributes();
             frameAttribute.ObjectColor = System.Drawing.Color.FromArgb(58, 69, 77);
             frameAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            var xform = Transform.Translation(-75, 0, 0);
             for (int i = 0; i < breps.Length; i++)
-                doc.Objects.AddBrep(breps[i], frameAttribute);
+            {
+                Guid brepGuid = doc.Objects.AddBrep(breps[i], frameAttribute);
+                doc.Objects.Transform(brepGuid, xform, true);
+            }
             #endregion
 
 

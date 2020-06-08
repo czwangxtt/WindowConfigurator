@@ -207,7 +207,7 @@ namespace WindowConfigurator
         {
             RhinoApp.WriteLine("The {0} command will add a transom now.", EnglishName);
 
-            double offset = 30;
+            double offset = 50;
 
             Point3d pt0;
             using (GetPoint getPointAction = new GetPoint())
@@ -295,8 +295,10 @@ namespace WindowConfigurator
             
             ObjectAttributes framePaintAttribute = new ObjectAttributes();
             framePaintAttribute.ObjectColor = System.Drawing.Color.FromArgb(58, 69, 77);
-            framePaintAttribute.ColorSource = ObjectColorSource.ColorFromObject; 
+            framePaintAttribute.ColorSource = ObjectColorSource.ColorFromObject;
+            var xform = Transform.Translation(-75, 0, 0);
             Guid extrusionGuid = doc.Objects.AddBrep(breps[0], framePaintAttribute);
+            doc.Objects.Transform(extrusionGuid, xform, true);
             #endregion
 
             Guid guid = doc.Objects.AddLine(pt0, pt1);
@@ -324,9 +326,9 @@ namespace WindowConfigurator
             trimAttribute.ColorSource = ObjectColorSource.ColorFromObject;
 
             Guid trimGuid0 = doc.Objects.AddLine(new Point3d(pt0.X, pt0.Y + offset, pt0.Z + offset), new Point3d(pt0.X, pt0.Y + offset, pt0.Z - offset), trimAttribute);
-            Guid trimGuid1 = doc.Objects.AddLine(new Point3d(pt1.X, pt1.Y - offset, pt1.Z + offset), new Point3d(pt1.X, pt1.Y - offset, pt1.Z - offset), trimAttribute);
+            Guid trimGuid1 = doc.Objects.AddLine(new Point3d(pt1.X, pt1.Y - 38.5, pt1.Z + offset), new Point3d(pt1.X, pt1.Y - 38.5, pt1.Z - offset), trimAttribute);
             InitializeWindow.window.wireFrame._frames.Last().Connects[0].guid = trimGuid0;
-            InitializeWindow.window.wireFrame._frames.Last().Connects[1].guid = trimGuid1;
+            //InitializeWindow.window.wireFrame._frames.Last().Connects[1].guid = trimGuid1;
             #endregion
 
             #region Field
@@ -339,8 +341,8 @@ namespace WindowConfigurator
             
 
             Point3d panel1Pt0 = new Point3d(11, offset, offset);
-            Point3d panel1Pt1 = new Point3d(11, transom.endPoint.Y - offset, offset);
-            Point3d panel1Pt2 = new Point3d(11, transom.endPoint.Y - offset, transom.endPoint.Z - 9);
+            Point3d panel1Pt1 = new Point3d(11, transom.endPoint.Y, offset);
+            Point3d panel1Pt2 = new Point3d(11, transom.endPoint.Y, transom.endPoint.Z - 9);
             Point3d panel1Pt3 = new Point3d(11, transom.startPoint.Y + offset, transom.startPoint.Z - 9);
 
             List<Curve> panel1Curves = new List<Curve>();
@@ -352,10 +354,11 @@ namespace WindowConfigurator
             Curve panel1Contour = Curve.JoinCurves(panel1Curves.ToArray())[0];
             Brep brep1 = Brep.CreatePlanarBreps(panel1Contour, doc.ModelAbsoluteTolerance)[0];
             Guid glazingPanelGuid1 = doc.Objects.AddBrep(brep1, glazingAttribute);
+            doc.Objects.Transform(glazingPanelGuid1, xform, true);
 
             Point3d panel2Pt0 = new Point3d(15, transom.startPoint.Y + offset, transom.startPoint.Z + 9);
-            Point3d panel2Pt1 = new Point3d(15, transom.endPoint.Y - offset, transom.endPoint.Z + 9);
-            Point3d panel2Pt2 = new Point3d(15, transom.endPoint.Y - offset, 1000 - offset);
+            Point3d panel2Pt1 = new Point3d(15, transom.endPoint.Y, transom.endPoint.Z + 9);
+            Point3d panel2Pt2 = new Point3d(15, transom.endPoint.Y, 1000 - offset);
             Point3d panel2Pt3 = new Point3d(15, offset, 1000 - offset);
 
             List<Curve> panel2Curves = new List<Curve>();
@@ -367,6 +370,7 @@ namespace WindowConfigurator
             Curve panel2Contour = Curve.JoinCurves(panel2Curves.ToArray())[0];
             Brep brep2 = Brep.CreatePlanarBreps(panel2Contour, doc.ModelAbsoluteTolerance)[0];
             Guid glazingPanelGuid2 = doc.Objects.AddBrep(brep2, glazingAttribute);
+            doc.Objects.Transform(glazingPanelGuid2, xform, true);
 
             transom.glazingPanelGuids.Add(glazingPanelGuid1);
             transom.glazingPanelGuids.Add(glazingPanelGuid2);

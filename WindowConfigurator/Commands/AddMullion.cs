@@ -206,11 +206,14 @@ namespace WindowConfigurator
         {
             RhinoApp.WriteLine("The {0} command will add a mullion now.", EnglishName);
 
-            double offset = 30;
+            double offset = 50;
 
             Point3d pt0;
+
+
             using (GetPoint getPointAction = new GetPoint())
             {
+                //getPointAction.Constrain();
                 getPointAction.SetCommandPrompt("Please select the start point");
                 if (getPointAction.Get() != GetResult.Point)
                 {
@@ -296,8 +299,11 @@ namespace WindowConfigurator
             ObjectAttributes framePaintAttribute = new ObjectAttributes();
             framePaintAttribute.ObjectColor = System.Drawing.Color.FromArgb(58, 69, 77);
             framePaintAttribute.ColorSource = ObjectColorSource.ColorFromObject;
-
+            var xform = Transform.Translation(-75, 0, 0);
             Guid extrusionGuid = doc.Objects.AddBrep(breps[0], framePaintAttribute);
+            doc.Objects.Transform(extrusionGuid, xform, true);
+
+            
             #endregion
 
             Guid guid = doc.Objects.AddLine(pt0, pt1);
@@ -352,6 +358,7 @@ namespace WindowConfigurator
             Curve panel1Contour = Curve.JoinCurves(panel1Curves.ToArray())[0];
             Brep brep1 = Brep.CreatePlanarBreps(panel1Contour, doc.ModelAbsoluteTolerance)[0];
             Guid glazingPanelGuid1 = doc.Objects.AddBrep(brep1, glazingAttribute);
+            doc.Objects.Transform(glazingPanelGuid1, xform, true);
 
             Point3d panel2Pt0 = new Point3d(11, mullion.startPoint.Y + 9, mullion.startPoint.Z + offset);
             Point3d panel2Pt1 = new Point3d(11, 1500 - offset, offset);
@@ -367,6 +374,7 @@ namespace WindowConfigurator
             Curve panel2Contour = Curve.JoinCurves(panel2Curves.ToArray())[0];
             Brep brep2 = Brep.CreatePlanarBreps(panel2Contour, doc.ModelAbsoluteTolerance)[0];
             Guid glazingPanelGuid2 = doc.Objects.AddBrep(brep2, glazingAttribute);
+            doc.Objects.Transform(glazingPanelGuid2, xform, true);
 
             mullion.glazingPanelGuids.Add(glazingPanelGuid1);
             mullion.glazingPanelGuids.Add(glazingPanelGuid2);

@@ -63,6 +63,7 @@ namespace WindowConfigurator
                 Point3d pt1 = new Point3d(mullion.endPoint.X, mullion.endPoint.Y, mullion.endPoint.Z);
                 Line newMullion = new Line(pt0, pt1);
 
+
                 double offset0 = 0.0;
                 double offset1 = 0.0;
                 if (pt0.Z == 0)
@@ -76,8 +77,17 @@ namespace WindowConfigurator
                 Curve rail_crv = new Line(new Point3d(pt0.X, pt0.Y, pt0.Z + offset0), new Point3d(pt1.X, pt1.Y, pt1.Z + offset1)).ToNurbsCurve();
                 var breps = Brep.CreateFromSweep(rail_crv, mullion.cross_section, true, doc.ModelAbsoluteTolerance);
                 doc.Objects.Replace(mullion.extrusionGuid, breps[0]);
+                var xform = Transform.Translation(-75, 0, 0);
+                doc.Objects.Transform(transom.extrusionGuid, xform, true);
                 doc.Objects.Replace(guid, newMullion);
+                foreach (var connection in mullion.Connects)
+                {
+                    doc.Objects.Delete(connection.guid, true);
+                }
             }
+
+
+
 
             doc.Objects.Delete(transomRef, true, true);
             doc.Objects.Delete(transom.extrusionGuid, true);
