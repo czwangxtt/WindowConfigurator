@@ -64,8 +64,7 @@ Authors
 -------
 Specific people to contact about this project:
 
-* Steve Baer - https://github.com/sbaer steve@mcneel.com
-* David Rutten - https://github.com/DavidRutten
-* Giulio Piacentino - https://github.com/piac
+* Chenzhang Wang - https://github.com/CWangSchuco CWang@schuco-usa.com
+
 
 
