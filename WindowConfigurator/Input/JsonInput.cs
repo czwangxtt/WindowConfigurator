@@ -35,6 +35,7 @@ namespace WindowConfigurator.Input
         public string ventProfile { get; set; }
         public string insertProfile { get; set; }
         public string reverseRebateProfile { get; set; }
+        public double ventOffset { get; set; }
     }
 
     class GlassConfiguration
